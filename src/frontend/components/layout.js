@@ -6,9 +6,9 @@ import Content from 'components/content';
 function Layout(props) {
   let sections = [
     {
-      name: 'Your Apps',
+      name: 'david.rubert@gmail.com',
       icon: 'blank-app-outline',
-      link: '/dashboard',
+      link: '/dashboard/user',
     },
   ];
 
@@ -17,7 +17,8 @@ function Layout(props) {
       <Content>{props.children}</Content>
       <Sidebar
         sections={sections}
-        section="Your Apps"
+        section=""
+        prefix=""
       />
       <SidebarToggle />
     </div>
@@ -25,7 +26,7 @@ function Layout(props) {
 }
 
 Layout.propTypes = {
-  children: React.PropTypes.any,
+  children: React.PropTypes.node,
 };
 
 export default Layout;
