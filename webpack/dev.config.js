@@ -25,6 +25,14 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
   ],
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        include: [path.resolve(__dirname, '../src/frontend')],
+        exclude: [path.resolve(__dirname, '../node_modules')],
+      },
+    ],
     loaders: [
       {
         test: /\.js$/,

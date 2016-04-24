@@ -34,7 +34,7 @@ SidebarSection.propTypes = {
   name: React.PropTypes.string,
   link: React.PropTypes.string,
   children: React.PropTypes.any,
-  icon: React.PropTypes.instanceOf(Icon),
+  icon: React.PropTypes.string,
 };
 
 export default SidebarSection;

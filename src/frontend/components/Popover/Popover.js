@@ -93,7 +93,7 @@ Popover.propTypes = {
   fixed: React.PropTypes.bool,
   position: React.PropTypes.instanceOf(Position),
   children: React.PropTypes.node,
-  modal: React.Proptypes.bool,
+  modal: React.PropTypes.bool,
   color: React.PropTypes.string,
   fadeIn: React.PropTypes.bool,
 };

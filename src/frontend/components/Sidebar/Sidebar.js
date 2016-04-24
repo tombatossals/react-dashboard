@@ -88,4 +88,15 @@ Sidebar.contextTypes = {
   generatePath: React.PropTypes.func,
 };
 
+Sidebar.propTypes = {
+  prefix: React.PropTypes.any,
+  action: React.PropTypes.any,
+  actionHandler: React.PropTypes.any,
+  children: React.PropTypes.any,
+  subsection: React.PropTypes.any,
+  sections: React.PropTypes.any,
+  section: React.PropTypes.any,
+  appSelector: React.PropTypes.any,
+};
+
 export default Sidebar;

@@ -12,9 +12,9 @@ import React from 'react';
 import styles from 'components/Sidebar/Sidebar.scss';
 import { unselectable } from 'stylesheets/base.scss';
 
-let AppsMenu = ({ apps, current, height, onSelect }) => (
+const AppsMenu = ({ apps, current, height, onSelect }) => (
   <div style={{ height }} className={[styles.appsMenu, unselectable].join(' ')}>
-    <div className={styles.currentApp} onClick={onSelect.bind(null, current.slug)}>
+    <div className={styles.currentApp} onClick={onSelect}>
       {current.name}
     </div>
     <div className={styles.menuSection}>All Apps</div>
@@ -35,5 +35,14 @@ let AppsMenu = ({ apps, current, height, onSelect }) => (
     })}
   </div>
 );
+
+AppsMenu.propTypes = {
+  apps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  current: React.PropTypes.string,
+  height: React.PropTypes.shape({
+    height: React.PropTypes.string,
+  }),
+  onSelect: React.PropTypes.func.isRequired,
+};
 
 export default AppsMenu;

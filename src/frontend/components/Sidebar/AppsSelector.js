@@ -26,9 +26,9 @@ export default class AppsSelector extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      position: Position.inWindow(ReactDOM.findDOMNode(this)),
-    });
+    // this.setState({
+    //  position: Position.inWindow(ReactDOM.findDOMNode(this)),
+    // });
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -65,7 +65,7 @@ export default class AppsSelector extends React.Component {
   }
 
   render() {
-    let position = this.state.position;
+    let position = Position.inWindow(ReactDOM.findDOMNode(this));
     let popover = null;
     if (this.state.open) {
       let height = window.innerHeight - position.y;
@@ -93,4 +93,8 @@ export default class AppsSelector extends React.Component {
 
 AppsSelector.contextTypes = {
   currentApp: React.PropTypes.any,
+};
+
+AppsSelector.propTypes = {
+  apps: React.PropTypes.any,
 };
