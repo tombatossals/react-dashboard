@@ -4,6 +4,10 @@ const styles = {
     width: '100%',
     margin: 'auto',
     textAlign: 'center',
+    fontFamily: 'Roboto, sans-serif',
+  },
+  button: {
+    margin: 12,
   },
 };
 

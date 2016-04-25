@@ -2,16 +2,28 @@ const styles = {
   h1: {
     color: 'white',
   },
-  box: {
-    borderRadius: '10px',
+  loginbox: {
+  },
+  loginform: {
     background: 'white',
-    padding: '1em',
     maxWidth: '640px',
     margin: 'auto',
+    paddingTop: '1em',
   },
-  loginbutton: {
+  textlabel: {
     width: '90%',
     margin: '.5em',
+  },
+  loginbutton: {
+    margin: '1em 0 3em',
+    width: '30%',
+  },
+  errorContainer: {
+    marginTop: '1em',
+    height: '24px',
+  },
+  errorMessage: {
+    color: 'red',
   },
 };
 

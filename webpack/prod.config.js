@@ -11,7 +11,7 @@ module.exports = {
     ],
   },
   output: {
-    path: `${__dirname}/../../dist`,
+    path: `${__dirname}/../dist/js`,
     filename: 'bundle.js',
   },
   resolve: {
@@ -38,6 +38,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor', './js/vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin('vendor', './vendor.js'),
   ],
 };
