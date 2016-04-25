@@ -16,6 +16,21 @@ export default class Login extends React.Component {
     };
   }
 
+  componentWillReceiveProps(props) {
+    if (props.status === AsyncStatus.SUCCESS) {
+      this.setState({
+        status: props.status,
+        message: '',
+      });
+    }
+    if (props.status === AsyncStatus.FAILED) {
+      this.setState({
+        status: props.status,
+        message: props.message,
+      });
+    }
+  }
+
   setUsername(ev) {
     this.setState({
       username: ev.target.value,
@@ -37,20 +52,7 @@ export default class Login extends React.Component {
       status: AsyncStatus.LOADING,
     });
 
-    this.props.onSubmit(this.state.username, this.state.password)
-      .then(response => {
-        this.setState({
-          status: response.status,
-          errorMessage: '',
-        });
-        this.props.onSuccess(response);
-      })
-      .catch(response => {
-        this.setState({
-          status: response.status,
-          errorMessage: response.errorMessage,
-        });
-      });
+    this.props.onSubmit(this.state.username, this.state.password);
   }
 
   disableInput() {
@@ -71,8 +73,8 @@ export default class Login extends React.Component {
     return (<div style={styles.loginbox}>
       <h1 style={styles.h1}>Log in to your account</h1>
       <div style={styles.loginform}>
-        <div style={styles.errorContainer}>
-          <span style={styles.errorMessage}>{this.state.errorMessage}</span>
+        <div style={styles.error}>
+          <span style={styles.message}>{this.state.message}</span>
         </div>
         <TextField
           ref={this.focus}
@@ -104,5 +106,4 @@ export default class Login extends React.Component {
 
 Login.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
-  onSuccess: React.PropTypes.func.isRequired,
 };

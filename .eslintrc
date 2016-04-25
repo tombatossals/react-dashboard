@@ -6,5 +6,8 @@
         "config": "webpack/dev.config.js"
       }
     }
+  },
+  "globals": {
+    "endpoints": true
   }
 }

@@ -1,15 +1,18 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
+const config = require('config');
 
 const json = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 const version = json.version;
+
+const endpoints = config.get('api');
 
 module.exports = {
   entry: [
     'root.js',
     'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:8081',
   ],
   output: {
     path: path.resolve(__dirname, '../src/frontend'),
@@ -31,6 +34,7 @@ module.exports = {
       'process.env': {
         version: JSON.stringify(version),
       },
+      endpoints: JSON.stringify(endpoints),
     }),
   ],
   module: {

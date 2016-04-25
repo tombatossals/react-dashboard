@@ -18,11 +18,11 @@ const styles = {
     margin: '1em 0 3em',
     width: '30%',
   },
-  errorContainer: {
+  error: {
     marginTop: '1em',
     height: '24px',
   },
-  errorMessage: {
+  message: {
     color: 'red',
   },
 };

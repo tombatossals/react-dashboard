@@ -19,9 +19,8 @@ const server = new WebpackDevServer(webpack(configWebpackDevServer), {
   stats: { colors: true },
 });
 
-app.get('/favicon.ico', proxy(url.parse('http://localhost:8080/')));
-app.get('/bundles/sprites.svg', proxy(url.parse('http://localhost:8080/')));
-app.use('/dist', proxy(url.parse('http://localhost:8080/')));
+app.get('/favicon.ico', proxy(url.parse('http://localhost:8081/')));
+app.use('/dist', proxy(url.parse('http://localhost:8081/')));
 app.get('/*', (req, res) => res.sendFile(`${__dirname}/static/index.html`));
-server.listen(8080, 'localhost');
+server.listen(8081, 'localhost');
 app.listen(PORT);

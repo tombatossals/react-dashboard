@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, Redirect, browserHistory, IndexRoute } from 'react-router';
 import Layout from 'components/Layout';
 import Youtube from 'components/youtube';
-import Login from 'components/Login';
+import Login from 'containers/Login';
 
 function App() {
   return (
