@@ -3,6 +3,7 @@ const styles = {
     color: 'white',
   },
   loginbox: {
+    padding: '.5em',
   },
   loginform: {
     background: 'white',
