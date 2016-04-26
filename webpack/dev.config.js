@@ -10,7 +10,7 @@ const endpoints = config.get('api');
 
 module.exports = {
   entry: [
-    'root.js',
+    'app.js',
     'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:8081',
   ],

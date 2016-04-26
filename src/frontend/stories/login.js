@@ -14,24 +14,40 @@ storiesOf('Login', module)
       </MuiThemeProvider>
     </div>
   ))
-  .add('Login form', () => {
-    const onSubmit = (username, password) =>
-      new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (password) {
-            return resolve({
-              status: AsyncStatus.SUCCESS,
-              token: 'abc123',
-            });
-          }
-          return reject({
-            status: AsyncStatus.ERROR,
-            errorMessage: 'Invalid username or password ' });
-        }, 1000);
-      });
+  .add('Login form initial state', () => {
+    const status = AsyncStatus.IDLE;
+    const onSubmit = () => {};
 
+    return (
+      <Login
+        onSubmit={onSubmit}
+        status={status}
+      />
+    );
+  })
+  .add('Login form loading', () => {
+    const status = AsyncStatus.LOADING;
+    const onSubmit = () => {};
 
-    const onSuccess = () => {};
+    return (
+      <Login
+        onSubmit={onSubmit}
+        status={status}
+      />
+    );
+  })
+  .add('Login form with error message', () => {
+    const status = AsyncStatus.FAILED;
+    const message = 'Invalid username or password';
 
-    return <Login onSubmit={onSubmit} onSuccess={onSuccess} />;
+    const onSubmit = () => {};
+
+    return (
+      <Login
+        onSubmit={onSubmit}
+        status={status}
+        message={message}
+      />
+    );
   });
+

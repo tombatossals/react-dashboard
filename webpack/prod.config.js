@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    main: 'root.js',
+    main: 'app.js',
     vendor: [
       'react',
       'react-dom',

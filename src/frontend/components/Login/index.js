@@ -16,19 +16,12 @@ export default class Login extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.updateStateFromProps(this.props);
+  }
+
   componentWillReceiveProps(props) {
-    if (props.status === AsyncStatus.SUCCESS) {
-      this.setState({
-        status: props.status,
-        message: '',
-      });
-    }
-    if (props.status === AsyncStatus.FAILED) {
-      this.setState({
-        status: props.status,
-        message: props.message,
-      });
-    }
+    this.updateStateFromProps(props);
   }
 
   setUsername(ev) {
@@ -44,7 +37,24 @@ export default class Login extends React.Component {
   }
 
   focus(field) {
-    field.focus();
+    if (field) {
+      field.focus();
+    }
+  }
+
+  updateStateFromProps(props) {
+    if (props.status === AsyncStatus.SUCCESS ||
+        props.status === AsyncStatus.LOADING) {
+      this.setState({
+        status: props.status,
+      });
+    }
+    if (props.status === AsyncStatus.FAILED) {
+      this.setState({
+        status: props.status,
+        message: props.message,
+      });
+    }
   }
 
   submit() {

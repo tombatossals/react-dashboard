@@ -6,8 +6,8 @@ import reducers from 'reducers';
 
 export default function createAppStore() {
   const logger = createLogger();
-  const createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
-  const store = createStoreWithMiddleware(reducers);
-
-  return store;
+  return createStore(
+    reducers,
+    applyMiddleware(thunk, logger)
+  );
 }
