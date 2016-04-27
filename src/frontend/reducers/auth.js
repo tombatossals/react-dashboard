@@ -1,5 +1,9 @@
 import { handleActions } from 'redux-actions';
-const initialAuthState = {};
+import { AsyncStatus } from 'lib/constants';
+
+const initialAuthState = {
+  status: AsyncStatus.IDLE,
+};
 
 const authReducers = handleActions({
   SET_AUTH: (state, action) => action.payload,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, Redirect, browserHistory } from 'react-router';
 import Layout from 'components/Layout';
-import Youtube from 'components/youtube';
+import Youtube from 'components/Youtube';
 import Login from 'containers/Login';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReactDOM from 'react-dom';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import VideoList from './videolist';
-import DebouncedInput from './debounced-input';
+import DebouncedInput from 'components/DebouncedInput';
 
 const KEY = 'AIzaSyBQ0inJMYo3nyDlSs5KnDtRQl86kpsRNqI';
 

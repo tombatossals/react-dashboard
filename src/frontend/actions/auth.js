@@ -56,16 +56,13 @@ export function checkAuthToken() {
     const token = localStorage.getItem('token');
 
     if (!token) {
-      return dispatch(setAuthentication({ status: AsyncStatus.FAILED }));
+      dispatch(setAuthentication({ status: AsyncStatus.FAILED }));
     }
 
-    console.log('hola', url, token);
+    console.log(token);
     return rest.get(url, token)
-              .then(data => {
-                console.log(data);
-                return dispatch(setAuthentication(data));
-              })
-              .catch(() => dispatch(setAuthentication({ status: AsyncStatus.FAILED })));
+      .then(data => dispatch(setAuthentication(data)))
+      .catch(() => dispatch(setAuthentication({ status: AsyncStatus.FAILED })));
   };
 }
 

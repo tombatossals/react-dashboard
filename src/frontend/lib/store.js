@@ -1,16 +1,15 @@
-import { createStore, applyMiddleware } from 'redux';
-import createLogger from 'redux-logger';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
-
 import reducers from 'reducers';
 
 export default function createAppStore(browseHistory) {
-  const logger = createLogger();
   const routing = routerMiddleware(browseHistory);
+  const middleware = [routing, thunk];
 
-  return createStore(
-    reducers,
-    applyMiddleware(routing, thunk, logger)
-  );
+  const store = createStore(reducers, compose(
+    applyMiddleware(...middleware),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  ));
+  return store;
 }

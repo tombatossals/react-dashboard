@@ -16,13 +16,11 @@ class Login extends React.Component {
   }
 
   ensureNotLoggedIn(props) {
-    props.checkAuthToken().then(() => {
+    if (props.auth.status === AsyncStatus.IDLE) {
+      props.checkAuthToken();
+    } else if (props.auth.status === AsyncStatus.SUCCESS) {
       props.replace(props.redirect);
-    }).catch(() => {
-      if (props.auth.status === AsyncStatus.SUCCESS) {
-        props.replace(props.redirect);
-      }
-    });
+    }
   }
 
   render() {

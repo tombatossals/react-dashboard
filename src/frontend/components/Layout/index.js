@@ -2,11 +2,13 @@ import React from 'react';
 import styles from 'components/Layout/layout.style';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Link } from 'react-router';
 
 function Layout(props) {
   return (
     <div style={styles.main}>
       <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <Link to="/logout">Logout</Link>
         {props.children}
       </MuiThemeProvider>
     </div>
