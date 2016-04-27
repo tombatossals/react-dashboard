@@ -62,7 +62,10 @@ export default class Login extends React.Component {
       status: AsyncStatus.LOADING,
     });
 
-    this.props.onSubmit(this.state.username, this.state.password);
+    this.props.onSubmit({
+      username: this.state.username,
+      password: this.state.password,
+    });
   }
 
   disableInput() {

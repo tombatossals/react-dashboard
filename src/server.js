@@ -3,11 +3,18 @@ import config from 'config';
 import webpack from 'webpack';
 import proxy from 'proxy-middleware';
 import url from 'url';
+import bodyParser from 'body-parser';
 import WebpackDevServer from 'webpack-dev-server';
 import configWebpackDevServer from '../webpack/dev.config';
+import apiRoutes from './backend/routes/api';
 
 const PORT = config.get('express.port');
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
 
 const server = new WebpackDevServer(webpack(configWebpackDevServer), {
   contentBase: 'src/static',
@@ -21,6 +28,8 @@ const server = new WebpackDevServer(webpack(configWebpackDevServer), {
 
 app.get('/favicon.ico', proxy(url.parse('http://localhost:8081/')));
 app.use('/dist', proxy(url.parse('http://localhost:8081/')));
+
+app.use('/api', apiRoutes);
 app.get('/*', (req, res) => res.sendFile(`${__dirname}/static/index.html`));
 server.listen(8081, 'localhost');
 app.listen(PORT);

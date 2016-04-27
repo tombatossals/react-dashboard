@@ -1,11 +1,8 @@
 import { handleActions } from 'redux-actions';
-import immutable from 'immutable';
-
-const initialUserState = immutable.fromJS({});
+const initialUserState = {};
 
 const userReducers = handleActions({
-  USER_LOGGED_IN: (state, action) => action.payload,
-  USER_LOGGED_OUT: {},
+  SET_AUTH: (state, action) => action.payload,
   RESET_AUTH: () => initialUserState,
 }, initialUserState);
 

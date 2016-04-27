@@ -1,45 +1,49 @@
 import React from 'react';
 import LoginComponent from 'components/Login';
 import { AsyncStatus } from 'lib/constants';
-import { authenticate } from 'actions';
+import { authenticate, checkAuthToken } from 'actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
-import { getAuthPropType } from 'proptypes';
+import { routerActions } from 'react-router-redux';
 
 class Login extends React.Component {
   componentWillMount() {
-    this.checkProps(this.props);
+    this.ensureNotLoggedIn(this.props);
   }
 
   componentWillReceiveProps(props) {
-    this.checkProps(props);
+    this.ensureNotLoggedIn(props);
   }
 
-  checkProps(props) {
-    if (props.auth.get('status') === AsyncStatus.SUCCESS) {
-      const { location } = props;
-      if (location && location.query && location.query.next) {
-        return browserHistory.push(location.query.next);
+  ensureNotLoggedIn(props) {
+    props.checkAuthToken().then(() => {
+      props.replace(props.redirect);
+    }).catch(() => {
+      if (props.auth.status === AsyncStatus.SUCCESS) {
+        props.replace(props.redirect);
       }
-      return browserHistory.push('/');
-    }
-    return this.setState({ showErrors: true });
+    });
   }
 
   render() {
     return (
       <LoginComponent
         onSubmit={this.props.authenticate}
-        status={this.props.auth.get('status')}
-        message={this.props.auth.get('message')}
+        status={this.props.auth.status}
+        message={this.props.auth.message}
       />
     );
   }
 }
 
 Login.propTypes = {
-  auth: getAuthPropType(),
+  auth: React.PropTypes.shape({
+    token: React.PropTypes.string,
+    status: React.PropTypes.string,
+    username: React.PropTypes.string,
+    message: React.PropTypes.string,
+    admin: React.PropTypes.bool,
+  }),
   authenticate: React.PropTypes.func.isRequired,
   location: React.PropTypes.shape({
     state: React.PropTypes.shape({
@@ -48,12 +52,20 @@ Login.propTypes = {
   }),
 };
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps(state, ownProps) {
+  const redirect = ownProps.location.query.redirect || '/';
+  return {
+    auth: state.auth,
+    redirect,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ authenticate }, dispatch);
+  return bindActionCreators({
+    authenticate,
+    checkAuthToken,
+    replace: routerActions.replace,
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

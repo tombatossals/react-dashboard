@@ -9,7 +9,7 @@ export const CHECK_AUTH_TOKEN = 'CHECK_AUTH_TOKEN';
 export function authenticate(authdata) {
   return dispatch => {
     const url = `${endpoints.base}${endpoints.post.auth}`;
-    const setAuthentication = createAction('SET_AUTH');
+    const setAuthentication = createAction(SET_AUTH);
 
     if (!authdata) {
       return dispatch(setAuthentication({
@@ -40,35 +40,10 @@ export function authenticate(authdata) {
 
       return res.json().then(data => {
         localStorage.setItem('token', data.token);
-        return dispatch(setAuthentication(data));
-      });
-    });
-  };
-}
-
-export function processActivateUser(activateToken) {
-  return dispatch => {
-    const url = `${endpoints.base}${endpoints.post.activateTokenAuth}`;
-    const setAuthentication = createAction('SET_AUTH');
-
-    return fetch(url, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: activateToken,
-    }).then(res => {
-      if (res.status !== 200) {
         return dispatch(setAuthentication({
-          status: AsyncStatus.FAILED,
-          message: 'Can\'t contact auth server',
+          status: AsyncStatus.SUCCESS,
+          user: data.user,
         }));
-      }
-
-      return res.json().then(data => {
-        localStorage.setItem('token', data.token);
-        return dispatch(setAuthentication(data));
       });
     });
   };
@@ -76,23 +51,27 @@ export function processActivateUser(activateToken) {
 
 export function checkAuthToken() {
   return dispatch => {
-    const setAuthentication = createAction('SET_AUTH');
+    const setAuthentication = createAction(RESET_AUTH);
     const url = `${endpoints.base}${endpoints.get.auth}`;
     const token = localStorage.getItem('token');
 
     if (!token) {
-      return dispatch(setAuthentication({ status: 'error' }));
+      return dispatch(setAuthentication({ status: AsyncStatus.FAILED }));
     }
 
+    console.log('hola', url, token);
     return rest.get(url, token)
-              .then(data => dispatch(setAuthentication(data)))
-              .catch(() => dispatch(setAuthentication({ status: 'error' })));
+              .then(data => {
+                console.log(data);
+                return dispatch(setAuthentication(data));
+              })
+              .catch(() => dispatch(setAuthentication({ status: AsyncStatus.FAILED })));
   };
 }
 
 export function resetAuth() {
   return dispatch => {
-    const resetAuthAction = createAction('RESET_AUTH');
+    const resetAuthAction = createAction(RESET_AUTH);
     localStorage.removeItem('token');
     dispatch(resetAuthAction());
   };

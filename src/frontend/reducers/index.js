@@ -4,7 +4,7 @@ import authReducers from 'reducers/auth';
 import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
-  users: userReducers,
+  user: userReducers,
   auth: authReducers,
   routing: routerReducer,
 });
