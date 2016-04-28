@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import VideoList from './videolist';
 import DebouncedInput from 'components/DebouncedInput';
 
 const KEY = 'AIzaSyBQ0inJMYo3nyDlSs5KnDtRQl86kpsRNqI';
 
-class Youtube extends Component {
+class Youtube extends React.Component {
   constructor(props) {
     super(props);
     this.searchVideo = this.searchVideo.bind(this);

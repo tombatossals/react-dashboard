@@ -18,6 +18,7 @@ export function authenticate(authdata) {
       }));
     }
 
+    dispatch(setAuthentication({ status: AsyncStatus.LOADING }));
     return fetch(url, {
       method: 'POST',
       headers: {
@@ -51,17 +52,20 @@ export function authenticate(authdata) {
 
 export function checkAuthToken() {
   return dispatch => {
-    const setAuthentication = createAction(RESET_AUTH);
+    const setAuthentication = createAction(SET_AUTH);
     const url = `${endpoints.base}${endpoints.get.auth}`;
     const token = localStorage.getItem('token');
 
     if (!token) {
-      dispatch(setAuthentication({ status: AsyncStatus.FAILED }));
+      return dispatch(setAuthentication({ status: AsyncStatus.FAILED }));
     }
 
-    console.log(token);
+    dispatch(setAuthentication({ status: AsyncStatus.LOADING }));
     return rest.get(url, token)
-      .then(data => dispatch(setAuthentication(data)))
+      .then(data => dispatch(setAuthentication({
+        status: AsyncStatus.SUCCESS,
+        user: data,
+      })))
       .catch(() => dispatch(setAuthentication({ status: AsyncStatus.FAILED })));
   };
 }
@@ -70,6 +74,6 @@ export function resetAuth() {
   return dispatch => {
     const resetAuthAction = createAction(RESET_AUTH);
     localStorage.removeItem('token');
-    dispatch(resetAuthAction());
+    return dispatch(resetAuthAction());
   };
 }

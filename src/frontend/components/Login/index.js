@@ -11,17 +11,6 @@ export default class Login extends React.Component {
     this.submit = this.submit.bind(this);
     this.setUsername = this.setUsername.bind(this);
     this.setPassword = this.setPassword.bind(this);
-    this.state = {
-      status: AsyncStatus.IDLE,
-    };
-  }
-
-  componentWillMount() {
-    this.updateStateFromProps(this.props);
-  }
-
-  componentWillReceiveProps(props) {
-    this.updateStateFromProps(props);
   }
 
   setUsername(ev) {
@@ -42,21 +31,6 @@ export default class Login extends React.Component {
     }
   }
 
-  updateStateFromProps(props) {
-    if (props.status === AsyncStatus.SUCCESS ||
-        props.status === AsyncStatus.LOADING) {
-      this.setState({
-        status: props.status,
-      });
-    }
-    if (props.status === AsyncStatus.FAILED) {
-      this.setState({
-        status: props.status,
-        message: props.message,
-      });
-    }
-  }
-
   submit() {
     this.setState({
       status: AsyncStatus.LOADING,
@@ -69,14 +43,14 @@ export default class Login extends React.Component {
   }
 
   disableInput() {
-    return this.state.status === AsyncStatus.LOADING ||
-           this.state.status === AsyncStatus.SUCCESS;
+    return this.props.status === AsyncStatus.LOADING ||
+           this.props.status === AsyncStatus.SUCCESS;
   }
 
   showButtonLabel() {
-    if (this.state.status === AsyncStatus.LOADING) {
+    if (this.props.status === AsyncStatus.LOADING) {
       return 'Wait...';
-    } else if (this.state.status === AsyncStatus.SUCCESS) {
+    } else if (this.props.status === AsyncStatus.SUCCESS) {
       return 'Success';
     }
     return 'Log in';
@@ -87,7 +61,7 @@ export default class Login extends React.Component {
       <h1 style={styles.h1}>Log in to your account</h1>
       <div style={styles.loginform}>
         <div style={styles.error}>
-          <span style={styles.message}>{this.state.message}</span>
+          <span style={styles.message}>{this.props.message}</span>
         </div>
         <TextField
           ref={this.focus}
@@ -110,7 +84,7 @@ export default class Login extends React.Component {
           disabled={this.disableInput()}
           label={this.showButtonLabel()}
         />
-        {this.state.status === AsyncStatus.LOADING && <LinearProgress mode="indeterminate" />}
+        {this.props.status === AsyncStatus.LOADING && <LinearProgress mode="indeterminate" />}
       </div>
     </div>
     );
@@ -119,4 +93,6 @@ export default class Login extends React.Component {
 
 Login.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
+  status: React.PropTypes.string.isRequired,
+  message: React.PropTypes.string,
 };

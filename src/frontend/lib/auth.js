@@ -2,7 +2,7 @@ import { UserAuthWrapper as userAuthWrapper } from 'redux-auth-wrapper';
 import { routerActions } from 'react-router-redux';
 
 export const userIsAuthenticated = userAuthWrapper({
-  authSelector: state => state.auth,
+  authSelector: state => state.auth.user,
   redirectAction: routerActions.replace,
   wrapperDisplayName: 'UserIsAuthenticated',
 });

@@ -14,7 +14,7 @@ storiesOf('Login', module)
       </MuiThemeProvider>
     </div>
   ))
-  .add('Login form initial state', () => {
+  .add('Initial state', () => {
     const status = AsyncStatus.IDLE;
     const onSubmit = () => {};
 
@@ -25,7 +25,7 @@ storiesOf('Login', module)
       />
     );
   })
-  .add('Login form loading', () => {
+  .add('Loading', () => {
     const status = AsyncStatus.LOADING;
     const onSubmit = () => {};
 
@@ -36,7 +36,7 @@ storiesOf('Login', module)
       />
     );
   })
-  .add('Login form with error message', () => {
+  .add('Auth error message', () => {
     const status = AsyncStatus.FAILED;
     const message = 'Invalid username or password';
 

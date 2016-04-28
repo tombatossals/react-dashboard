@@ -1,26 +1,30 @@
 import React from 'react';
 import { Router, Route, Redirect, browserHistory } from 'react-router';
-import Layout from 'components/Layout';
+import Layout from 'containers/Layout';
 import Youtube from 'components/Youtube';
+import Home from 'components/Home';
 import Login from 'containers/Login';
+import Logout from 'containers/Logout';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
-import createAppStore from 'lib/store';
+import configureStore from 'lib/store';
 import { userIsAuthenticated } from 'lib/auth';
 
-const store = createAppStore(browserHistory);
+const store = configureStore(browserHistory);
 injectTapEventPlugin();
 
 const history = syncHistoryWithStore(browserHistory, store);
 
 const router = (
   <Router history={history}>
-    <Redirect from="/" to="/youtube" />
+    <Redirect from="/" to="/home" />
     <Route path="/" component={Layout}>
       <Route path="login" component={Login} />
+      <Route path="logout" component={Logout} />
       <Route path="youtube" component={userIsAuthenticated(Youtube)} />
+      <Route path="home" component={Home} />
     </Route>
   </Router>);
 

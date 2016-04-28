@@ -1,7 +1,7 @@
 {
-  "name": "@tombatossals/react-ignitor",
+  "name": "@tombatossals/react-dashboard",
   "version": "0.0.1",
-  "description": "React Ignitor",
+  "description": "React Dashboard",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "webpack --progress --colors --config webpack/prod.config.js",
@@ -38,6 +38,9 @@
     "redux": "^3.5.1",
     "redux-actions": "^0.9.1",
     "redux-auth-wrapper": "^0.4.0",
+    "redux-devtools": "^3.2.0",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11",
     "redux-thunk": "^2.0.1",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"

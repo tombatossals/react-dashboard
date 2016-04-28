@@ -5,6 +5,7 @@ import { authenticate, checkAuthToken } from 'actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { routerActions } from 'react-router-redux';
+import { getAuthPropTypes } from 'proptypes';
 
 class Login extends React.Component {
   componentWillMount() {
@@ -35,13 +36,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  auth: React.PropTypes.shape({
-    token: React.PropTypes.string,
-    status: React.PropTypes.string,
-    username: React.PropTypes.string,
-    message: React.PropTypes.string,
-    admin: React.PropTypes.bool,
-  }),
+  auth: getAuthPropTypes(),
   authenticate: React.PropTypes.func.isRequired,
   location: React.PropTypes.shape({
     state: React.PropTypes.shape({
