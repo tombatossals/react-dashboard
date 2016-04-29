@@ -54,7 +54,7 @@ export default class HeaderMenu extends React.Component {
                 label="David Rubert"
                 icon={<AccountCircle color="white" />}
                 style={styles.menu}
-                onTouchTap={this.handleTouchTap}
+                onMouseOver={this.handleTouchTap}
                 primary
               />
               <Popover
@@ -63,10 +63,15 @@ export default class HeaderMenu extends React.Component {
                 onRequestClose={this.handleRequestClose}
               >
                 <Menu>
-                  <MenuItem primaryText="Refresh" />
-                  <MenuItem primaryText="Help &amp; feedback" />
-                  <MenuItem primaryText="Settings" />
-                  <MenuItem primaryText="Sign out" />
+                  <Link to="/user/profile" style={styles.menulink}>
+                    <MenuItem primaryText="Your profile" />
+                  </Link>
+                  <Link to="/user/preferences" style={styles.menulink}>
+                    <MenuItem primaryText="Preferences" />
+                  </Link>
+                  <Link to="/logout" style={styles.menulink}>
+                    <MenuItem primaryText="Logout" />
+                  </Link>
                 </Menu>
               </Popover>
             </div>

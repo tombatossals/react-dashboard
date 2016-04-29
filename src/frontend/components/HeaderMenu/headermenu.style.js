@@ -19,6 +19,9 @@ const styles = {
   right: {
     marginTop: '4px',
   },
+  menulink: {
+    textDecoration: 'none',
+  },
 };
 
 export default styles;
