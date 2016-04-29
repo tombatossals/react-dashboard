@@ -2,7 +2,6 @@ import React from 'react';
 import styles from 'containers/Layout/layout.style';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import DevTools from 'containers/DevTools';
 import { getAuthPropTypes } from 'proptypes';
 import { AsyncStatus } from 'lib/constants';
 import { connect } from 'react-redux';
@@ -30,7 +29,6 @@ class Layout extends React.Component {
             {this.props.children}
           </div>
         </MuiThemeProvider>
-        <DevTools />
       </div>
     );
   }

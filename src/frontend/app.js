@@ -25,6 +25,7 @@ const router = (
       <Route path="logout" component={Logout} />
       <Route path="youtube" component={userIsAuthenticated(Youtube)} />
       <Route path="home" component={Home} />
+      <Route path="user/profile" component={Home} />
     </Route>
   </Router>);
 

@@ -12,6 +12,13 @@ const styles = {
     textDecoration: 'none',
     color: 'white',
   },
+  menu: {
+    color: 'white',
+    marginTop: '8px',
+  },
+  right: {
+    marginTop: '4px',
+  },
 };
 
 export default styles;
