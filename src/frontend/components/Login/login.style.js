@@ -2,29 +2,40 @@ const styles = {
   h1: {
     color: 'white',
   },
-  loginbox: {
-    padding: '.5em',
-  },
-  loginform: {
-    background: 'white',
-    maxWidth: '640px',
-    margin: 'auto',
-    paddingTop: '1em',
+  login: {
+    margin: '0 auto',
+    maxWidth: '480px',
   },
   textlabel: {
     width: '90%',
     margin: '.5em',
   },
-  loginbutton: {
-    margin: '1em 0 3em',
-    width: '30%',
+  external: {
+    margin: 'auto',
+  },
+  button: {
+    width: '100%',
+    margin: '2em auto',
+  },
+  google: {
+    float: 'left',
+  },
+  facebook: {
+    float: 'right',
   },
   error: {
-    marginTop: '1em',
-    height: '24px',
-  },
-  message: {
+    fontSize: '14px',
     color: 'red',
+  },
+  form: {
+    padding: '1em 1em 0',
+  },
+  loginform: {
+    margin: '2em auto',
+  },
+  title: {
+    borderTopLeftRadius: '2px',
+    borderTopRightRadius: '2px',
   },
 };
 

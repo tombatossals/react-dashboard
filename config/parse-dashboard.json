@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "serverURL": "http://localhost:8080/parse",
+      "appId": "react-dashboard",
+      "masterKey": "myb1gs3cret",
+      "appName": "React Dashboard"
+    }
+  ]
+}

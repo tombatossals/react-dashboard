@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import HeaderMenu from 'components/HeaderMenu';
+import HeaderToolbar from 'components/HeaderToolbar';
 import styles from 'stories/stories.style';
 import { AsyncStatus } from 'lib/constants';
 
@@ -20,7 +20,7 @@ storiesOf('Header Menu', module)
     };
 
     return (
-      <HeaderMenu
+      <HeaderToolbar
         auth={auth}
       />
     );
@@ -31,7 +31,7 @@ storiesOf('Header Menu', module)
     };
 
     return (
-      <HeaderMenu
+      <HeaderToolbar
         auth={auth}
       />
     );

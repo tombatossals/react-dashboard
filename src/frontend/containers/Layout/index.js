@@ -7,7 +7,8 @@ import { AsyncStatus } from 'lib/constants';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { checkAuthToken } from 'actions';
-import HeaderMenu from 'components/HeaderMenu';
+// import DevTools from 'containers/DevTools';
+import HeaderMenu from 'components/HeaderToolbar';
 
 class Layout extends React.Component {
   componentWillMount() {
@@ -22,14 +23,12 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div style={styles.main}>
-        <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <div>
-            <HeaderMenu auth={this.props.auth} />
-            {this.props.children}
-          </div>
-        </MuiThemeProvider>
-      </div>
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <div style={styles.main}>
+          <HeaderMenu auth={this.props.auth} />
+          {this.props.children}
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

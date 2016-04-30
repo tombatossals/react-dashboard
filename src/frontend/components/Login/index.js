@@ -1,9 +1,13 @@
 import React from 'react';
 import styles from 'components/Login/login.style';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import LinearProgress from 'material-ui/LinearProgress';
 import { AsyncStatus } from 'lib/constants';
+import Paper from 'material-ui/Paper';
+// import Divider from 'material-ui/Divider';
+import Title from 'components/Login/title';
 
 export default class Login extends React.Component {
   constructor() {
@@ -57,36 +61,40 @@ export default class Login extends React.Component {
   }
 
   render() {
-    return (<div style={styles.loginbox}>
-      <h1 style={styles.h1}>Log in to your account</h1>
-      <div style={styles.loginform}>
-        <div style={styles.error}>
-          <span style={styles.message}>{this.props.message}</span>
+    return (
+      <Paper style={styles.login} zDepth={3}>
+        <Title message={this.props.message} />
+        <div style={styles.form}>
+          <div style={styles.external}>
+            <FlatButton style={styles.google} label="Google" />
+            <FlatButton style={styles.facebook} label="Facebook" />
+          </div>
+          <div style={styles.loginform}>
+            <TextField
+              ref={this.focus}
+              onChange={this.setUsername}
+              style={styles.textlabel}
+              disabled={this.disableInput()}
+              hintText="Username"
+            />
+            <TextField
+              style={styles.textlabel}
+              onChange={this.setPassword}
+              type="password"
+              disabled={this.disableInput()}
+              hintText="Password"
+            />
+            <RaisedButton
+              primary
+              onClick={this.submit}
+              style={styles.button}
+              disabled={this.disableInput()}
+              label={this.showButtonLabel()}
+            />
+          </div>
         </div>
-        <TextField
-          ref={this.focus}
-          onChange={this.setUsername}
-          style={styles.textlabel}
-          disabled={this.disableInput()}
-          hintText="Username"
-        />
-        <TextField
-          style={styles.textlabel}
-          onChange={this.setPassword}
-          type="password"
-          disabled={this.disableInput()}
-          hintText="Password"
-        />
-        <RaisedButton
-          primary
-          onClick={this.submit}
-          style={styles.loginbutton}
-          disabled={this.disableInput()}
-          label={this.showButtonLabel()}
-        />
         {this.props.status === AsyncStatus.LOADING && <LinearProgress mode="indeterminate" />}
-      </div>
-    </div>
+      </Paper>
     );
   }
 }

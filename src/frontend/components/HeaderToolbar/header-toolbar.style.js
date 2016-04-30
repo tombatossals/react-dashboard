@@ -17,6 +17,7 @@ const styles = {
     marginTop: '8px',
   },
   right: {
+    float: 'right',
     marginTop: '4px',
   },
   menulink: {

@@ -6,13 +6,13 @@ import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import styles from 'components/HeaderMenu/headermenu.style';
+import styles from 'components/HeaderToolbar/header-toolbar.style';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import { Link } from 'react-router';
 import { getAuthPropTypes } from 'proptypes';
 import { AsyncStatus } from 'lib/constants';
 
-export default class HeaderMenu extends React.Component {
+export default class HeaderToolbar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +24,6 @@ export default class HeaderMenu extends React.Component {
   }
 
   handleTouchTap(event) {
-    event.preventDefault();
     this.setState({
       open: true,
       anchorEl: event.currentTarget,
@@ -41,7 +40,7 @@ export default class HeaderMenu extends React.Component {
     return (
       <Toolbar style={styles.toolbar}>
         <Link to="/" style={styles.title}><ToolbarTitle text="React Dashboard" /></Link>
-        <ToolbarGroup float="right">
+        <ToolbarGroup float="right" lastChild>
           {this.props.auth.status !== AsyncStatus.SUCCESS &&
             <FlatButton
               label={<Link to="/login" style={styles.link}>Login</Link>}
@@ -54,7 +53,7 @@ export default class HeaderMenu extends React.Component {
                 label="David Rubert"
                 icon={<AccountCircle color="white" />}
                 style={styles.menu}
-                onMouseOver={this.handleTouchTap}
+                onClick={this.handleTouchTap}
                 primary
               />
               <Popover
@@ -64,13 +63,13 @@ export default class HeaderMenu extends React.Component {
               >
                 <Menu>
                   <Link to="/user/profile" style={styles.menulink}>
-                    <MenuItem primaryText="Your profile" />
+                    <MenuItem primaryText="Your profile" onClick={this.handleRequestClose} />
                   </Link>
                   <Link to="/user/preferences" style={styles.menulink}>
-                    <MenuItem primaryText="Preferences" />
+                    <MenuItem primaryText="Preferences" onClick={this.handleRequestClose} />
                   </Link>
                   <Link to="/logout" style={styles.menulink}>
-                    <MenuItem primaryText="Logout" />
+                    <MenuItem primaryText="Logout" onClick={this.handleRequestClose} />
                   </Link>
                 </Menu>
               </Popover>
@@ -82,6 +81,6 @@ export default class HeaderMenu extends React.Component {
   }
 }
 
-HeaderMenu.propTypes = {
+HeaderToolbar.propTypes = {
   auth: getAuthPropTypes(),
 };
