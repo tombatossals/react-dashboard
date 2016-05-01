@@ -5,7 +5,7 @@ import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
 import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItemLink from 'components/MenuItemLink';
 import styles from 'components/HeaderToolbar/header-toolbar.style';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import { Link } from 'react-router';
@@ -16,7 +16,7 @@ export default class HeaderToolbar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.state = {
       open: false,
@@ -30,10 +30,11 @@ export default class HeaderToolbar extends React.Component {
     });
   }
 
-  handleRequestClose() {
+  handleOnClick(url) {
     this.setState({
       open: false,
     });
+    this.props.replace(url);
   }
 
   render() {
@@ -59,18 +60,23 @@ export default class HeaderToolbar extends React.Component {
               <Popover
                 open={this.state.open}
                 anchorEl={this.state.anchorEl}
-                onRequestClose={this.handleRequestClose}
               >
                 <Menu>
-                  <Link to="/user/profile" style={styles.menulink}>
-                    <MenuItem primaryText="Your profile" onClick={this.handleRequestClose} />
-                  </Link>
-                  <Link to="/user/preferences" style={styles.menulink}>
-                    <MenuItem primaryText="Preferences" onClick={this.handleRequestClose} />
-                  </Link>
-                  <Link to="/logout" style={styles.menulink}>
-                    <MenuItem primaryText="Logout" onClick={this.handleRequestClose} />
-                  </Link>
+                  <MenuItemLink
+                    primaryText="Your profile"
+                    url="/user/profile"
+                    handleOnClick={this.handleOnClick}
+                  />
+                  <MenuItemLink
+                    primaryText="Preferences"
+                    url="/user/preferences"
+                    handleOnClick={this.handleOnClick}
+                  />
+                  <MenuItemLink
+                    primaryText="Logout"
+                    url="/logout"
+                    handleOnClick={this.handleOnClick}
+                  />
                 </Menu>
               </Popover>
             </div>
@@ -83,4 +89,5 @@ export default class HeaderToolbar extends React.Component {
 
 HeaderToolbar.propTypes = {
   auth: getAuthPropTypes(),
+  replace: React.PropTypes.func,
 };

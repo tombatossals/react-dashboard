@@ -11,6 +11,10 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
 import configureStore from 'lib/store';
 import { userIsAuthenticated } from 'lib/auth';
+import Parse from 'parse';
+
+Parse.initialize('react-dashboard', 'myb1gs3cret');
+Parse.serverURL = 'http://localhost:8080/parse';
 
 const store = configureStore(browserHistory);
 injectTapEventPlugin();

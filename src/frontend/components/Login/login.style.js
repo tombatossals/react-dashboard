@@ -28,14 +28,20 @@ const styles = {
     color: 'red',
   },
   form: {
-    padding: '1em 1em 0',
+    padding: '0 1em',
   },
   loginform: {
-    margin: '2em auto',
+    margin: '1em auto',
   },
   title: {
     borderTopLeftRadius: '2px',
     borderTopRightRadius: '2px',
+  },
+  hideAutoFillColorStyle: {
+    WebkitBoxShadow: '0 0 0 1000px white inset',
+  },
+  hintStyle: {
+    zIndex: '1',
   },
 };
 

@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { checkAuthToken } from 'actions';
 // import DevTools from 'containers/DevTools';
 import HeaderMenu from 'components/HeaderToolbar';
+import { routerActions } from 'react-router-redux';
 
 class Layout extends React.Component {
   componentWillMount() {
@@ -25,7 +26,7 @@ class Layout extends React.Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div style={styles.main}>
-          <HeaderMenu auth={this.props.auth} />
+          <HeaderMenu auth={this.props.auth} replace={this.props.replace} />
           {this.props.children}
         </div>
       </MuiThemeProvider>
@@ -36,6 +37,7 @@ class Layout extends React.Component {
 Layout.propTypes = {
   children: React.PropTypes.node,
   auth: getAuthPropTypes(),
+  replace: React.PropTypes.func,
 };
 
 function mapStateToProps(state) {
@@ -47,6 +49,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     checkAuthToken,
+    replace: routerActions.replace,
   }, dispatch);
 }
 

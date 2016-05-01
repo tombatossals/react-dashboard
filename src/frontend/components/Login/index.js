@@ -8,6 +8,7 @@ import { AsyncStatus } from 'lib/constants';
 import Paper from 'material-ui/Paper';
 // import Divider from 'material-ui/Divider';
 import Title from 'components/Login/title';
+import ActionAndroid from 'material-ui/svg-icons/action/android';
 
 export default class Login extends React.Component {
   constructor() {
@@ -36,6 +37,10 @@ export default class Login extends React.Component {
   }
 
   submit() {
+    if (!this.state.username && !this.state.password) {
+      return;
+    }
+
     this.setState({
       status: AsyncStatus.LOADING,
     });
@@ -65,16 +70,28 @@ export default class Login extends React.Component {
       <Paper style={styles.login} zDepth={3}>
         <Title message={this.props.message} />
         <div style={styles.form}>
-          <div style={styles.external}>
-            <FlatButton style={styles.google} label="Google" />
-            <FlatButton style={styles.facebook} label="Facebook" />
-          </div>
+          {this.props.external &&
+            <div style={styles.external}>
+              <FlatButton
+                style={styles.google}
+                label="Google Sign in"
+                icon={<ActionAndroid />}
+              />
+              <FlatButton
+                style={styles.facebook}
+                label="Facebook Sign in"
+                icon={<ActionAndroid />}
+              />
+            </div>
+          }
           <div style={styles.loginform}>
             <TextField
               ref={this.focus}
               onChange={this.setUsername}
               style={styles.textlabel}
               disabled={this.disableInput()}
+              inputStyle={styles.hideAutoFillColorStyle}
+              hintStyle={styles.hintStyle}
               hintText="Username"
             />
             <TextField
@@ -82,6 +99,8 @@ export default class Login extends React.Component {
               onChange={this.setPassword}
               type="password"
               disabled={this.disableInput()}
+              inputStyle={styles.hideAutoFillColorStyle}
+              hintStyle={styles.hintStyle}
               hintText="Password"
             />
             <RaisedButton
@@ -102,5 +121,6 @@ export default class Login extends React.Component {
 Login.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
   status: React.PropTypes.string.isRequired,
+  external: React.PropTypes.bool,
   message: React.PropTypes.string,
 };

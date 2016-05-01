@@ -2,45 +2,32 @@ import React from 'react';
 import { resetAuth } from 'actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { routerActions } from 'react-router-redux';
-import { getAuthPropTypes } from 'proptypes';
+import { Link } from 'react-router';
 
 class Logout extends React.Component {
   componentWillMount() {
     this.props.resetAuth();
-    this.props.replace('/');
   }
 
   render() {
-    return null;
+    return (
+      <div>
+        <h1>Logged out</h1>
+        <Link to="/">Go to main page</Link>
+      </div>
+    );
   }
 }
 
 Logout.propTypes = {
-  auth: getAuthPropTypes(),
   resetAuth: React.PropTypes.func.isRequired,
-  replace: React.PropTypes.func.isRequired,
-  location: React.PropTypes.shape({
-    state: React.PropTypes.shape({
-      pathname: React.PropTypes.string,
-    }),
-  }),
 };
-
-function mapStateToProps(state, ownProps) {
-  const redirect = ownProps.location.query.redirect || '/';
-  return {
-    auth: state.auth,
-    redirect,
-  };
-}
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     resetAuth,
-    replace: routerActions.replace,
   }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
+export default connect(null, mapDispatchToProps)(Logout);
 
