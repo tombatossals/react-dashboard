@@ -18,10 +18,10 @@ class Layout extends React.Component {
   }
 
   componentWillMount() {
-    this.ensureNotLoggedIn(this.props);
+    this.checkLoggedIn(this.props);
   }
 
-  ensureNotLoggedIn(props) {
+  checkLoggedIn(props) {
     if (this.props.user.status === AsyncStatus.IDLE) {
       props.checkAuthToken();
     }

@@ -20,10 +20,17 @@ export function authenticate(authdata) {
     const { username, password } = authdata;
     dispatch(loginAction({ status: AsyncStatus.LOADING }));
     return Parse.User.logIn(username, password).then(res =>
-      dispatch(loginAction({
-        status: AsyncStatus.SUCCESS,
-        user: res,
-      }))
+      res.fetch().then(user =>
+        dispatch(loginAction({
+          status: AsyncStatus.SUCCESS,
+          data: {
+            username: user.getUsername(),
+            firstName: user.attributes.firstName,
+            lastName: user.attributes.lastName,
+            id: user.id,
+          },
+        }))
+      )
     ).catch(err => dispatch(loginAction({
       status: AsyncStatus.FAILED,
       message: err.message,
@@ -38,10 +45,17 @@ export function checkAuthToken() {
     dispatch(loginAction({ status: AsyncStatus.LOADING }));
     const user = Parse.User.current();
     if (user) {
-      return dispatch(loginAction({
-        status: AsyncStatus.SUCCESS,
-        user,
-      }));
+      user.fetch().then(data =>
+        dispatch(loginAction({
+          status: AsyncStatus.SUCCESS,
+          data: {
+            username: data.getUsername(),
+            firstName: data.attributes.firstName,
+            lastName: data.attributes.lastName,
+            id: data.id,
+          },
+        }))
+      );
     }
 
     return dispatch(loginAction({ status: AsyncStatus.FAILED }));

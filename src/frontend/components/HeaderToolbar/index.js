@@ -57,7 +57,7 @@ export default class HeaderToolbar extends React.Component {
           {this.props.user.status === AsyncStatus.SUCCESS &&
             <div style={styles.right}>
               <FlatButton
-                label="dave"
+                label={this.props.user.data.username}
                 icon={<AccountCircle color="white" />}
                 style={styles.menulink}
                 onClick={this.handleTouchTap}
