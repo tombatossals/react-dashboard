@@ -5,11 +5,10 @@ import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
 import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
-import MenuItemLink from 'components/MenuItemLink';
+import MenuItemLink from 'components/HeaderToolbar/MenuItemLink';
 import styles from 'components/HeaderToolbar/header-toolbar.style';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
-import { Link } from 'react-router';
-import { getAuthPropTypes } from 'proptypes';
+import { getUserPropTypes } from 'proptypes';
 import { AsyncStatus } from 'lib/constants';
 
 export default class HeaderToolbar extends React.Component {
@@ -18,6 +17,7 @@ export default class HeaderToolbar extends React.Component {
 
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
     this.state = {
       open: false,
     };
@@ -30,36 +30,43 @@ export default class HeaderToolbar extends React.Component {
     });
   }
 
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
   handleOnClick(url) {
     this.setState({
       open: false,
     });
-    this.props.replace(url);
+    this.props.onNavigationChange(url);
   }
 
   render() {
+    const goHome = this.handleOnClick.bind(this, '/');
+    const goLogin = this.handleOnClick.bind(this, '/login');
+
     return (
       <Toolbar style={styles.toolbar}>
-        <Link to="/" style={styles.title}><ToolbarTitle text="React Dashboard" /></Link>
+        <ToolbarTitle text="React Dashboard" onClick={goHome} style={styles.link} />
         <ToolbarGroup float="right" lastChild>
-          {this.props.auth.status !== AsyncStatus.SUCCESS &&
-            <FlatButton
-              label={<Link to="/login" style={styles.link}>Login</Link>}
-              primary
-            />
+          {this.props.user.status !== AsyncStatus.SUCCESS &&
+            <FlatButton onClick={goLogin} primary label="Login" style={styles.menulink} />
           }
-          {this.props.auth.status === AsyncStatus.SUCCESS &&
+          {this.props.user.status === AsyncStatus.SUCCESS &&
             <div style={styles.right}>
               <FlatButton
-                label="David Rubert"
+                label="dave"
                 icon={<AccountCircle color="white" />}
-                style={styles.menu}
+                style={styles.menulink}
                 onClick={this.handleTouchTap}
                 primary
               />
               <Popover
                 open={this.state.open}
                 anchorEl={this.state.anchorEl}
+                onRequestClose={this.handleRequestClose}
               >
                 <Menu>
                   <MenuItemLink
@@ -88,6 +95,6 @@ export default class HeaderToolbar extends React.Component {
 }
 
 HeaderToolbar.propTypes = {
-  auth: getAuthPropTypes(),
-  replace: React.PropTypes.func,
+  user: getUserPropTypes(),
+  onNavigationChange: React.PropTypes.func,
 };

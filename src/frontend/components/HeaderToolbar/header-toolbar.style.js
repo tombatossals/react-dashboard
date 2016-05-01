@@ -11,17 +11,16 @@ const styles = {
   link: {
     textDecoration: 'none',
     color: 'white',
-  },
-  menu: {
-    color: 'white',
-    marginTop: '8px',
-  },
-  right: {
-    float: 'right',
-    marginTop: '4px',
+    cursor: 'pointer',
   },
   menulink: {
     textDecoration: 'none',
+    color: 'white',
+    cursor: 'pointer',
+    margin: '8px',
+  },
+  right: {
+    marginTop: '4px',
   },
 };
 

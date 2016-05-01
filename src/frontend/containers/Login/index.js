@@ -5,7 +5,7 @@ import { authenticate, checkAuthToken } from 'actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { routerActions } from 'react-router-redux';
-import { getAuthPropTypes } from 'proptypes';
+import { getUserPropTypes } from 'proptypes';
 
 class Login extends React.Component {
   componentWillMount() {
@@ -17,9 +17,9 @@ class Login extends React.Component {
   }
 
   ensureNotLoggedIn(props) {
-    if (props.auth.status === AsyncStatus.IDLE) {
+    if (props.user.status === AsyncStatus.IDLE) {
       props.checkAuthToken();
-    } else if (props.auth.status === AsyncStatus.SUCCESS) {
+    } else if (props.user.status === AsyncStatus.SUCCESS) {
       props.replace(props.redirect);
     }
   }
@@ -28,15 +28,15 @@ class Login extends React.Component {
     return (
       <LoginComponent
         onSubmit={this.props.authenticate}
-        status={this.props.auth.status}
-        message={this.props.auth.message}
+        status={this.props.user.status}
+        message={this.props.user.message}
       />
     );
   }
 }
 
 Login.propTypes = {
-  auth: getAuthPropTypes(),
+  user: getUserPropTypes(),
   authenticate: React.PropTypes.func.isRequired,
   location: React.PropTypes.shape({
     state: React.PropTypes.shape({
@@ -48,7 +48,7 @@ Login.propTypes = {
 function mapStateToProps(state, ownProps) {
   const redirect = ownProps.location.query.redirect || '/';
   return {
-    auth: state.auth,
+    user: state.user,
     redirect,
   };
 }

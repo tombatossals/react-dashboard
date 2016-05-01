@@ -18,10 +18,12 @@ storiesOf('Header Menu', module)
     const auth = {
       status: AsyncStatus.FAILED,
     };
+    const onNavigationChange = () => {};
 
     return (
       <HeaderToolbar
         auth={auth}
+        onNavigationChange={onNavigationChange}
       />
     );
   })
@@ -30,9 +32,11 @@ storiesOf('Header Menu', module)
       status: AsyncStatus.SUCCESS,
     };
 
+    const onNavigationChange = () => {};
     return (
       <HeaderToolbar
         auth={auth}
+        onNavigationChange={onNavigationChange}
       />
     );
   });

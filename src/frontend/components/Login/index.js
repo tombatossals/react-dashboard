@@ -16,6 +16,13 @@ export default class Login extends React.Component {
     this.submit = this.submit.bind(this);
     this.setUsername = this.setUsername.bind(this);
     this.setPassword = this.setPassword.bind(this);
+    this.onEnterKeyDown = this.onEnterKeyDown.bind(this);
+  }
+
+  onEnterKeyDown(ev) {
+    if (ev.keyCode === 13) {
+      this.submit();
+    }
   }
 
   setUsername(ev) {
@@ -65,6 +72,7 @@ export default class Login extends React.Component {
     return 'Log in';
   }
 
+
   render() {
     return (
       <Paper style={styles.login} zDepth={3}>
@@ -101,6 +109,7 @@ export default class Login extends React.Component {
               disabled={this.disableInput()}
               inputStyle={styles.hideAutoFillColorStyle}
               hintStyle={styles.hintStyle}
+              onKeyDown={this.onEnterKeyDown}
               hintText="Password"
             />
             <RaisedButton

@@ -1,12 +1,12 @@
 import React from 'react';
-import { resetAuth } from 'actions';
+import { logout } from 'actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 class Logout extends React.Component {
   componentWillMount() {
-    this.props.resetAuth();
+    this.props.logout();
   }
 
   render() {
@@ -20,12 +20,12 @@ class Logout extends React.Component {
 }
 
 Logout.propTypes = {
-  resetAuth: React.PropTypes.func.isRequired,
+  logout: React.PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    resetAuth,
+    logout,
   }, dispatch);
 }
 

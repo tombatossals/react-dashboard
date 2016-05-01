@@ -1,13 +1,14 @@
 import { handleActions } from 'redux-actions';
 import { AsyncStatus } from 'lib/constants';
 
-const initialAuthState = {
+const initialUserState = {
   status: AsyncStatus.IDLE,
 };
 
 const authReducers = handleActions({
-  SET_AUTH: (state, action) => action.payload,
-  RESET_AUTH: () => initialAuthState,
-}, initialAuthState);
+  USER_LOGIN: (state, action) => action.payload,
+  USER_CHECK_TOKEN: (state, action) => action.payload,
+  USER_LOGOUT: () => initialUserState,
+}, initialUserState);
 
 export default authReducers;

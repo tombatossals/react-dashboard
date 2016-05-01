@@ -2,29 +2,29 @@ import { createAction } from 'redux-actions';
 import { AsyncStatus } from 'lib/constants';
 import Parse from 'parse';
 
-export const SET_AUTH = 'SET_AUTH';
-export const RESET_AUTH = 'RESET_AUTH';
-export const CHECK_AUTH_TOKEN = 'CHECK_AUTH_TOKEN';
+export const USER_LOGIN = 'USER_LOGIN';
+export const USER_LOGOUT = 'USER_LOGOUT';
+export const USER_CHECK_TOKEN = 'USER_CHECK_TOKEN';
 
 export function authenticate(authdata) {
   return dispatch => {
-    const setAuthentication = createAction(SET_AUTH);
+    const loginAction = createAction(USER_LOGIN);
 
     if (!authdata) {
-      return dispatch(setAuthentication({
+      return dispatch(loginAction({
         status: AsyncStatus.FAILED,
         message: 'Empty credentials',
       }));
     }
 
     const { username, password } = authdata;
-    dispatch(setAuthentication({ status: AsyncStatus.LOADING }));
+    dispatch(loginAction({ status: AsyncStatus.LOADING }));
     return Parse.User.logIn(username, password).then(res =>
-      dispatch(setAuthentication({
+      dispatch(loginAction({
         status: AsyncStatus.SUCCESS,
         user: res,
       }))
-    ).catch(err => dispatch(setAuthentication({
+    ).catch(err => dispatch(loginAction({
       status: AsyncStatus.FAILED,
       message: err.message,
     })));
@@ -33,24 +33,24 @@ export function authenticate(authdata) {
 
 export function checkAuthToken() {
   return dispatch => {
-    const setAuthentication = createAction(SET_AUTH);
+    const loginAction = createAction(USER_LOGIN);
 
-    dispatch(setAuthentication({ status: AsyncStatus.LOADING }));
+    dispatch(loginAction({ status: AsyncStatus.LOADING }));
     const user = Parse.User.current();
     if (user) {
-      return dispatch(setAuthentication({
+      return dispatch(loginAction({
         status: AsyncStatus.SUCCESS,
         user,
       }));
     }
 
-    return dispatch(setAuthentication({ status: AsyncStatus.FAILED }));
+    return dispatch(loginAction({ status: AsyncStatus.FAILED }));
   };
 }
 
-export function resetAuth() {
+export function logout() {
   return dispatch => {
-    const resetAuthAction = createAction(RESET_AUTH);
-    Parse.User.logOut().then(() => dispatch(resetAuthAction()));
+    const logoutAction = createAction(USER_LOGOUT);
+    Parse.User.logOut().then(() => dispatch(logoutAction()));
   };
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from 'containers/Layout/layout.style';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { getAuthPropTypes } from 'proptypes';
+import { getUserPropTypes } from 'proptypes';
 import { AsyncStatus } from 'lib/constants';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,21 +12,30 @@ import HeaderMenu from 'components/HeaderToolbar';
 import { routerActions } from 'react-router-redux';
 
 class Layout extends React.Component {
+  constructor() {
+    super();
+    this.navigate = this.navigate.bind(this);
+  }
+
   componentWillMount() {
     this.ensureNotLoggedIn(this.props);
   }
 
   ensureNotLoggedIn(props) {
-    if (this.props.auth.status === AsyncStatus.IDLE) {
+    if (this.props.user.status === AsyncStatus.IDLE) {
       props.checkAuthToken();
     }
+  }
+
+  navigate(url) {
+    this.props.redirect(url);
   }
 
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div style={styles.main}>
-          <HeaderMenu auth={this.props.auth} replace={this.props.replace} />
+          <HeaderMenu user={this.props.user} onNavigationChange={this.navigate} />
           {this.props.children}
         </div>
       </MuiThemeProvider>
@@ -36,20 +45,20 @@ class Layout extends React.Component {
 
 Layout.propTypes = {
   children: React.PropTypes.node,
-  auth: getAuthPropTypes(),
-  replace: React.PropTypes.func,
+  user: getUserPropTypes(),
+  redirect: React.PropTypes.func,
 };
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    user: state.user,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     checkAuthToken,
-    replace: routerActions.replace,
+    redirect: routerActions.replace,
   }, dispatch);
 }
 

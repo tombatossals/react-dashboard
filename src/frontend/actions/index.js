@@ -1,5 +1,5 @@
 export {
   authenticate,
   checkAuthToken,
-  resetAuth,
-} from 'actions/auth';
+  logout,
+} from 'actions/user';
