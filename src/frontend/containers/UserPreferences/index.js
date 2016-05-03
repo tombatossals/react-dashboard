@@ -4,7 +4,7 @@ import UserPreferencesComponent from 'components/UserPreferences';
 import { updateUser } from 'actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getUserPropTypes } from 'proptypes';
+import { getUserPropTypes } from 'lib/proptypes';
 
 class UserPreferences extends React.Component {
   updateUser() {

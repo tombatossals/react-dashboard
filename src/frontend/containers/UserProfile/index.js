@@ -1,10 +1,10 @@
 import React from 'react';
-import UserProfileComponent from 'components/UserProfile';
 // import { AsyncStatus } from 'lib/constants';
 import { updateUser } from 'actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getUserPropTypes } from 'proptypes';
+import { getUserPropTypes } from 'lib/proptypes';
+import UserProfileComponent from 'components/UserProfile';
 
 class UserProfile extends React.Component {
   updateUser() {
@@ -12,8 +12,10 @@ class UserProfile extends React.Component {
   }
 
   render() {
+    console.log(this.user);
     return (
       <UserProfileComponent
+        user={this.props.user}
         onSubmit={this.props.updateUser}
       />
     );
@@ -38,4 +40,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
-

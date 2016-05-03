@@ -8,7 +8,7 @@ import Menu from 'material-ui/Menu';
 import MenuItemLink from 'components/HeaderToolbar/MenuItemLink';
 import styles from 'components/HeaderToolbar/header-toolbar.style';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
-import { getUserPropTypes } from 'proptypes';
+import { getUserPropTypes } from 'lib/proptypes';
 import { AsyncStatus } from 'lib/constants';
 
 export default class HeaderToolbar extends React.Component {

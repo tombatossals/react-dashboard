@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
-
-const UserProfile = () => (
+import { getUserPropTypes } from 'lib/proptypes';
+const UserProfile = (props) => (
   <div>
-    <h1>User Profile</h1>
-    <Link to="/youtube">User</Link>
+    <h1>Your Profile</h1>
+    {props.user.username}
   </div>
 );
+
+UserProfile.propTypes = {
+  user: getUserPropTypes(),
+};
 
 export default UserProfile;

@@ -5,7 +5,7 @@ import { authenticate, checkAuthToken } from 'actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { routerActions } from 'react-router-redux';
-import { getUserPropTypes } from 'proptypes';
+import { getUserPropTypes } from 'lib/proptypes';
 
 class Login extends React.Component {
   componentWillMount() {

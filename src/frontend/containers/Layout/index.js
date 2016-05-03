@@ -2,7 +2,7 @@ import React from 'react';
 import styles from 'containers/Layout/layout.style';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { getUserPropTypes } from 'proptypes';
+import { getUserPropTypes } from 'lib/proptypes';
 import { AsyncStatus } from 'lib/constants';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
