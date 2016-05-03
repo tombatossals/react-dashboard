@@ -3,36 +3,10 @@
       "host": "0.0.0.0",
       "port": 8080
   },
-  "auth": {
-    "token": {
-      "secret": "lalala",
-      "expire": {
-        "unit": "hours",
-        "value": 8
-      }
-    }
-  },
-  "api": {
-    "base": "/api/",
-    "get": {
-      "doors": "door",
-      "adminUsers": "admin/user",
-      "adminDoors": "admin/door",
-      "auth": "auth"
-    },
-    "delete": {
-      "user": "admin/user",
-      "door": "admin/door"
-    },
-    "update": {
-      "user": "admin/user",
-      "activateUser": "admin/user/activate",
-      "door": "admin/door"
-    },
-    "post": {
-      "user": "admin/user",
-      "activateTokenAuth": "user/activate",
-      "auth": "auth"
-    }
+  "parse": {
+    "databaseURI": "mongodb://localhost:27017/react",
+    "serverURL": "http://localhost:8080/parse",
+    "appId": "react-dashboard",
+    "masterKey": "myb1gs3cret"
   }
 }

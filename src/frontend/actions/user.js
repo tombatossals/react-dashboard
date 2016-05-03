@@ -68,3 +68,10 @@ export function logout() {
     Parse.User.logOut().then(() => dispatch(logoutAction()));
   };
 }
+
+export function updateUser() {
+  return dispatch => {
+    const logoutAction = createAction(USER_LOGOUT);
+    Parse.User.logOut().then(() => dispatch(logoutAction()));
+  };
+}

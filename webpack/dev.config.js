@@ -1,12 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const config = require('config');
-
 const json = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 const version = json.version;
-
-const endpoints = config.get('api');
 
 module.exports = {
   entry: [
@@ -34,7 +30,6 @@ module.exports = {
       'process.env': {
         version: JSON.stringify(version),
       },
-      endpoints: JSON.stringify(endpoints),
     }),
   ],
   module: {

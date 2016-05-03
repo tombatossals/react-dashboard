@@ -6,7 +6,6 @@ import TextField from 'material-ui/TextField';
 import LinearProgress from 'material-ui/LinearProgress';
 import { AsyncStatus } from 'lib/constants';
 import Paper from 'material-ui/Paper';
-// import Divider from 'material-ui/Divider';
 import Title from 'components/Login/title';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 
