@@ -17,10 +17,9 @@ const styles = {
     textDecoration: 'none',
     color: 'white',
     cursor: 'pointer',
-    margin: '8px',
   },
   right: {
-    marginTop: '4px',
+    margin: '8px 8px 8px 0',
   },
 };
 

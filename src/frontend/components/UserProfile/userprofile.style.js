@@ -10,7 +10,7 @@ const styles = {
     color: '#AAA',
   },
   item: {
-    fontSize: '20px',
+    fontSize: '22px',
   },
 };
 
