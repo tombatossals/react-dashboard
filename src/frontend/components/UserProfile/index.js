@@ -9,6 +9,7 @@ import ListItem from 'material-ui/List/ListItem';
 import TextField from 'material-ui/TextField';
 import Tabs from 'material-ui/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 export default class UserProfile extends React.Component {
   constructor() {
@@ -68,7 +69,8 @@ export default class UserProfile extends React.Component {
           <Tab
             label="Profile"
           >
-            <List>
+            <EditIcon style={styles.editicon} />
+            <List style={styles.list}>
               <ListItem
                 style={styles.item}
                 primaryText={this.handleUsernamePrimaryText()}

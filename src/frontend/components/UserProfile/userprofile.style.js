@@ -12,6 +12,14 @@ const styles = {
   item: {
     fontSize: '22px',
   },
+  editicon: {
+    float: 'right',
+    margin: '1em',
+    cursor: 'pointer',
+  },
+  list: {
+    clear: 'both',
+  },
 };
 
 export default styles;
