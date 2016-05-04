@@ -6,13 +6,13 @@ const version = json.version;
 
 module.exports = {
   entry: [
-    'app.js',
-    'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:8081',
+    'webpack/hot/dev-server',
+    'app.js',
   ],
   output: {
-    path: path.resolve(__dirname, '../src/frontend'),
-    publicPath: '/dist',
+    publicPath: ' http://localhost:8081/dist/',
+    path: path.resolve(__dirname, '../src/static/dist'),
     filename: 'bundle.js',
   },
   resolve: {
@@ -45,10 +45,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015'],
-        },
+        loaders: ['react-hot', 'babel-loader'],
       },
     ],
   },
