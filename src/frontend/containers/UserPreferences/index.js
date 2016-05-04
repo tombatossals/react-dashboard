@@ -12,6 +12,10 @@ class UserPreferences extends React.Component {
   }
 
   render() {
+    if (!this.props.user) {
+      return null;
+    }
+
     return (
       <UserPreferencesComponent
         onSubmit={this.props.updateUser}

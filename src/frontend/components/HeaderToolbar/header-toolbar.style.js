@@ -1,6 +1,6 @@
 const styles = {
   toolbar: {
-    background: 'inherit',
+    background: '#005C97',
     width: '100%',
   },
   title: {

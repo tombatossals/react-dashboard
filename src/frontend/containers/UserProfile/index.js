@@ -1,5 +1,5 @@
 import React from 'react';
-// import { AsyncStatus } from 'lib/constants';
+import { AsyncStatus } from 'lib/constants';
 import { updateUser } from 'actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,7 +12,10 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    console.log(this.user);
+    if (this.props.user.status !== AsyncStatus.SUCCESS) {
+      return null;
+    }
+
     return (
       <UserProfileComponent
         user={this.props.user}
