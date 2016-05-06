@@ -48,10 +48,8 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "body-parser": "^1.15.0",
     "config": "^1.20.1",
     "express": "^4.13.4",
-    "express-jwt": "^3.3.0",
     "moment": "^2.13.0",
     "parse-server": "^2.2.7",
     "proxy-middleware": "^0.15.0",

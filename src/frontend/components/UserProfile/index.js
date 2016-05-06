@@ -8,17 +8,21 @@ import List from 'material-ui/List';
 import ListItem from 'material-ui/List/ListItem';
 import Tabs from 'material-ui/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+// import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import LockIcon from 'material-ui/svg-icons/action/lock';
+import RemoveIcon from 'material-ui/svg-icons/content/remove-circle';
 
 export default class UserProfile extends React.Component {
   constructor() {
     super();
     this.handleEditMode = this.handleEditMode.bind(this);
     this.handleCancelEdit = this.handleCancelEdit.bind(this);
+    this.handleBrowseProfileAction = this.handleBrowseProfileAction.bind(this);
+    this.handleBrowsePreferencesAction = this.handleBrowsePreferencesAction.bind(this);
     this.state = {
       editMode: false,
       section: 'profile',
@@ -35,6 +39,14 @@ export default class UserProfile extends React.Component {
     this.setState({
       section: props.section,
     });
+  }
+
+  handleBrowseProfileAction() {
+    this.props.browseAction('/user/profile');
+  }
+
+  handleBrowsePreferencesAction() {
+    this.props.browseAction('/user/preferences');
   }
 
   handleEditMode() {
@@ -94,25 +106,22 @@ export default class UserProfile extends React.Component {
         >
           <Tab
             label="Profile"
+            onClick={this.handleBrowseProfileAction}
           >
             <List style={styles.list}>
               <ListItem
                 style={styles.item}
                 primaryText={this.props.user.data.username}
                 secondaryText="Username"
+                onClick={this.handleEditMode}
               />
               <ListItem
                 style={styles.item}
                 primaryText={this.props.user.data.email}
                 secondaryText="E-Mail"
+                onClick={this.handleEditMode}
               />
             </List>
-            <FlatButton
-              style={styles.button}
-              label="Edit"
-              onClick={this.handleEditMode}
-              icon={<EditIcon />}
-            />
             <Dialog
               title="Edit profile"
               label="Profile"
@@ -134,15 +143,18 @@ export default class UserProfile extends React.Component {
           </Tab>
           <Tab
             label="Preferences"
+            onClick={this.handleBrowsePreferencesAction}
           >
             <List style={styles.list}>
               <ListItem
                 style={styles.item}
                 primaryText="Change password"
+                leftIcon={<LockIcon />}
               />
               <ListItem
                 style={styles.item}
                 primaryText="Delete account"
+                leftIcon={<RemoveIcon />}
               />
             </List>
             <Dialog
@@ -173,4 +185,5 @@ export default class UserProfile extends React.Component {
 UserProfile.propTypes = {
   user: getUserPropTypes(),
   section: React.PropTypes.string,
+  browseAction: React.PropTypes.func,
 };

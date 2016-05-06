@@ -3,7 +3,6 @@ import config from 'config';
 import webpack from 'webpack';
 import proxy from 'proxy-middleware';
 import url from 'url';
-import bodyParser from 'body-parser';
 import WebpackDevServer from 'webpack-dev-server';
 import configWebpackDevServer from '../webpack/dev.config';
 import api from './parse/api';
@@ -12,11 +11,6 @@ import api from './parse/api';
 
 const PORT = config.get('express.port');
 const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
 
 const server = new WebpackDevServer(webpack(configWebpackDevServer), {
   contentBase: 'src/static',
