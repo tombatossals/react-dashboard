@@ -67,21 +67,31 @@ export default class UserProfile extends React.Component {
     return (
       <Paper style={styles.paper} zDepth={4}>
         {this.state.section === 'profile' &&
-          <div style={styles.avatar}>
-            <Avatar
-              style={styles.avatar}
-              src="http://lorempixel.com/240/240/"
-              size={240}
-            />
-            <input type="file" style={styles.imageInput} />
+          <div>
+            <div style={styles.avatar}>
+              <Avatar
+                style={styles.avatar}
+                src="http://lorempixel.com/240/240/"
+                size={240}
+              />
+              <input type="file" style={styles.imageInput} />
+            </div>
+            <h1 style={styles.h1}>Your Profile</h1>
           </div>
         }
         {this.state.section === 'preferences' &&
-          <SettingsIcon />
+          <div>
+            <SettingsIcon
+              color="#444"
+              style={styles.preferencesIcon}
+            />
+            <h1 style={styles.h1}>Preferences</h1>
+          </div>
         }
-        <h1 style={styles.h1}>Your Profile</h1>
         <Divider style={styles.divider} />
-        <Tabs>
+        <Tabs
+          initialSelectedIndex={this.state.section === 'preferences' ? 1 : 0}
+        >
           <Tab
             label="Profile"
           >

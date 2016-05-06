@@ -23,6 +23,10 @@ const styles = {
   avatar: {
     position: 'relative',
   },
+  preferencesIcon: {
+    width: '100%',
+    height: '240px',
+  },
   imageInput: {
     cursor: 'pointer',
     position: 'absolute',
