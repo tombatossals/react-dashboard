@@ -10,6 +10,9 @@ import styles from 'components/HeaderToolbar/header-toolbar.style';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import { getUserPropTypes } from 'lib/proptypes';
 import { AsyncStatus } from 'lib/constants';
+import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import AccountBoxIcon from 'material-ui/svg-icons/action/account-box';
 
 export default class HeaderToolbar extends React.Component {
   constructor(props) {
@@ -72,16 +75,19 @@ export default class HeaderToolbar extends React.Component {
                   <MenuItemLink
                     primaryText="Your profile"
                     url="/user/profile"
+                    leftIcon={<AccountBoxIcon />}
                     handleOnClick={this.handleOnClick}
                   />
                   <MenuItemLink
                     primaryText="Preferences"
                     url="/user/preferences"
+                    leftIcon={<SettingsIcon />}
                     handleOnClick={this.handleOnClick}
                   />
                   <MenuItemLink
                     primaryText="Logout"
                     url="/logout"
+                    leftIcon={<LogoutIcon />}
                     handleOnClick={this.handleOnClick}
                   />
                 </Menu>

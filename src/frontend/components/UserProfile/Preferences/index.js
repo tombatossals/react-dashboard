@@ -1,9 +1,9 @@
 import React from 'react';
 
-const UserPreferences = () => (
+const Preferences = () => (
   <div>
     <h1>Your Preferences</h1>
   </div>
 );
 
-export default UserPreferences;
+export default Preferences;

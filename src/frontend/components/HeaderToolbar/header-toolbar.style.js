@@ -17,6 +17,7 @@ const styles = {
     textDecoration: 'none',
     color: 'white',
     cursor: 'pointer',
+    textTransform: 'none',
   },
   right: {
     margin: '8px 8px 8px 0',

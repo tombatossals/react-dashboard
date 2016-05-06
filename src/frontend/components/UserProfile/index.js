@@ -6,82 +6,153 @@ import styles from 'components/UserProfile/userprofile.style';
 import Divider from 'material-ui/Divider';
 import List from 'material-ui/List';
 import ListItem from 'material-ui/List/ListItem';
-import TextField from 'material-ui/TextField';
 import Tabs from 'material-ui/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
+import Dialog from 'material-ui/Dialog';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
 
 export default class UserProfile extends React.Component {
   constructor() {
     super();
-    this.handleOnClick = this.handleOnClick.bind(this);
-    this.handleOnBlur = this.handleOnBlur.bind(this);
-    this.handleUsernamePrimaryText = this.handleUsernamePrimaryText.bind(this);
-    this.handleUsernameSecondaryText = this.handleUsernameSecondaryText.bind(this);
+    this.handleEditMode = this.handleEditMode.bind(this);
+    this.handleCancelEdit = this.handleCancelEdit.bind(this);
     this.state = {
       editMode: false,
+      section: 'profile',
     };
   }
 
-  handleOnClick() {
+  componentWillMount() {
+    this.setState({
+      section: this.props.section,
+    });
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      section: props.section,
+    });
+  }
+
+  handleEditMode() {
     this.setState({
       editMode: true,
     });
   }
 
-  handleOnBlur() {
+  handleCancelEdit() {
     this.setState({
       editMode: false,
     });
   }
 
-  handleUsernamePrimaryText() {
-    if (!this.state.editMode) {
-      return this.props.user.data.username;
-    }
-    return (
-      <TextField
-        style={styles.textfield}
-        defaultValue={this.props.user.data.username}
-        hintText="Username"
-      />
-    );
-  }
-
-  handleUsernameSecondaryText() {
-    if (!this.state.editMode) {
-      return 'Username';
-    }
-    return null;
-  }
-
   render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        secondary
+        onTouchTap={this.handleCancelEdit}
+      />,
+      <FlatButton
+        label="Submit"
+        primary
+        keyboardFocused
+        onTouchTap={this.handleCancelEdit}
+      />,
+    ];
+
     return (
       <Paper style={styles.paper} zDepth={4}>
-        <Avatar
-          style={styles.avatar}
-          src="http://lorempixel.com/240/240/"
-          size={240}
-        />
+        {this.state.section === 'profile' &&
+          <div style={styles.avatar}>
+            <Avatar
+              style={styles.avatar}
+              src="http://lorempixel.com/240/240/"
+              size={240}
+            />
+            <input type="file" style={styles.imageInput} />
+          </div>
+        }
+        {this.state.section === 'preferences' &&
+          <SettingsIcon />
+        }
         <h1 style={styles.h1}>Your Profile</h1>
         <Divider style={styles.divider} />
         <Tabs>
           <Tab
             label="Profile"
           >
-            <EditIcon style={styles.editicon} />
             <List style={styles.list}>
               <ListItem
                 style={styles.item}
-                primaryText={this.handleUsernamePrimaryText()}
-                secondaryText={this.handleUsernameSecondaryText()}
+                primaryText={this.props.user.data.username}
+                secondaryText="Username"
+              />
+              <ListItem
+                style={styles.item}
+                primaryText={this.props.user.data.email}
+                secondaryText="E-Mail"
               />
             </List>
+            <FlatButton
+              style={styles.button}
+              label="Edit"
+              onClick={this.handleEditMode}
+              icon={<EditIcon />}
+            />
+            <Dialog
+              title="Edit profile"
+              label="Profile"
+              actions={actions}
+              modal
+              open={this.state.editMode}
+            >
+              <TextField
+                floatingLabelText="Username"
+                style={styles.textfield}
+                defaultValue={this.props.user.data.username}
+              />
+              <TextField
+                floatingLabelText="E-Mail"
+                style={styles.textfield}
+                defaultValue={this.props.user.data.email}
+              />
+            </Dialog>
           </Tab>
           <Tab
             label="Preferences"
           >
-            <div>hola</div>
+            <List style={styles.list}>
+              <ListItem
+                style={styles.item}
+                primaryText="Change password"
+              />
+              <ListItem
+                style={styles.item}
+                primaryText="Delete account"
+              />
+            </List>
+            <Dialog
+              title="Edit profile"
+              label="Profile"
+              actions={actions}
+              modal
+              open={this.state.editMode}
+            >
+              <TextField
+                floatingLabelText="Username"
+                style={styles.textfield}
+                defaultValue={this.props.user.data.username}
+              />
+              <TextField
+                floatingLabelText="E-Mail"
+                style={styles.textfield}
+                defaultValue={this.props.user.data.email}
+              />
+            </Dialog>
           </Tab>
         </Tabs>
       </Paper>
@@ -91,4 +162,5 @@ export default class UserProfile extends React.Component {
 
 UserProfile.propTypes = {
   user: getUserPropTypes(),
+  section: React.PropTypes.string,
 };

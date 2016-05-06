@@ -27,6 +27,7 @@ export function authenticate(authdata) {
             username: user.getUsername(),
             firstName: user.attributes.firstName,
             lastName: user.attributes.lastName,
+            email: user.email,
             id: user.id,
           },
         }))
@@ -52,6 +53,7 @@ export function checkAuthToken() {
             username: data.getUsername(),
             firstName: data.attributes.firstName,
             lastName: data.attributes.lastName,
+            email: user.attributes.email,
             id: data.id,
           },
         }))

@@ -20,6 +20,7 @@ class UserProfile extends React.Component {
       <UserProfileComponent
         user={this.props.user}
         onSubmit={this.props.updateUser}
+        section={this.props.section}
       />
     );
   }
@@ -27,12 +28,14 @@ class UserProfile extends React.Component {
 
 UserProfile.propTypes = {
   user: getUserPropTypes(),
+  section: React.PropTypes.oneOf(['profile', 'preferences']),
   updateUser: React.PropTypes.func,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   return {
     user: state.user,
+    section: props.route.path,
   };
 }
 
