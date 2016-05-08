@@ -1,13 +1,3 @@
 {
-  "extends": "airbnb",
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "webpack/dev.config.js"
-      }
-    }
-  },
-  "globals": {
-    "endpoints": true
-  }
+  "extends": ["standard", "standard-react"]
 }

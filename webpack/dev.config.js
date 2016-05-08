@@ -1,36 +1,36 @@
-const webpack = require('webpack');
-const path = require('path');
-const fs = require('fs');
-const json = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-const version = json.version;
+const webpack = require('webpack')
+const path = require('path')
+const fs = require('fs')
+const json = JSON.parse(fs.readFileSync('package.json', 'utf8'))
+const version = json.version
 
 module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8081',
     'webpack/hot/dev-server',
-    'app.js',
+    'app.js'
   ],
   output: {
     publicPath: ' http://localhost:8081/dist/',
     path: path.resolve(__dirname, '../src/static/dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   resolve: {
     root: [
-      path.resolve(__dirname, '../src/frontend'),
-    ],
+      path.resolve(__dirname, '../src/frontend')
+    ]
   },
   devServer: {
-    contentBase: 'src/static',
+    contentBase: 'src/static'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        version: JSON.stringify(version),
-      },
-    }),
+        version: JSON.stringify(version)
+      }
+    })
   ],
   module: {
     preLoaders: [
@@ -38,15 +38,15 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint-loader',
         include: [path.resolve(__dirname, '../src/frontend')],
-        exclude: [path.resolve(__dirname, '../node_modules')],
-      },
+        exclude: [path.resolve(__dirname, '../node_modules')]
+      }
     ],
     loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel-loader'],
-      },
-    ],
-  },
-};
+        loaders: ['react-hot', 'babel-loader']
+      }
+    ]
+  }
+}

@@ -1,11 +1,11 @@
-import { UserAuthWrapper as userAuthWrapper } from 'redux-auth-wrapper';
-import { routerActions } from 'react-router-redux';
+import { UserAuthWrapper as userAuthWrapper } from 'redux-auth-wrapper'
+import { routerActions } from 'react-router-redux'
 
 export const userIsAuthenticated = userAuthWrapper({
   authSelector: state => state.user.data,
   redirectAction: routerActions.replace,
-  wrapperDisplayName: 'UserIsAuthenticated',
-});
+  wrapperDisplayName: 'UserIsAuthenticated'
+})
 
 export const userIsAdmin = userAuthWrapper({
   authSelector: state => state.user,
@@ -13,5 +13,5 @@ export const userIsAdmin = userAuthWrapper({
   failureRedirectPath: '/',
   wrapperDisplayName: 'UserIsAdmin',
   predicate: user => user.isAdmin,
-  allowRedirectBack: false,
-});
+  allowRedirectBack: false
+})

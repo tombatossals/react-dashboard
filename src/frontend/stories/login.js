@@ -1,10 +1,10 @@
-import React from 'react';
-import { storiesOf } from '@kadira/storybook';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Login from 'components/Login';
-import styles from 'stories/stories.style';
-import { AsyncStatus } from 'lib/constants';
+import React from 'react'
+import { storiesOf } from '@kadira/storybook'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import Login from 'components/Login'
+import styles from 'stories/stories.style'
+import { AsyncStatus } from 'lib/constants'
 
 storiesOf('Login', module)
   .addDecorator(story => (
@@ -15,39 +15,31 @@ storiesOf('Login', module)
     </div>
   ))
   .add('Initial state', () => {
-    const status = AsyncStatus.IDLE;
-    const onSubmit = () => {};
+    const status = AsyncStatus.IDLE
+    const onSubmit = () => {
+    }
 
     return (
-      <Login
-        onSubmit={onSubmit}
-        status={status}
-      />
-    );
+      <Login onSubmit={onSubmit} status={status} />
+    )
   })
   .add('Loading', () => {
-    const status = AsyncStatus.LOADING;
-    const onSubmit = () => {};
+    const status = AsyncStatus.LOADING
+    const onSubmit = () => {
+    }
 
     return (
-      <Login
-        onSubmit={onSubmit}
-        status={status}
-      />
-    );
+      <Login onSubmit={onSubmit} status={status} />
+    )
   })
   .add('Auth error message', () => {
-    const status = AsyncStatus.FAILED;
-    const message = 'Invalid username or password';
+    const status = AsyncStatus.FAILED
+    const message = 'Invalid username or password'
 
-    const onSubmit = () => {};
+    const onSubmit = () => {
+    }
 
     return (
-      <Login
-        onSubmit={onSubmit}
-        status={status}
-        message={message}
-      />
-    );
-  });
-
+      <Login onSubmit={onSubmit} status={status} message={message} />
+    )
+  })

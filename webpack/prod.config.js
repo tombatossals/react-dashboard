@@ -1,5 +1,5 @@
-const webpack = require('webpack');
-const path = require('path');
+const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
   entry: {
@@ -7,15 +7,15 @@ module.exports = {
     vendor: [
       'react',
       'react-dom',
-      'react-router',
-    ],
+      'react-router'
+    ]
   },
   output: {
     path: `${__dirname}/../dist/js`,
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   resolve: {
-    root: path.join(`${__dirname}/../src/frontend`),
+    root: path.join(`${__dirname}/../src/frontend`)
   },
   module: {
     preLoaders: [
@@ -23,8 +23,8 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint-loader',
         include: [path.resolve(__dirname, '../src/frontend')],
-        exclude: [path.resolve(__dirname, '../node_modules')],
-      },
+        exclude: [path.resolve(__dirname, '../node_modules')]
+      }
     ],
     loaders: [
       {
@@ -32,12 +32,12 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015'],
-        },
-      },
-    ],
+          presets: ['react', 'es2015']
+        }
+      }
+    ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor', './vendor.js'),
-  ],
-};
+    new webpack.optimize.CommonsChunkPlugin('vendor', './vendor.js')
+  ]
+}

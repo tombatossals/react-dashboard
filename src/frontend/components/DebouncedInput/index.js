@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 /**
  * A debounced input field that triggers a change event to the
@@ -17,18 +17,18 @@ export default class DebouncedInput extends React.Component {
    *
    * @param  {object}  props  Component properties
    */
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    this.changeTerm = this.changeTerm.bind(this);
+    this.changeTerm = this.changeTerm.bind(this)
 
     this.state = {
       // Timeout ID
       tid: void 0,
 
       // Value of the input
-      value: props.value || '',
-    };
+      value: props.value || ''
+    }
   }
 
   /**
@@ -38,39 +38,39 @@ export default class DebouncedInput extends React.Component {
    * @param  {object}  nextState  Next state
    * @return  {boolean}
    */
-  shouldComponentUpdate(nextProps, nextState) {
-    const keys = Object.keys(nextProps);
-    const { value } = this.state;
+  shouldComponentUpdate (nextProps, nextState) {
+    const keys = Object.keys(nextProps)
+    const { value } = this.state
 
     // We only consider the search term from the state
     if (value !== nextState.value) {
-      return true;
+      return true
     }
 
     // We render if anything in the properties changed
 
     // > Different number of properties
     if (keys.length !== Object.keys(this.props).length) {
-      return true;
+      return true
     }
 
     // > Different properties
-    const changed = keys.some(key => nextProps[key] !== this.props[key]);
+    const changed = keys.some(key => nextProps[key] !== this.props[key])
 
     if (changed) {
-      return true;
+      return true
     }
 
-    return false;
+    return false
   }
 
   /**
    * Invoked when the component will be removed from the DOM.
    * Makes sure the timeout is cancelled
    */
-  componentWillUnmount() {
-    const { tid } = this.state;
-    window.clearTimeout(tid);
+  componentWillUnmount () {
+    const { tid } = this.state
+    window.clearTimeout(tid)
   }
 
   /**
@@ -78,50 +78,48 @@ export default class DebouncedInput extends React.Component {
    *
    * @param  {object}  event  UI event
    */
-  changeTerm(event) {
-    const { value } = event.target;
-    const { tid } = this.state;
+  changeTerm (event) {
+    const { value } = event.target
+    const { tid } = this.state
 
     if (tid) {
-      clearTimeout(tid);
+      clearTimeout(tid)
     }
 
     this.setState({
       value,
-      tid: setTimeout(this.emitChange.bind(this), 300),
-    });
+      tid: setTimeout(this.emitChange.bind(this), 300)
+    })
   }
 
   /**
    * Emits a change event with the term
    */
-  emitChange() {
-    const { value } = this.state;
-    const { onChange } = this.props;
+  emitChange () {
+    const { value } = this.state
+    const { onChange } = this.props
 
-    this.setState({ tid: void 0 });
+    this.setState({ tid: void 0 })
 
-    onChange(value);
+    onChange(value)
   }
 
   /**
    * Render the component
    */
-  render() {
-    const props = this.props;
-    const { value } = this.state;
+  render () {
+    const props = this.props
+    const { value } = this.state
 
     return (
       <input
-        type="text"
-        className="form-control"
+        type='text'
+        className='form-control'
         {...props}
         value={value}
-        onChange={this.changeTerm}
-      />
-    );
+        onChange={this.changeTerm} />
+    )
   }
-
 
 }
 
@@ -138,5 +136,5 @@ DebouncedInput.propTypes = {
   /*
     * Initial value
     */
-  value: React.PropTypes.string,
-};
+  value: React.PropTypes.string
+}

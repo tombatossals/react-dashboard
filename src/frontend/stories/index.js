@@ -1,3 +1,3 @@
-require('stories/button');
-require('stories/login');
-require('stories/header-toolbar');
+require('stories/button')
+require('stories/login')
+require('stories/header-toolbar')

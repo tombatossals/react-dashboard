@@ -1,27 +1,27 @@
 const styles = {
   toolbar: {
     background: '#005C97',
-    width: '100%',
+    width: '100%'
   },
   title: {
     fontWeight: 'bold',
     color: 'white',
-    textDecoration: 'none',
+    textDecoration: 'none'
   },
   link: {
     textDecoration: 'none',
     color: 'white',
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   menulink: {
     textDecoration: 'none',
     color: 'white',
     cursor: 'pointer',
-    textTransform: 'none',
+    textTransform: 'none'
   },
   right: {
-    margin: '8px 8px 8px 0',
-  },
-};
+    margin: '8px 8px 8px 0'
+  }
+}
 
-export default styles;
+export default styles

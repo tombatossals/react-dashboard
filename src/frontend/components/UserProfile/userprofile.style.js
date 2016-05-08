@@ -4,28 +4,28 @@ const styles = {
     maxWidth: '320px',
     margin: '1em auto',
     padding: '2em 0 0',
-    borderRadius: '8px',
+    borderRadius: '8px'
   },
   h1: {
-    color: '#AAA',
+    color: '#AAA'
   },
   item: {
-    fontSize: '22px',
+    fontSize: '22px'
   },
   editicon: {
     float: 'right',
     margin: '1em',
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   list: {
-    clear: 'both',
+    clear: 'both'
   },
   avatar: {
-    position: 'relative',
+    position: 'relative'
   },
   preferencesIcon: {
     width: '100%',
-    height: '240px',
+    height: '240px'
   },
   imageInput: {
     cursor: 'pointer',
@@ -35,15 +35,15 @@ const styles = {
     right: 0,
     left: 0,
     width: '100%',
-    opacity: 0,
+    opacity: 0
   },
   textfield: {
-    padding: '1em',
+    padding: '1em'
   },
   button: {
     float: 'right',
-    margin: 12,
-  },
-};
+    margin: 12
+  }
+}
 
-export default styles;
+export default styles

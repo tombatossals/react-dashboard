@@ -1,8 +1,8 @@
 const styles = {
   main: {
-    fontFamily: '\'Roboto\', sans-serif',
-    minWidth: '320px',
-  },
-};
+    fontFamily: "'Roboto', sans-serif",
+    minWidth: '320px'
+  }
+}
 
-export default styles;
+export default styles
