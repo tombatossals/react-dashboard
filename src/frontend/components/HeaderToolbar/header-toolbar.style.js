@@ -1,7 +1,8 @@
 const styles = {
   toolbar: {
     background: '#005C97',
-    width: '100%'
+    width: '100%',
+    marginBottom: '2em'
   },
   title: {
     fontWeight: 'bold',

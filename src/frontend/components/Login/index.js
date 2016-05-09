@@ -8,6 +8,7 @@ import { AsyncStatus } from 'lib/constants'
 import Paper from 'material-ui/Paper'
 import Title from 'components/Login/title'
 import ActionAndroid from 'material-ui/svg-icons/action/android'
+import { Row, Col } from 'react-flexbox-grid/lib'
 
 export default class Login extends React.Component {
   constructor () {
@@ -73,43 +74,47 @@ export default class Login extends React.Component {
 
   render () {
     return (
-      <Paper style={styles.login} zDepth={3}>
-        <Title message={this.props.message} />
-        <div style={styles.form}>
-          {this.props.external &&
-            <div style={styles.external}>
-              <FlatButton style={styles.google} label='Google Sign in' icon={<ActionAndroid />} />
-              <FlatButton style={styles.facebook} label='Facebook Sign in' icon={<ActionAndroid />} />
+      <Row center='xs'>
+        <Col>
+          <Paper style={styles.login} zDepth={3}>
+            <Title message={this.props.message} />
+            <div style={styles.form}>
+              <div style={styles.loginform}>
+                <TextField
+                  ref={this.focus}
+                  onChange={this.setUsername}
+                  style={styles.textlabel}
+                  disabled={this.disableInput()}
+                  inputStyle={styles.hideAutoFillColorStyle}
+                  hintStyle={styles.hintStyle}
+                  hintText='Username' />
+                <TextField
+                  style={styles.textlabel}
+                  onChange={this.setPassword}
+                  type='password'
+                  disabled={this.disableInput()}
+                  inputStyle={styles.hideAutoFillColorStyle}
+                  hintStyle={styles.hintStyle}
+                  onKeyDown={this.onEnterKeyDown}
+                  hintText='Password' />
+                <RaisedButton
+                  primary
+                  onClick={this.submit}
+                  style={styles.button}
+                  disabled={this.disableInput()}
+                  label={this.showButtonLabel()} />
+              </div>
             </div>
-          }
-          <div style={styles.loginform}>
-            <TextField
-              ref={this.focus}
-              onChange={this.setUsername}
-              style={styles.textlabel}
-              disabled={this.disableInput()}
-              inputStyle={styles.hideAutoFillColorStyle}
-              hintStyle={styles.hintStyle}
-              hintText='Username' />
-            <TextField
-              style={styles.textlabel}
-              onChange={this.setPassword}
-              type='password'
-              disabled={this.disableInput()}
-              inputStyle={styles.hideAutoFillColorStyle}
-              hintStyle={styles.hintStyle}
-              onKeyDown={this.onEnterKeyDown}
-              hintText='Password' />
-            <RaisedButton
-              primary
-              onClick={this.submit}
-              style={styles.button}
-              disabled={this.disableInput()}
-              label={this.showButtonLabel()} />
-          </div>
-        </div>
-        {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
-      </Paper>
+            {this.props.external &&
+              <div style={styles.external}>
+                <FlatButton style={styles.google} label='Google Sign in' icon={<ActionAndroid />} />
+                <FlatButton style={styles.facebook} label='Facebook Sign in' icon={<ActionAndroid />} />
+              </div>
+            }
+            {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
+          </Paper>
+        </Col>
+      </Row>
     )
   }
 }

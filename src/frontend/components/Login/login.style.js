@@ -3,8 +3,7 @@ const styles = {
     color: 'white'
   },
   login: {
-    margin: '0 auto',
-    maxWidth: '480px'
+    margin: '0 auto'
   },
   textlabel: {
     width: '90%',

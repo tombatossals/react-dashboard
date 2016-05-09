@@ -1,5 +1,4 @@
 import React from 'react'
-import styles from 'containers/Layout/layout.style'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { getUserPropTypes } from 'lib/proptypes'
@@ -10,6 +9,7 @@ import { checkAuthToken } from 'actions'
 // import DevTools from 'containers/DevTools'
 import HeaderMenu from 'components/HeaderToolbar'
 import { routerActions } from 'react-router-redux'
+import {Grid} from 'react-flexbox-grid/lib'
 
 class Layout extends React.Component {
   constructor () {
@@ -34,10 +34,10 @@ class Layout extends React.Component {
   render () {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
-        <div style={styles.main}>
+        <Grid>
           <HeaderMenu user={this.props.user} onNavigationChange={this.navigate} />
           {this.props.children}
-        </div>
+        </Grid>
       </MuiThemeProvider>
     )
   }

@@ -26,7 +26,7 @@ class Login extends React.Component {
 
   render () {
     return (
-      <LoginComponent onSubmit={this.props.authenticate} status={this.props.user.status} message={this.props.user.message} />
+      <LoginComponent external onSubmit={this.props.authenticate} status={this.props.user.status} message={this.props.user.message} />
     )
   }
 }
