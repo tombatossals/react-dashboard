@@ -1,7 +1,5 @@
 const styles = {
   paper: {
-    minWidth: '240px',
-    maxWidth: '320px',
     margin: '1em auto',
     padding: '2em 0 0',
     borderRadius: '8px'

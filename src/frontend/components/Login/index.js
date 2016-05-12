@@ -75,7 +75,7 @@ export default class Login extends React.Component {
   render () {
     return (
       <Row center='xs'>
-        <Col>
+        <Col md={4}>
           <Paper style={styles.login} zDepth={3}>
             <Title message={this.props.message} />
             <div style={styles.form}>
@@ -105,15 +105,21 @@ export default class Login extends React.Component {
                   label={this.showButtonLabel()} />
               </div>
             </div>
-            {this.props.external &&
-              <div style={styles.external}>
-                <FlatButton style={styles.google} label='Google Sign in' icon={<ActionAndroid />} />
-                <FlatButton style={styles.facebook} label='Facebook Sign in' icon={<ActionAndroid />} />
-              </div>
-            }
             {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
           </Paper>
         </Col>
+        {this.props.external &&
+          <Col md={1} />
+        }
+        {this.props.external &&
+          <Col md={4}>
+            <h2>Log-in with other providers</h2>
+            <div style={styles.external}>
+              <FlatButton style={styles.google} label='Google Sign in' icon={<ActionAndroid />} />
+              <FlatButton style={styles.facebook} label='Facebook Sign in' icon={<ActionAndroid />} />
+            </div>
+          </Col>
+        }
       </Row>
     )
   }

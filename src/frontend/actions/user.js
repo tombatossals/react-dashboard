@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions'
 import { AsyncStatus } from 'lib/constants'
-import Parse from 'parse'
+import API from 'lib/api'
 
 export const USER_LOGIN = 'USER_LOGIN'
 export const USER_LOGOUT = 'USER_LOGOUT'
@@ -19,7 +19,7 @@ export function authenticate (authdata) {
 
     const { username, password } = authdata
     dispatch(loginAction({ status: AsyncStatus.LOADING }))
-    return Parse.User.logIn(username, password).then(res => res.fetch().then(user => dispatch(loginAction({
+    return API.login(username, password).then(user => dispatch(loginAction({
       status: AsyncStatus.SUCCESS,
       data: {
         username: user.getUsername(),
@@ -28,9 +28,7 @@ export function authenticate (authdata) {
         email: user.email,
         id: user.id
       }
-    }))
-    )
-    ).catch(err => dispatch(loginAction({
+    }))).catch(err => dispatch(loginAction({
       status: AsyncStatus.FAILED,
       message: err.message
     })))
@@ -42,7 +40,7 @@ export function checkAuthToken () {
     const loginAction = createAction(USER_LOGIN)
 
     dispatch(loginAction({ status: AsyncStatus.LOADING }))
-    const user = Parse.User.current()
+    const user = API.getCurrentUser()
     if (user) {
       user.fetch().then(data => dispatch(loginAction({
         status: AsyncStatus.SUCCESS,
@@ -64,13 +62,13 @@ export function checkAuthToken () {
 export function logout () {
   return dispatch => {
     const logoutAction = createAction(USER_LOGOUT)
-    Parse.User.logOut().then(() => dispatch(logoutAction()))
+    API.logout().then(() => dispatch(logoutAction()))
   }
 }
 
 export function updateUser () {
   return dispatch => {
     const logoutAction = createAction(USER_LOGOUT)
-    Parse.User.logOut().then(() => dispatch(logoutAction()))
+    API.logout().then(() => dispatch(logoutAction()))
   }
 }

@@ -8,5 +8,17 @@
     "serverURL": "http://localhost:8080/parse",
     "appId": "react-dashboard",
     "masterKey": "myb1gs3cret"
+  },
+  "auth": {
+    "providers": {
+      "github": {
+        "client": "1cc2775bffaa43783ff8",
+        "secret": "7477913dfb02abdf2a48d3ea563b2c39a40e8b15",
+        "endpoints": {
+          "redirect": "https://github.com/login/oauth/authorize?",
+          "validate": "https://github.com/login/oauth/access_token"
+        }
+      }
+    }
   }
 }
