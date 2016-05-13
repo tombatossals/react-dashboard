@@ -7,10 +7,16 @@
     "databaseURI": "mongodb://localhost:27017/react",
     "serverURL": "http://localhost:8080/parse",
     "appId": "react-dashboard",
-    "masterKey": "myb1gs3cret"
+    "masterKey": "myb1gs3cret",
+    "email": {
+      "key": "key-594e4a7262d18f7adf9edd7f035e680d"
+    }
   },
   "auth": {
     "providers": {
+      "facebook": {
+        "id": "1495421584065697"
+      },
       "github": {
         "client": "1cc2775bffaa43783ff8",
         "secret": "7477913dfb02abdf2a48d3ea563b2c39a40e8b15",

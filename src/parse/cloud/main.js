@@ -1,5 +1,5 @@
 import config from 'config'
-import qs from 'querystring';
+import qs from 'querystring'
 
 const clientId = config.get('auth.providers.github.client')
 const clientSecret = config.get('auth.providers.github.secret')

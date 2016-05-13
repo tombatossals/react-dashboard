@@ -12,7 +12,6 @@ const api = new ParseServer({
     options: {
       fromAddress: 'scooby@batmin.com',
       domain: 'batmin.com',
-      // Your API key from mailgun.com
       apiKey: config.get('parse.email.key')
     }
   }

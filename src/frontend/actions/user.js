@@ -17,21 +17,39 @@ export function authenticate (authdata) {
       }))
     }
 
-    const { username, password } = authdata
+    const { type, username, password } = authdata
     dispatch(loginAction({ status: AsyncStatus.LOADING }))
-    return API.login(username, password).then(user => dispatch(loginAction({
-      status: AsyncStatus.SUCCESS,
-      data: {
-        username: user.getUsername(),
-        firstName: user.attributes.firstName,
-        lastName: user.attributes.lastName,
-        email: user.email,
-        id: user.id
-      }
-    }))).catch(err => dispatch(loginAction({
-      status: AsyncStatus.FAILED,
-      message: err.message
-    })))
+
+    switch (type) {
+      case 'facebook':
+        return API.facebookLogin().then(user => dispatch(loginAction({
+          status: AsyncStatus.SUCCESS,
+          data: {
+            username: user.getUsername(),
+            firstName: user.attributes.firstName,
+            lastName: user.attributes.lastName,
+            email: user.email,
+            id: user.id
+          }
+        }))).catch(err => dispatch(loginAction({
+          status: AsyncStatus.FAILED,
+          message: err.message
+        })))
+      default:
+        return API.login(username, password).then(user => dispatch(loginAction({
+          status: AsyncStatus.SUCCESS,
+          data: {
+            username: user.getUsername(),
+            firstName: user.attributes.firstName,
+            lastName: user.attributes.lastName,
+            email: user.email,
+            id: user.id
+          }
+        }))).catch(err => dispatch(loginAction({
+          status: AsyncStatus.FAILED,
+          message: err.message
+        })))
+    }
   }
 }
 

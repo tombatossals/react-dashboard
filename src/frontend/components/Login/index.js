@@ -14,6 +14,7 @@ export default class Login extends React.Component {
   constructor () {
     super()
     this.submit = this.submit.bind(this)
+    this.facebookLogin = this.facebookLogin.bind(this)
     this.setUsername = this.setUsername.bind(this)
     this.setPassword = this.setPassword.bind(this)
     this.onEnterKeyDown = this.onEnterKeyDown.bind(this)
@@ -41,6 +42,16 @@ export default class Login extends React.Component {
     if (field) {
       field.focus()
     }
+  }
+
+  facebookLogin () {
+    this.setState({
+      status: AsyncStatus.LOADING
+    })
+
+    this.props.onSubmit({
+      type: 'facebook'
+    })
   }
 
   submit () {
@@ -115,8 +126,18 @@ export default class Login extends React.Component {
           <Col md={4}>
             <h2>Log-in with other providers</h2>
             <div style={styles.external}>
-              <FlatButton style={styles.google} label='Google Sign in' icon={<ActionAndroid />} />
-              <FlatButton style={styles.facebook} label='Facebook Sign in' icon={<ActionAndroid />} />
+              <FlatButton
+                style={styles.google}
+                label='Google Sign in'
+                icon={<ActionAndroid />}
+                onClick={this.submit}
+              />
+              <FlatButton
+                style={styles.facebook}
+                label='Facebook Sign in'
+                icon={<ActionAndroid />}
+                onClick={this.facebookLogin}
+              />
             </div>
           </Col>
         }
