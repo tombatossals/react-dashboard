@@ -1,5 +1,5 @@
 import React from 'react'
-import LoginComponent from 'components/Login'
+import LoginComponent from 'components/User/Login'
 import { AsyncStatus } from 'lib/constants'
 import { authenticate, checkAuthToken } from 'actions'
 import { bindActionCreators } from 'redux'

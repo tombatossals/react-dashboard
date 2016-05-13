@@ -4,10 +4,10 @@ import { updateUser } from 'actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { getUserPropTypes } from 'lib/proptypes'
-import UserProfileComponent from 'components/UserProfile'
+import UserProfileComponent from 'components/User/Profile'
 import { routerActions } from 'react-router-redux'
 
-class UserProfile extends React.Component {
+class Profile extends React.Component {
   constructor () {
     super()
     this.browseAction = this.browseAction.bind(this)
@@ -32,7 +32,7 @@ class UserProfile extends React.Component {
   }
 }
 
-UserProfile.propTypes = {
+Profile.propTypes = {
   user: getUserPropTypes(),
   section: React.PropTypes.oneOf(['profile', 'preferences']),
   updateUser: React.PropTypes.func,
@@ -53,4 +53,4 @@ function mapDispatchToProps (dispatch) {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

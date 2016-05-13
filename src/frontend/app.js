@@ -3,15 +3,13 @@ import { Router, Route, Redirect, browserHistory } from 'react-router'
 import Layout from 'containers/Layout'
 import Youtube from 'components/Youtube'
 import Home from 'components/Home'
-import Login from 'containers/Login'
-import Logout from 'containers/Logout'
 import { syncHistoryWithStore } from 'react-router-redux'
 import ReactDOM from 'react-dom'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import { Provider } from 'react-redux'
 import configureStore from 'lib/store'
 import { userIsAuthenticated } from 'lib/auth'
-import UserProfile from 'containers/UserProfile'
+import { Profile, Login, Registration, Logout } from 'containers/User'
 import API from 'lib/api'
 
 API.init()
@@ -30,8 +28,9 @@ const router = (
       <Route path='youtube' component={userIsAuthenticated(Youtube)} />
       <Route path='home' component={Home} />
       <Route path='user'>
-        <Route path='preferences' component={UserProfile} />
-        <Route path='profile' component={UserProfile} />
+        <Route path='preferences' component={Profile} />
+        <Route path='register' component={Registration} />
+        <Route path='profile' component={Profile} />
       </Route>
     </Route>
   </Router>)
