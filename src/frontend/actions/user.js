@@ -115,6 +115,13 @@ export function updateUser (userdata, orig) {
       type: 'update',
       status: AsyncStatus.LOADING
     }))
+
+    setTimeout(() => {
+      dispatch(updateAction({
+        type: UserActions.USER_UPDATE,
+        status: AsyncStatus.SUCCESS
+      }))
+    }, 3000)
   }
 }
 

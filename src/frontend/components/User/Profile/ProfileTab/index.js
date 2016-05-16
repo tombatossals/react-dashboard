@@ -6,7 +6,7 @@ import styles from 'components/User/Profile/ProfileTab/style'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import { getUserPropTypes } from 'lib/proptypes'
-import { AsyncStatus } from 'lib/constants'
+import { AsyncStatus, UserActions } from 'lib/constants'
 import LinearProgress from 'material-ui/LinearProgress'
 
 class PreferencesTab extends React.Component {
@@ -23,7 +23,16 @@ class PreferencesTab extends React.Component {
     }
   }
 
-  componenWillReceiveProps (props) {
+  componentWillReceiveProps (props) {
+    if (this.state.status === AsyncStatus.LOADING &&
+        props.user.action.type === UserActions.USER_UPDATE &&
+        props.user.action.status === AsyncStatus.SUCCESS) {
+      this.setState({
+        editMode: false,
+        status: AsyncStatus.IDLE
+      })
+    }
+
     this.setState({
       username: props.user.data.username,
       email: props.user.data.email
