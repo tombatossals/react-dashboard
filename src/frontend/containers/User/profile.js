@@ -1,6 +1,5 @@
 import React from 'react'
-import { AsyncStatus } from 'lib/constants'
-import { updateUser } from 'actions'
+import { updateUser, deleteUser } from 'actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { getUserPropTypes } from 'lib/proptypes'
@@ -18,15 +17,12 @@ class Profile extends React.Component {
   }
 
   render () {
-    if (this.props.user.status !== AsyncStatus.SUCCESS) {
-      return null
-    }
-
     return (
       <UserProfileComponent
         user={this.props.user}
-        onSubmit={this.props.updateUser}
+        onEditSubmit={this.props.updateUser}
         section={this.props.section}
+        onDeleteSubmit={this.props.deleteUser}
         browseAction={this.browseAction} />
       )
   }
@@ -36,6 +32,7 @@ Profile.propTypes = {
   user: getUserPropTypes(),
   section: React.PropTypes.oneOf(['profile', 'preferences']),
   updateUser: React.PropTypes.func,
+  deleteUser: React.PropTypes.func,
   replace: React.PropTypes.func
 }
 
@@ -49,6 +46,7 @@ function mapStateToProps (state, props) {
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     updateUser,
+    deleteUser,
     replace: routerActions.replace
   }, dispatch)
 }

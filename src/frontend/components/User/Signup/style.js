@@ -2,7 +2,7 @@ const styles = {
   h1: {
     color: 'white'
   },
-  login: {
+  registration: {
     margin: '0 auto'
   },
   textlabel: {
@@ -29,7 +29,7 @@ const styles = {
   form: {
     padding: '0 1em'
   },
-  loginform: {
+  registrationform: {
     margin: '1em auto'
   },
   title: {

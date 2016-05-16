@@ -1,14 +1,10 @@
 import { createAction } from 'redux-actions'
-import { AsyncStatus } from 'lib/constants'
+import { AsyncStatus, UserActions } from 'lib/constants'
 import API from 'lib/api'
-
-export const USER_LOGIN = 'USER_LOGIN'
-export const USER_LOGOUT = 'USER_LOGOUT'
-export const USER_CHECK_TOKEN = 'USER_CHECK_TOKEN'
 
 export function authenticate (authdata) {
   return dispatch => {
-    const loginAction = createAction(USER_LOGIN)
+    const loginAction = createAction(UserActions.USER_LOGIN)
 
     if (!authdata) {
       return dispatch(loginAction({
@@ -53,9 +49,37 @@ export function authenticate (authdata) {
   }
 }
 
+export function signup (authdata) {
+  return dispatch => {
+    const signupAction = createAction(UserActions.USER_SIGNUP)
+
+    if (!authdata) {
+      return dispatch(signupAction({
+        status: AsyncStatus.FAILED,
+        message: 'Empty credentials'
+      }))
+    }
+
+    dispatch(signupAction({ status: AsyncStatus.LOADING }))
+    return API.signup(authdata).then(user => dispatch(signupAction({
+      status: AsyncStatus.SUCCESS,
+      data: {
+        username: user.getUsername(),
+        firstName: user.attributes.firstName,
+        lastName: user.attributes.lastName,
+        email: user.email,
+        id: user.id
+      }
+    }))).catch(err => dispatch(signupAction({
+      status: AsyncStatus.FAILED,
+      message: err.message
+    })))
+  }
+}
+
 export function checkAuthToken () {
   return dispatch => {
-    const loginAction = createAction(USER_LOGIN)
+    const loginAction = createAction(UserActions.USER_LOGIN)
 
     dispatch(loginAction({ status: AsyncStatus.LOADING }))
     const user = API.getCurrentUser()
@@ -79,14 +103,24 @@ export function checkAuthToken () {
 
 export function logout () {
   return dispatch => {
-    const logoutAction = createAction(USER_LOGOUT)
+    const logoutAction = createAction(UserActions.USER_LOGOUT)
     API.logout().then(() => dispatch(logoutAction()))
   }
 }
 
-export function updateUser () {
+export function updateUser (userdata, orig) {
   return dispatch => {
-    const logoutAction = createAction(USER_LOGOUT)
-    API.logout().then(() => dispatch(logoutAction()))
+    const updateAction = createAction(UserActions.USER_UPDATE)
+    dispatch(updateAction({
+      type: 'update',
+      status: AsyncStatus.LOADING
+    }))
+  }
+}
+
+export function deleteUser () {
+  return dispatch => {
+    const deleteAction = createAction(UserActions.USER_DELETE)
+    API.deleteUser().then(() => dispatch(deleteAction()))
   }
 }

@@ -9,7 +9,6 @@ import MenuItemLink from 'components/HeaderToolbar/MenuItemLink'
 import styles from 'components/HeaderToolbar/header-toolbar.style'
 import AccountCircle from 'material-ui/svg-icons/action/account-circle'
 import { getUserPropTypes } from 'lib/proptypes'
-import { AsyncStatus } from 'lib/constants'
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SettingsIcon from 'material-ui/svg-icons/action/settings'
 import AccountBoxIcon from 'material-ui/svg-icons/action/account-box'
@@ -48,20 +47,20 @@ export default class HeaderToolbar extends React.Component {
 
   render () {
     const goHome = this.handleOnClick.bind(this, '/')
-    const goLogin = this.handleOnClick.bind(this, '/login')
+    const goLogin = this.handleOnClick.bind(this, '/user/login')
 
     return (
       <Toolbar style={styles.toolbar}>
         <ToolbarTitle text='React Dashboard' onClick={goHome} style={styles.link} />
         <ToolbarGroup float='right' lastChild>
-          {this.props.user.status !== AsyncStatus.SUCCESS &&
+          {!this.props.user.data &&
             <FlatButton
               onClick={goLogin}
               primary
               label='Login'
               style={styles.menulink} />
           }
-          {this.props.user.status === AsyncStatus.SUCCESS &&
+          {this.props.user.data &&
             <div style={styles.right}>
               <FlatButton
                 label={this.props.user.data.username}
@@ -83,7 +82,7 @@ export default class HeaderToolbar extends React.Component {
                     handleOnClick={this.handleOnClick} />
                   <MenuItemLink
                     primaryText='Logout'
-                    url='/logout'
+                    url='/user/logout'
                     leftIcon={<LogoutIcon />}
                     handleOnClick={this.handleOnClick} />
                 </Menu>

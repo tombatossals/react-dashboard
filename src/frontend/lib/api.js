@@ -10,15 +10,24 @@ const login = (username, password) => {
         .then(res => res.fetch())
 }
 
+const signup = attrs => {
+  const { username, password } = attrs
+  return Parse.User.signUp(username, password, attrs)
+}
+
 const facebookLogin = () => {
   return new Promise((resolve, reject) => {
     Parse.FacebookUtils.logIn(null, {
       success: user => resolve(user),
-      reject: (user, error) => {
-        console.log(user, error)
+      error: (user, error) => {
+        reject(error)
       }
     })
   })
+}
+
+const deleteUser = () => {
+  return Parse.User.current().destroy()
 }
 
 const logout = () => Parse.User.logOut()
@@ -27,7 +36,6 @@ const getCurrentUser = () => Parse.User.current()
 window.fbAsyncInit = () => {
   Parse.FacebookUtils.init({
     appId: '1495421584065697',
-    status: true,
     cookie: true,
     xfbml: true,
     version: 'v2.5'
@@ -37,7 +45,9 @@ window.fbAsyncInit = () => {
 export default {
   init,
   login,
+  signup,
   logout,
   getCurrentUser,
+  deleteUser,
   facebookLogin
 }

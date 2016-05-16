@@ -1,13 +1,13 @@
 import React from 'react'
-import LoginComponent from 'components/User/Login'
+import RegistrationComponent from 'components/User/Signup'
 import { AsyncStatus } from 'lib/constants'
-import { authenticate, checkAuthToken } from 'actions'
+import { signup, checkAuthToken } from 'actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { routerActions } from 'react-router-redux'
 import { getUserPropTypes } from 'lib/proptypes'
 
-class Login extends React.Component {
+class Signup extends React.Component {
   constructor () {
     super()
     this.onSignup = this.onSignup.bind(this)
@@ -27,26 +27,24 @@ class Login extends React.Component {
 
   ensureNotLoggedIn (props) {
     if (props.user.status === AsyncStatus.SUCCESS) {
-      props.replace(props.redirect)
+      return props.replace('/us er/signup/success')
     }
   }
 
   render () {
     return (
-      <LoginComponent
-        external
+      <RegistrationComponent
         onSignup={this.onSignup}
-        onSubmit={this.props.authenticate}
+        onSubmit={this.props.signup}
         status={this.props.user.status}
-        message={this.props.user.message}
-      />
+        message={this.props.user.message} />
     )
   }
 }
 
-Login.propTypes = {
+Signup.propTypes = {
   user: getUserPropTypes(),
-  authenticate: React.PropTypes.func.isRequired,
+  signup: React.PropTypes.func.isRequired,
   replace: React.PropTypes.func.isRequired,
   location: React.PropTypes.shape({
     state: React.PropTypes.shape({
@@ -56,19 +54,17 @@ Login.propTypes = {
 }
 
 function mapStateToProps (state, ownProps) {
-  const redirect = ownProps.location.query.redirect || '/'
   return {
-    user: state.user,
-    redirect
+    user: state.user
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
-    authenticate,
+    signup,
     checkAuthToken,
     replace: routerActions.replace
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Signup)

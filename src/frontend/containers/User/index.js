@@ -1,12 +1,12 @@
 import Login from 'containers/User/login'
 import Logout from 'containers/User/logout'
 import Profile from 'containers/User/profile'
-import Registration from 'containers/User/registration'
+import Signup from 'containers/User/signup'
 
-export default {
+export {
   Login,
   Logout,
   Profile,
-  Registration
+  Signup
 }
 

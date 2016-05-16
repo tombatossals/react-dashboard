@@ -1,12 +1,12 @@
 import React from 'react'
-import styles from 'components/User/Login/login.style'
+import styles from 'components/User/Login/style'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import LinearProgress from 'material-ui/LinearProgress'
 import { AsyncStatus } from 'lib/constants'
 import Paper from 'material-ui/Paper'
-import Title from 'components/User/Login/title'
+import Title from 'components/User/title'
 import ActionAndroid from 'material-ui/svg-icons/action/android'
 import { Row, Col } from 'react-flexbox-grid/lib'
 
@@ -88,7 +88,7 @@ export default class Login extends React.Component {
       <Row center='xs'>
         <Col md={4}>
           <Paper style={styles.login} zDepth={3}>
-            <Title message={this.props.message} />
+            <Title label='Login' message={this.props.message} />
             <div style={styles.form}>
               <div style={styles.loginform}>
                 <TextField
@@ -114,6 +114,10 @@ export default class Login extends React.Component {
                   style={styles.button}
                   disabled={this.disableInput()}
                   label={this.showButtonLabel()} />
+                <div style={styles.signup}>
+                  You don't have an account?&nbsp;
+                  <strong style={styles.onSignup} onClick={this.props.onSignup}>Signup</strong>
+                </div>
               </div>
             </div>
             {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
@@ -148,6 +152,7 @@ export default class Login extends React.Component {
 
 Login.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
+  onSignup: React.PropTypes.func.isRequired,
   status: React.PropTypes.string.isRequired,
   external: React.PropTypes.bool,
   message: React.PropTypes.string
