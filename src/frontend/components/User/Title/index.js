@@ -2,7 +2,7 @@ import React from 'react'
 import Toolbar from 'material-ui/Toolbar'
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup'
 import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle'
-import styles from 'components/User/Login/style'
+import styles from 'components/User/Title/style'
 
 const Title = (props) => (
   <Toolbar style={styles.title}>

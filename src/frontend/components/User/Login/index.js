@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField'
 import LinearProgress from 'material-ui/LinearProgress'
 import { AsyncStatus } from 'lib/constants'
 import Paper from 'material-ui/Paper'
-import Title from 'components/User/title'
+import Title from 'components/User/Title'
 import ActionAndroid from 'material-ui/svg-icons/action/android'
 import { Row, Col } from 'react-flexbox-grid/lib'
 

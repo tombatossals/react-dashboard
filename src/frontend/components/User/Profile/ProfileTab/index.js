@@ -8,12 +8,16 @@ import TextField from 'material-ui/TextField'
 import { getUserPropTypes } from 'lib/proptypes'
 import { AsyncStatus, UserActions } from 'lib/constants'
 import LinearProgress from 'material-ui/LinearProgress'
+import isequal from 'lodash.isequal'
+import Title from 'components/User/Title'
 
 class PreferencesTab extends React.Component {
   constructor () {
     super()
     this.handleEditMode = this.handleEditMode.bind(this)
     this.handleCancelEdit = this.handleCancelEdit.bind(this)
+    this.userHasDifferences = this.userHasDifferences.bind(this)
+    this.onEnterKeyDown = this.onEnterKeyDown.bind(this)
     this.setUsername = this.setUsername.bind(this)
     this.setEmail = this.setEmail.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
@@ -23,20 +27,30 @@ class PreferencesTab extends React.Component {
     }
   }
 
+  componentWillMount () {
+    this.setState({
+      username: this.props.user.data.username,
+      email: this.props.user.data.email
+    })
+  }
+
   componentWillReceiveProps (props) {
+    console.log(props)
+    this.setState({
+      username: props.user.data.username,
+      email: props.user.data.email,
+      message: props.user.action.message
+    })
+
     if (this.state.status === AsyncStatus.LOADING &&
         props.user.action.type === UserActions.USER_UPDATE &&
         props.user.action.status === AsyncStatus.SUCCESS) {
       this.setState({
         editMode: false,
-        status: AsyncStatus.IDLE
+        status: AsyncStatus.IDLE,
+        message: ''
       })
     }
-
-    this.setState({
-      username: props.user.data.username,
-      email: props.user.data.email
-    })
   }
 
   setUsername (ev) {
@@ -53,7 +67,7 @@ class PreferencesTab extends React.Component {
 
   onEnterKeyDown (ev) {
     if (ev.keyCode === 13) {
-      this.submit()
+      this.onSubmit()
     }
   }
 
@@ -69,11 +83,27 @@ class PreferencesTab extends React.Component {
     })
   }
 
-  onSubmit () {
-    this.setState({
-      status: AsyncStatus.LOADING
+  userHasDifferences () {
+    return !isequal({
+      username: this.props.user.data.username,
+      email: this.props.user.data.email
+    }, {
+      username: this.state.username,
+      email: this.state.email
     })
-    this.props.onEditSubmit(this.state)
+  }
+
+  onSubmit () {
+    if (this.userHasDifferences()) {
+      this.setState({
+        status: AsyncStatus.LOADING
+      })
+      return this.props.onEditSubmit(this.state)
+    }
+
+    return this.setState({
+      editMode: false
+    })
   }
 
   render () {
@@ -103,11 +133,11 @@ class PreferencesTab extends React.Component {
           secondaryText='E-Mail'
           onClick={this.handleEditMode} />
         <Dialog
-          title='Edit profile'
           label='Profile'
           actions={actions}
           modal
           open={this.state.editMode}>
+          <Title label='Edit profile' message={this.state.message} />
           <TextField
             onKeyDown={this.onEnterKeyDown}
             floatingLabelText='Username'

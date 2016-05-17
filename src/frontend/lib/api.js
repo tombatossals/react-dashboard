@@ -30,6 +30,13 @@ const deleteUser = () => {
   return Parse.User.current().destroy()
 }
 
+const updateUser = (data) => {
+  const user = Parse.User.current()
+  user.set('username', data.username)
+  user.set('email', data.email)
+  return user.save()
+}
+
 const logout = () => Parse.User.logOut()
 const getCurrentUser = () => Parse.User.current()
 
@@ -49,5 +56,6 @@ export default {
   logout,
   getCurrentUser,
   deleteUser,
+  updateUser,
   facebookLogin
 }

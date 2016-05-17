@@ -116,12 +116,16 @@ export function updateUser (userdata, orig) {
       status: AsyncStatus.LOADING
     }))
 
-    setTimeout(() => {
+    API.updateUser(userdata).then(() =>
       dispatch(updateAction({
         type: UserActions.USER_UPDATE,
         status: AsyncStatus.SUCCESS
       }))
-    }, 3000)
+    ).fail(err => dispatch(updateAction({
+      type: UserActions.USER_UPDATE,
+      status: AsyncStatus.FAILED,
+      message: err.message
+    })))
   }
 }
 

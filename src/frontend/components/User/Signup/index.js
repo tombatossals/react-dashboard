@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField'
 import LinearProgress from 'material-ui/LinearProgress'
 import { AsyncStatus } from 'lib/constants'
 import Paper from 'material-ui/Paper'
-import Title from 'components/User/title'
+import Title from 'components/User/Title'
 import { Row, Col } from 'react-flexbox-grid/lib'
 
 export default class Signup extends React.Component {
