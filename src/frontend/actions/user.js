@@ -112,19 +112,26 @@ export function updateUser (userdata, orig) {
   return dispatch => {
     const updateAction = createAction(UserActions.USER_UPDATE)
     dispatch(updateAction({
-      type: 'update',
-      status: AsyncStatus.LOADING
+      action: {
+        type: 'update',
+        status: AsyncStatus.LOADING
+      }
     }))
 
-    API.updateUser(userdata).then(() =>
+    API.updateUser(userdata).then(user =>
       dispatch(updateAction({
-        type: UserActions.USER_UPDATE,
-        status: AsyncStatus.SUCCESS
+        action: {
+          type: UserActions.USER_UPDATE,
+          status: AsyncStatus.SUCCESS
+        },
+        user
       }))
     ).fail(err => dispatch(updateAction({
-      type: UserActions.USER_UPDATE,
-      status: AsyncStatus.FAILED,
-      message: err.message
+      action: {
+        type: UserActions.USER_UPDATE,
+        status: AsyncStatus.FAILED,
+        message: err.message
+      }
     })))
   }
 }

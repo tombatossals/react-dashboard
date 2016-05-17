@@ -35,10 +35,10 @@ class PreferencesTab extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    console.log(props)
     this.setState({
       username: props.user.data.username,
       email: props.user.data.email,
+      status: props.user.action.status,
       message: props.user.action.message
     })
 
@@ -49,6 +49,12 @@ class PreferencesTab extends React.Component {
         editMode: false,
         status: AsyncStatus.IDLE,
         message: ''
+      })
+    }
+
+    if (props.user.action.status === AsyncStatus.FAILED) {
+      this.setState({
+        status: AsyncStatus.IDLE
       })
     }
   }
@@ -101,9 +107,11 @@ class PreferencesTab extends React.Component {
       return this.props.onEditSubmit(this.state)
     }
 
-    return this.setState({
-      editMode: false
-    })
+    if (this.state.status === AsyncStatus.IDLE) {
+      return this.setState({
+        editMode: false
+      })
+    }
   }
 
   render () {

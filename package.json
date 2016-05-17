@@ -27,7 +27,7 @@
     "classnames": "^2.2.5",
     "css-loader": "^0.23.1",
     "enzyme": "^2.3.0",
-    "eslint": "^2.10.1",
+    "eslint": "^2.10.2",
     "eslint-config-standard": "^5.3.1",
     "eslint-config-standard-jsx": "^1.2.0",
     "eslint-config-standard-react": "^2.4.0",
@@ -54,7 +54,7 @@
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
     "redux-thunk": "^2.1.0",
-    "standard": "^7.0.1",
+    "standard": "^7.1.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
@@ -63,7 +63,7 @@
     "config": "^1.20.1",
     "express": "^4.13.4",
     "moment": "^2.13.0",
-    "parse-server": "^2.2.9",
+    "parse-server": "^2.2.10",
     "proxy-middleware": "^0.15.0",
     "querystring": "^0.2.0",
     "url": "^0.11.0"
