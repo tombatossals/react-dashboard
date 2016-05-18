@@ -8,6 +8,7 @@ import styles from 'components/User/Profile/PreferencesTab/style'
 import FlatButton from 'material-ui/FlatButton'
 import Title from 'components/User/Title'
 import TextField from 'material-ui/TextField'
+import { AsyncStatus, UserActions } from 'lib/constants'
 
 class PreferencesTab extends React.Component {
   constructor () {
@@ -18,7 +19,24 @@ class PreferencesTab extends React.Component {
     this.handleCancelChangePassword = this.handleCancelChangePassword.bind(this)
     this.state = {
       deleteMode: false,
-      changePasswordMode: false
+      changePasswordMode: false,
+      changePasswordMessage: ''
+    }
+  }
+
+  componentWillReceiveProps (props) {
+    console.log(props.action)
+    this.setState({
+      changePasswordMessage: props.user.action.message
+    })
+
+    if (this.state.status === AsyncStatus.LOADING &&
+        props.user.action.type === UserActions.USER_CHANGE_PASSWORD &&
+        props.user.action.status === AsyncStatus.SUCCESS) {
+      this.setState({
+        changePasswordMode: false,
+        changePasswordMessage: ''
+      })
     }
   }
 
@@ -80,7 +98,7 @@ class PreferencesTab extends React.Component {
           actions={changePasswordActions}
           modal
           open={this.state.changePasswordMode}>
-          <Title label='Change Password' message={this.state.message} />
+          <Title label='Change Password' message={this.state.changePasswordMessage} />
           <TextField
             ref={this.focus}
             onKeyDown={this.onEnterKeyDown}

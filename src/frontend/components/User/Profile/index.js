@@ -48,7 +48,11 @@ export default class UserProfile extends React.Component {
             <ProfileTab user={this.props.user} onEditSubmit={this.props.onEditSubmit} />
           </Tab>
           <Tab label='Preferences' onActive={this.handleBrowsePreferencesAction}>
-            <PreferencesTab onDeleteSubmit={this.props.onDeleteSubmit} section={this.props.section} />
+            <PreferencesTab
+              onDeleteSubmit={this.props.onDeleteSubmit}
+              onChangePasswordSubmit={this.props.onChangePasswordSubmit}
+              section={this.props.section}
+            />
           </Tab>
         </Tabs>
       </Paper>
@@ -61,5 +65,6 @@ UserProfile.propTypes = {
   section: React.PropTypes.string,
   onEditSubmit: React.PropTypes.func,
   onDeleteSubmit: React.PropTypes.func,
+  onChangePasswordSubmit: React.PropTypes.func,
   browseAction: React.PropTypes.func
 }

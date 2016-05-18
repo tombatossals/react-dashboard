@@ -1,5 +1,5 @@
 import React from 'react'
-import { updateUser, deleteUser } from 'actions'
+import { updateUser, deleteUser, changePassword } from 'actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { getUserPropTypes } from 'lib/proptypes'
@@ -23,6 +23,7 @@ class Profile extends React.Component {
         onEditSubmit={this.props.updateUser}
         section={this.props.section}
         onDeleteSubmit={this.props.deleteUser}
+        onChangePasswordSubmit={this.props.changePassword}
         browseAction={this.browseAction} />
       )
   }
@@ -33,6 +34,7 @@ Profile.propTypes = {
   section: React.PropTypes.oneOf(['profile', 'preferences']),
   updateUser: React.PropTypes.func,
   deleteUser: React.PropTypes.func,
+  changePassword: React.PropTypes.func,
   replace: React.PropTypes.func
 }
 
@@ -47,6 +49,7 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     updateUser,
     deleteUser,
+    changePassword,
     replace: routerActions.replace
   }, dispatch)
 }

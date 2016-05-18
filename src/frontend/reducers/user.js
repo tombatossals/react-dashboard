@@ -27,6 +27,15 @@ const authReducers = handleActions({
 
     return Object.assign({}, state, { data }, { action: action.payload.action })
   },
+  USER_CHANGE_PASSWORD: (state, action) => {
+    if (action.payload.action.status === AsyncStatus.FAILED ||
+        action.payload.action.status === AsyncStatus.LOADING) {
+      return Object.assign({}, state, { action: action.payload.action })
+    }
+
+    return Object.assign({}, state, { action: action.payload.action })
+  },
+
   USER_LOGOUT: () => initialUserState
 }, initialUserState)
 

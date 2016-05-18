@@ -4,5 +4,6 @@ export {
   checkAuthToken,
   updateUser,
   deleteUser,
+  changePassword,
   logout
 } from 'actions/user'
