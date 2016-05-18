@@ -113,11 +113,20 @@ export function updateUser (userdata, orig) {
     const updateAction = createAction(UserActions.USER_UPDATE)
     dispatch(updateAction({
       action: {
-        type: 'update',
+        type: UserActions.USER_UPDATE,
         status: AsyncStatus.LOADING
       }
     }))
 
+    if (!userdata.username) {
+      return dispatch(updateAction({
+        action: {
+          type: UserActions.USER_UPDATE,
+          status: AsyncStatus.FAILED,
+          message: 'Empty user is not valid'
+        }
+      }))
+    }
     API.updateUser(userdata).then(user =>
       dispatch(updateAction({
         action: {
@@ -129,6 +138,43 @@ export function updateUser (userdata, orig) {
     ).fail(err => dispatch(updateAction({
       action: {
         type: UserActions.USER_UPDATE,
+        status: AsyncStatus.FAILED,
+        message: err.message
+      }
+    })))
+  }
+}
+
+export function changePassword (pass1, pass2) {
+  return dispatch => {
+    const changePasswordAction = createAction(UserActions.USER_CHANGE_PASSWORD)
+    dispatch(changePasswordAction({
+      action: {
+        type: UserActions.USER_CHANGE_PASSWORD,
+        status: AsyncStatus.LOADING
+      }
+    }))
+
+    if (pass1 !== pass2) {
+      return dispatch(changePasswordAction({
+        action: {
+          type: UserActions.USER_CHANGE_PASSWORD,
+          status: AsyncStatus.FAILED,
+          message: 'Passwords doesn\'t match'
+        }
+      }))
+    }
+
+    API.changePassword(pass1).then(user =>
+      dispatch(changePasswordAction({
+        action: {
+          type: UserActions.USER_CHANGE_PASSWORD,
+          status: AsyncStatus.SUCCESS
+        }
+      }))
+    ).fail(err => dispatch(changePasswordAction({
+      action: {
+        type: UserActions.USER_CHANGE_PASSWORD,
         status: AsyncStatus.FAILED,
         message: err.message
       }

@@ -36,8 +36,6 @@ class PreferencesTab extends React.Component {
 
   componentWillReceiveProps (props) {
     this.setState({
-      username: props.user.data.username,
-      email: props.user.data.email,
       status: props.user.action.status,
       message: props.user.action.message
     })
@@ -49,12 +47,6 @@ class PreferencesTab extends React.Component {
         editMode: false,
         status: AsyncStatus.IDLE,
         message: ''
-      })
-    }
-
-    if (props.user.action.status === AsyncStatus.FAILED) {
-      this.setState({
-        status: AsyncStatus.IDLE
       })
     }
   }
@@ -85,7 +77,9 @@ class PreferencesTab extends React.Component {
 
   handleCancelEdit () {
     this.setState({
-      editMode: false
+      editMode: false,
+      status: AsyncStatus.IDLE,
+      message: ''
     })
   }
 
@@ -104,7 +98,13 @@ class PreferencesTab extends React.Component {
       this.setState({
         status: AsyncStatus.LOADING
       })
-      return this.props.onEditSubmit(this.state)
+
+      const userdata = {
+        username: this.state.username,
+        email: this.state.email
+      }
+
+      return this.props.onEditSubmit(userdata)
     }
 
     if (this.state.status === AsyncStatus.IDLE) {
