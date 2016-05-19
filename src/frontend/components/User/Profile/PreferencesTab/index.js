@@ -17,7 +17,12 @@ class PreferencesTab extends React.Component {
     this.handleCancelDelete = this.handleCancelDelete.bind(this)
     this.handleChangePasswordMode = this.handleChangePasswordMode.bind(this)
     this.handleCancelChangePassword = this.handleCancelChangePassword.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+    this.setPassword1 = this.setPassword1.bind(this)
+    this.setPassword2 = this.setPassword2.bind(this)
+
     this.state = {
+      status: AsyncStatus.IDLE,
       deleteMode: false,
       changePasswordMode: false,
       changePasswordMessage: ''
@@ -25,19 +30,18 @@ class PreferencesTab extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    console.log(props.action)
-    this.setState({
-      changePasswordMessage: props.user.action.message
-    })
-
+    console.log(props)
     if (this.state.status === AsyncStatus.LOADING &&
         props.user.action.type === UserActions.USER_CHANGE_PASSWORD &&
         props.user.action.status === AsyncStatus.SUCCESS) {
-      this.setState({
+      return this.setState({
         changePasswordMode: false,
         changePasswordMessage: ''
       })
     }
+    this.setState({
+      changePasswordMessage: props.user.action.message
+    })
   }
 
   handleCancelDelete () {
@@ -54,7 +58,8 @@ class PreferencesTab extends React.Component {
 
   handleCancelChangePassword () {
     this.setState({
-      changePasswordMode: false
+      changePasswordMode: false,
+      changePasswordMessage: ''
     })
   }
 
@@ -62,6 +67,25 @@ class PreferencesTab extends React.Component {
     this.setState({
       changePasswordMode: true
     })
+  }
+
+  setPassword1 (ev) {
+    this.setState({
+      pass1: ev.target.value
+    })
+  }
+
+  setPassword2 (ev) {
+    this.setState({
+      pass2: ev.target.value
+    })
+  }
+
+  onSubmit () {
+    this.setState({
+      status: AsyncStatus.LOADING
+    })
+    this.props.onChangePasswordSubmit(this.state.pass1, this.state.pass2)
   }
 
   focus (field) {
@@ -86,7 +110,7 @@ class PreferencesTab extends React.Component {
         label='Submit'
         primary
         keyboardFocused
-        onTouchTap={this.props.onChangePasswordSubmit} />
+        onTouchTap={this.onSubmit} />
     ]
 
     return (

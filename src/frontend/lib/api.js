@@ -37,6 +37,12 @@ const updateUser = (data) => {
   return user.save()
 }
 
+const changePassword = (password) => {
+  const user = Parse.User.current()
+  user.set('password', password)
+  return user.save()
+}
+
 const logout = () => Parse.User.logOut()
 const getCurrentUser = () => Parse.User.current()
 
@@ -57,5 +63,6 @@ export default {
   getCurrentUser,
   deleteUser,
   updateUser,
+  changePassword,
   facebookLogin
 }

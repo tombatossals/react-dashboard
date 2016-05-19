@@ -49,6 +49,7 @@ export default class UserProfile extends React.Component {
           </Tab>
           <Tab label='Preferences' onActive={this.handleBrowsePreferencesAction}>
             <PreferencesTab
+              user={this.props.user}
               onDeleteSubmit={this.props.onDeleteSubmit}
               onChangePasswordSubmit={this.props.onChangePasswordSubmit}
               section={this.props.section}

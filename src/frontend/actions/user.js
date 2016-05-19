@@ -155,8 +155,8 @@ export function changePassword (pass1, pass2) {
       }
     }))
 
+    console.log(pass1, pass2)
     if (pass1 !== pass2) {
-      console.log('bad')
       return dispatch(changePasswordAction({
         action: {
           type: UserActions.USER_CHANGE_PASSWORD,
