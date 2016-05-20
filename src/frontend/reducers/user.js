@@ -2,7 +2,10 @@ import { handleActions } from 'redux-actions'
 import { AsyncStatus } from 'lib/constants'
 
 const initialUserState = {
-  status: AsyncStatus.IDLE
+  status: AsyncStatus.IDLE,
+  action: {
+    status: AsyncStatus.IDLE
+  }
 }
 
 const authReducers = handleActions({

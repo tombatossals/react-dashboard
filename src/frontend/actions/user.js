@@ -79,13 +79,17 @@ export function signup (authdata) {
 
 export function checkAuthToken () {
   return dispatch => {
-    const loginAction = createAction(UserActions.USER_LOGIN)
+    const checkTokenAction = createAction(UserActions.USER_LOGIN)
 
-    dispatch(loginAction({ status: AsyncStatus.LOADING }))
+    dispatch(checkTokenAction({ status: AsyncStatus.LOADING }))
     const user = API.getCurrentUser()
     if (user) {
-      user.fetch().then(data => dispatch(loginAction({
+      user.fetch().then(data => dispatch(checkTokenAction({
         status: AsyncStatus.SUCCESS,
+        action: {
+          status: AsyncStatus.SUCCESS,
+          type: UserActions.USER_LOGIN
+        },
         data: {
           username: data.getUsername(),
           firstName: data.attributes.firstName,
@@ -97,7 +101,13 @@ export function checkAuthToken () {
       )
     }
 
-    return dispatch(loginAction({ status: AsyncStatus.FAILED }))
+    return dispatch(checkTokenAction({
+      status: AsyncStatus.SUCCESS,
+      action: {
+        status: AsyncStatus.FAILED,
+        type: UserActions.USER_LOGIN
+      }
+    }))
   }
 }
 

@@ -32,6 +32,9 @@ class Layout extends React.Component {
   }
 
   render () {
+    if (this.props.user.action === AsyncStatus.IDLE) {
+      return null
+    }
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Grid>
