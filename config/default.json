@@ -1,4 +1,14 @@
 {
+  "webpack": {
+    "host": "127.0.0.1",
+    "port": 9095,
+    "baseUrl": "http://127.0.0.1:9095"
+  },
+  "page": {
+    "title": "lovli - Hello World",
+    "port": 3000,
+    "token_secret": "lovli"
+  },
   "express": {
       "host": "0.0.0.0",
       "port": 8080

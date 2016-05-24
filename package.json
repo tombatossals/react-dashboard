@@ -7,14 +7,17 @@
     "url": "git://github.com/tombatossals/react-dashboard.git"
   },
   "scripts": {
+    "start": "babel-node bin/dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "webpack --progress --colors --config webpack/prod.config.js",
     "dev": "babel-node -- src/server.js",
-    "dev2": "webpack-dev-server --hot --inline --config webpack/dev.config.js",
     "standard": "standard",
     "storybook": "start-storybook -p 9001"
   },
-  "author": "David Rubert",
+  "author": {
+    "name": "David Rubert",
+    "email": "david.rubert@gmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "@kadira/storybook": "^1.27.0",
@@ -35,12 +38,15 @@
     "eslint-plugin-promise": "^1.1.0",
     "eslint-plugin-react": "^5.1.1",
     "eslint-plugin-standard": "^1.3.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
     "flexboxgrid": "^6.3.0",
     "lodash.isequal": "^4.2.0",
     "material-ui": "^0.15.0",
     "parse-dashboard": "^1.0.11",
-    "react": "^15.0.2",
-    "react-dom": "^15.0.2",
+    "progress-bar-webpack-plugin": "^1.8.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
     "react-flexbox-grid": "^0.9.6",
     "react-hot-loader": "^1.3.0",
     "react-redux": "^4.4.5",
@@ -56,16 +62,21 @@
     "redux-thunk": "^2.1.0",
     "standard": "^7.1.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.0",
+    "webpack": "^1.13.1",
+    "webpack-anybar-plugin": "^2.1.0",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "@horizon/client": "^1.0.2",
+    "@horizon/server": "^1.0.2",
     "config": "^1.20.3",
     "express": "^4.13.4",
+    "later": "^1.2.0",
     "moment": "^2.13.0",
     "parse-server": "^2.2.10",
     "proxy-middleware": "^0.15.0",
     "querystring": "^0.2.0",
+    "rethinkdbdash": "^2.3.6",
     "url": "^0.11.0"
   }
 }
