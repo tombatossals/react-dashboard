@@ -1,14 +1,13 @@
-const webpack = require('webpack')
-const defaultConfig = require('./webpack.config.client')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const _ = require('lodash')
+import webpack from 'webpack'
+import defaultConfig from './webpack.config.client'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from 'config'
 
 const webpackConfig = config.get('webpack')
 
-const devConfig = _.assign(_.clone(defaultConfig), {
+const devConfig = Object.assign({}, defaultConfig, {
   devtool: 'source-map',
-  entry: _.assign(_.clone(defaultConfig.entry), {
+  entry: Object.assign({}, defaultConfig.entry, {
     app: _.union(
       [
         'react-hot-loader/patch',

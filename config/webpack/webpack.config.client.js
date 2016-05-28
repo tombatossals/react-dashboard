@@ -57,7 +57,7 @@ module.exports = {
         // vendor css can be put into the "static/vendor" folder, it won't be localized then
         test: /\.(css)$/,
         loader: 'style!css',
-        include: path.join(staticPath, 'vendor')
+        include: [ path.join(staticPath, 'vendor'), /flexboxgrid/ ]
       },
       {
         name: 'local-css-config',
