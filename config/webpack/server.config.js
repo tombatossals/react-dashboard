@@ -7,7 +7,7 @@ const WebpackAnybarPlugin = require('webpack-anybar-plugin').default
 const basePath = path.join(__dirname, '../../src')
 const buildPath = path.join(__dirname, '../../.build')
 
-module.exports = {
+const config = {
   target: 'node',
   context: __dirname,
   cache: true,
@@ -64,3 +64,5 @@ module.exports = {
     }
   ]
 }
+
+export default config

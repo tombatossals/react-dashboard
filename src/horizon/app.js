@@ -8,7 +8,6 @@ const pageConfig = config.get('page')
 const app = express()
 
 app.use('/static', express.static(path.join(process.cwd(), '.build')))
-
 const host = process.env.NODE_ENV === 'production' ? '' : webpackConfig.baseUrl
 const bundle = `${host}/static/client.bundle.js`
 const styles = `${host}/static/styles.css`
@@ -29,13 +28,11 @@ app.use('/', (req, res) => {
 
 const run = () => {
   const port = process.env.PORT || pageConfig.port
-
   const httpServer = app.listen(port, (err) => {
     if (err) {
       console.log(err) // eslint-disable-line
       return
     }
-
     console.log(`Express listening at http://localhost:${port}`); // eslint-disable-line
   })
 
@@ -43,8 +40,8 @@ const run = () => {
   horizon(httpServer, {
     auto_create_collection: true,
     auto_create_index: true,
-    project_name: 'lovli',
-    permissions: false, // waiting for additions to permission system atm
+    project_name: 'react-dashboard',
+    permissions: false,
     auth: {
       allow_anonymous: true,
       allow_unauthenticated: true,

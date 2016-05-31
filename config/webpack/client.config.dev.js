@@ -1,5 +1,5 @@
 import webpack from 'webpack'
-import defaultConfig from './webpack.config.client'
+import defaultConfig from './client.config.default'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from 'config'
 
@@ -8,16 +8,13 @@ const webpackConfig = config.get('webpack')
 const devConfig = Object.assign({}, defaultConfig, {
   devtool: 'source-map',
   entry: Object.assign({}, defaultConfig.entry, {
-    app: _.union(
-      [
-        'react-hot-loader/patch',
-        `webpack-dev-server/client?${webpackConfig.baseUrl}`,
-        'webpack/hot/only-dev-server'
-      ],
-      defaultConfig.entry.app
-    )
+    app: defaultConfig.entry.app.concat([
+      'react-hot-loader/patch',
+      `webpack-dev-server/client?${webpackConfig.baseUrl}`,
+      'webpack/hot/only-dev-server'
+    ])
   }),
-  output: _.assign(_.cloneDeep(defaultConfig.output), {
+  output: Object.assign(defaultConfig.output, {
     publicPath: `${webpackConfig.baseUrl}}/static/`,
     pathinfo: true,
     crossOriginLoading: 'anonymous'
@@ -35,7 +32,6 @@ const devConfig = Object.assign({}, defaultConfig, {
     host: webpackConfig.host,
     hot: true,
     historyApiFallback: true,
-    contentBase: webpackConfig.contentBase,
     port: webpackConfig.port,
     stats: {
       colors: true,
@@ -45,14 +41,4 @@ const devConfig = Object.assign({}, defaultConfig, {
   }
 })
 
-const localCssConfig = devConfig.module.loaders.find(
-  l => l.name && l.name === 'local-css-config'
-)
-
-delete localCssConfig.name
-localCssConfig.loader = ExtractTextPlugin.extract(
-  'style',
-  'css?sourceMap&modules&importLoaders=1&localIdentName=lovli_[local]_[hash:base64:5]!postcss'
-)
-
-module.exports = devConfig
+export default devConfig

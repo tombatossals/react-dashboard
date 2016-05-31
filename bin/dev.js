@@ -2,7 +2,7 @@ require('shelljs/global')
 
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
-import clientConfig from '../config/webpack/webpack.config.client.dev'
+import clientConfig from '../config/webpack/client.config.dev'
 import { default as app } from '../src/horizon/app'
 
 const webpackServerReady = () => {

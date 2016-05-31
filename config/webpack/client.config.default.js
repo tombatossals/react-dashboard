@@ -26,8 +26,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.css'],
     root: path.join(basePath, 'frontend'),
     alias: {
-      utils: path.join(basePath, '/utils'),
-      styles: path.join(basePath, '/client/styles'),
+      styles: path.join(staticPath, 'css'),
       images: path.join(staticPath, 'images'),
       static: path.join(staticPath)
     }
@@ -54,14 +53,12 @@ module.exports = {
         loader: 'json'
       },
       {
-        // vendor css can be put into the "static/vendor" folder, it won't be localized then
         test: /\.(css)$/,
         loader: 'style!css',
         include: [ path.join(staticPath, 'vendor'), /flexboxgrid/ ]
       },
       {
         name: 'local-css-config',
-        // css inside the source folder will be localized by default. see https://github.com/css-modules/css-modules
         test: /\.(css)$/,
         loader: 'style!css?modules&importLoaders=1&localIdentName=[local]_[hash:base64:5]!postcss',
         include: basePath
