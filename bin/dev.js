@@ -1,11 +1,11 @@
-require('shelljs/global')
-
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import clientConfig from '../config/webpack/client.config.dev'
 import { default as app } from '../src/horizon/app'
+import config from 'config'
 
-const webpackServerReady = () => {
+
+const onReady = () => {
   console.log(`\nWebpack Dev Server listening on port ${clientConfig.devServer.port}`)
   app.run()
 }
@@ -19,5 +19,5 @@ const clientDevServer = new WebpackDevServer(
 clientDevServer.listen(
   clientConfig.devServer.port,
   clientConfig.devServer.host,
-  webpackServerReady
+  onReady
 )
