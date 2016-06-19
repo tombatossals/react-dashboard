@@ -1,9 +1,4 @@
-const Parse = {
-  initialize: () => {},
-  User: {
-    current: () => {}
-  }
-}
+import Parse from 'parse'
 
 const init = () => {
   Parse.initialize('react-dashboard', 'myb1gs3cret')

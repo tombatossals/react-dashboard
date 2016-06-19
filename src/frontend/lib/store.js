@@ -1,31 +1,35 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import { persistState } from 'redux-devtools'
-import rootReducer from '../reducers'
-import DevTools from '../containers/DevTools'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import reducers from '../reducers'
 import thunk from 'redux-thunk'
-import { routerMiddleware } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux'
 
-function getDebugSessionKey () {
-  // You can write custom logic here!
-  // By default we try to read the key from ?debug_session=<key> in the address bar
-  const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/)
-  return (matches && matches.length > 0) ? matches[1] : null
-}
-
-export default function configureStore (browserHistory) {
-  const routing = routerMiddleware(browserHistory)
-  const enhancer = compose(
-    // Middleware you want to use in development:
-    applyMiddleware(routing, thunk),
-    // Required! Enable Redux DevTools with the monitors you chose
-    DevTools.instrument(),
-    // Optional. Lets you write ?debug_session=<key> in address bar to persist debug sessions
-    persistState(getDebugSessionKey())
+const rootReducer = combineReducers(
+  Object.assign({},
+    reducers,
+    { routing: routerReducer }
   )
+)
 
-  // Note: only Redux >= 3.1.0 supports passing enhancer as third argument.
-  // See https://github.com/rackt/redux/releases/tag/v3.1.0
-  const store = createStore(rootReducer, enhancer)
+const configureStore = (initialState = {}) => {
+  const store = compose(
+    applyMiddleware(
+      thunk
+    )
+  )(createStore)(rootReducer, initialState)
+
+  if (module.hot) {
+    module.hot.accept(
+      '../reducers',
+      () => {
+        const nextReducer = require('../reducers')
+        store.replaceReducer(nextReducer)
+      }
+    )
+  }
 
   return store
 }
+
+const store = configureStore(window.__INITIAL_STATE__ || {})
+
+export default store

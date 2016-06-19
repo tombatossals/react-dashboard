@@ -5,12 +5,13 @@ import config from 'config'
 
 const webpackConfig = config.get('webpack')
 const pageConfig = config.get('page')
+const authConfig = config.get('auth')
 const app = express()
 
-app.use('/static', express.static(path.join(process.cwd(), '.build')))
+app.use('/static', express.static(path.join(process.cwd(), 'src/static')))
 const host = process.env.NODE_ENV === 'production' ? '' : webpackConfig.baseUrl
 const bundle = `${host}/static/client.bundle.js`
-const styles = `${host}/static/styles.css`
+const styles = '/static/css/style.css'
 
 app.use('/', (req, res) => {
   res.status(200).send(`<!doctype html>
@@ -30,17 +31,16 @@ const run = () => {
   const port = process.env.PORT || pageConfig.port
   const httpServer = app.listen(port, (err) => {
     if (err) {
-      console.log(err) // eslint-disable-line
+      console.log(err)
       return
     }
-    console.log(`Express listening at http://localhost:${port}`); // eslint-disable-line
   })
 
   // @TODO make this configurable
-  horizon(httpServer, {
+  const hserver = horizon(httpServer, {
     auto_create_collection: true,
     auto_create_index: true,
-    project_name: 'react-dashboard',
+    project_name: 'rdash',
     permissions: false,
     auth: {
       allow_anonymous: true,
@@ -48,6 +48,14 @@ const run = () => {
       token_secret: pageConfig.token_secret
     }
   })
+
+/*
+  hserver.add_auth_provider(horizon.auth.github, {
+    path: 'github',
+    id: authConfig.providers.github.id,
+    secret: authConfig.providers.github.secret
+  })
+*/
 }
 
 export default {

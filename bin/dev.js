@@ -2,8 +2,6 @@ import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import clientConfig from '../config/webpack/client.config.dev'
 import { default as app } from '../src/horizon/app'
-import config from 'config'
-
 
 const onReady = () => {
   console.log(`\nWebpack Dev Server listening on port ${clientConfig.devServer.port}`)
