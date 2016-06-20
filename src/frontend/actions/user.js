@@ -84,7 +84,7 @@ export function checkAuthToken () {
     dispatch(checkTokenAction({ status: AsyncStatus.LOADING }))
     const user = API.getCurrentUser()
     if (user) {
-      user.fetch().then(data => dispatch(checkTokenAction({
+      return user.fetch().then(data => dispatch(checkTokenAction({
         status: AsyncStatus.SUCCESS,
         action: {
           status: AsyncStatus.SUCCESS,

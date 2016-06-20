@@ -49,13 +49,11 @@ const run = () => {
     }
   })
 
-/*
   hserver.add_auth_provider(horizon.auth.github, {
     path: 'github',
     id: authConfig.providers.github.id,
     secret: authConfig.providers.github.secret
   })
-*/
 }
 
 export default {

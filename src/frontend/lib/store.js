@@ -1,35 +1,16 @@
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
-import reducers from '../reducers'
+import { createStore, applyMiddleware, compose } from 'redux'
+import rootReducer from 'reducers'
 import thunk from 'redux-thunk'
-import { routerReducer } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux'
+import createLogger from 'redux-logger'
 
-const rootReducer = combineReducers(
-  Object.assign({},
-    reducers,
-    { routing: routerReducer }
+export default function configureStore (browserHistory) {
+  const routing = routerMiddleware(browserHistory)
+  const logger = createLogger()
+  const enhancer = compose(
+    applyMiddleware(routing, thunk, logger)
   )
-)
 
-const configureStore = (initialState = {}) => {
-  const store = compose(
-    applyMiddleware(
-      thunk
-    )
-  )(createStore)(rootReducer, initialState)
-
-  if (module.hot) {
-    module.hot.accept(
-      '../reducers',
-      () => {
-        const nextReducer = require('../reducers')
-        store.replaceReducer(nextReducer)
-      }
-    )
-  }
-
+  const store = createStore(rootReducer, enhancer)
   return store
 }
-
-const store = configureStore(window.__INITIAL_STATE__ || {})
-
-export default store

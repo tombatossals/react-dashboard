@@ -6,7 +6,6 @@ import { AsyncStatus } from 'lib/constants'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { checkAuthToken } from 'actions'
-// import DevTools from 'containers/DevTools'
 import HeaderMenu from 'components/HeaderToolbar'
 import { routerActions } from 'react-router-redux'
 import {Grid} from 'react-flexbox-grid/lib'
@@ -22,7 +21,7 @@ class Layout extends React.Component {
   }
 
   checkLoggedIn (props) {
-    if (this.props.user.status === AsyncStatus.IDLE) {
+    if (this.props.user && this.props.user.status === AsyncStatus.IDLE) {
       props.checkAuthToken()
     }
   }
