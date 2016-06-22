@@ -2,7 +2,6 @@ const path = require('path')
 const webpack = require('webpack')
 const chalk = require('chalk')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-const WebpackAnybarPlugin = require('webpack-anybar-plugin').default
 
 const basePath = path.join(__dirname, '../../src')
 const buildPath = path.join(__dirname, '../../.build')
@@ -50,10 +49,7 @@ const config = {
       'process.env.NODE_ENV': JSON.stringify('production'),
       BUILD_TIME: JSON.stringify((new Date()).getTime())
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new WebpackAnybarPlugin({
-      port: 1738
-    })
+    new webpack.optimize.OccurenceOrderPlugin()
   ],
   externals: [
     {

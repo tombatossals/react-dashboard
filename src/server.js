@@ -3,9 +3,10 @@ import config from 'config'
 import webpack from 'webpack'
 import proxy from 'proxy-middleware'
 import url from 'url'
-import WebpackDevServer from 'webpack-dev-server'
-import configWebpackDevServer from '../webpack/dev.config'
-import api from './parse/api'
+import path from 'path'
+
+import clientConfig from '../config/webpack/front.prod'
+import serverConfig from '../config/webpack/server.prod'
 
 // import apiRoutes from './backend/routes/api'
 

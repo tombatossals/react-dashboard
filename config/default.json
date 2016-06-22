@@ -6,7 +6,7 @@
     "contentBase": "http://127.0.0.1:9095"
   },
   "page": {
-    "title": "lovli - Hello World",
+    "title": "React-Dashboard",
     "port": 3000,
     "token_secret": "hellothere"
   },

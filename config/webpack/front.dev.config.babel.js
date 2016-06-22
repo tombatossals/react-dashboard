@@ -3,22 +3,24 @@ import path from 'path'
 import chalk from 'chalk'
 import config from 'config'
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-const WebpackAnybarPlugin = require('webpack-anybar-plugin').default
 
 const basePath = path.join(__dirname, '../../src')
 const buildPath = path.join(__dirname, '../../.build')
-const staticPath = path.join(__dirname, '../../src/static')
+const staticPath = path.join(basePath, 'static')
 
 const webpackConfig = config.get('webpack')
+const baseUrl = webpackConfig.baseUrl
+const host = webpackConfig.host
+const port = webpackConfig.port
 
-const devConfig = {
+export default {
   target: 'web',
   devtool: 'source-map',
   context: __dirname,
   cache: true,
   entry: {
     app: [
-      `webpack-dev-server/client?${webpackConfig.baseUrl}`,
+      `webpack-dev-server/client?${baseUrl}`,
       'webpack/hot/only-dev-server',
       path.join(basePath, '/frontend/app')
     ]
@@ -26,7 +28,7 @@ const devConfig = {
   output: {
     path: buildPath,
     filename: 'client.bundle.js',
-    publicPath: `${webpackConfig.baseUrl}/static/`,
+    publicPath: `${baseUrl}/static/`,
     pathinfo: true,
     crossOriginLoading: 'anonymous'
   },
@@ -82,13 +84,6 @@ const devConfig = {
         return console.log(chalk.blue.bold(`Built client in ${t}.`))
       }
     }),
-    new webpack.DefinePlugin({
-      BUILD_TIME: JSON.stringify((new Date()).getTime())
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new WebpackAnybarPlugin({
-      port: 1738
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
@@ -96,11 +91,11 @@ const devConfig = {
     })
   ],
   devServer: {
-    publicPath: `${webpackConfig.baseUrl}/static`,
-    host: webpackConfig.host,
+    publicPath: `${baseUrl}/static`,
+    host,
+    port,
     hot: true,
     historyApiFallback: true,
-    port: webpackConfig.port,
     stats: {
       colors: true,
       chunkModules: false,
@@ -108,5 +103,3 @@ const devConfig = {
     }
   }
 }
-
-export default devConfig

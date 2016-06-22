@@ -1,12 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const Home = () => (
+export default () => (
   <div>
-    <h1>Home2</h1>
+    <h1>Hello world!</h1>
     <Link to='/youtube'> Youtube
     </Link>
   </div>
 )
-
-export default Home
