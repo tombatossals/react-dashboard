@@ -10,7 +10,7 @@ const config = {
   target: 'node',
   context: __dirname,
   cache: true,
-  entry: path.join(basePath, '/server/entry.server'),
+  entry: path.join(basePath, '/horizon/app'),
   output: {
     path: buildPath,
     filename: 'server.bundle.js',

@@ -8,7 +8,6 @@ import path from 'path'
 import clientConfig from '../config/webpack/front.prod'
 import serverConfig from '../config/webpack/server.prod'
 
-// import apiRoutes from './backend/routes/api'
 
 const PORT = config.get('express.port')
 const app = express()

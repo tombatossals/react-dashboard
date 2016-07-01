@@ -10,8 +10,8 @@ import Home from 'components/Home'
 const Routes = (props) => (
   <Router history={props.history}>
     <Redirect from='/' to='/home' />
+    <Route path='/home' component={Home} />
     <Route path='/' component={Layout}>
-      <Route path='home' component={Home} />
       <Route path='youtube' component={userIsAuthenticated(Youtube)} />
       <Route path='user'>
         <Route path='login' component={Login} />
