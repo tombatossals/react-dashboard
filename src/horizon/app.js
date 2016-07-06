@@ -1,15 +1,15 @@
 import path from 'path'
 import express from 'express'
 import horizon from '@horizon/server'
-import config from 'config'
+import config from '../../config'
 
-const webpackConfig = config.get('webpack')
-const pageConfig = config.get('page')
-const authConfig = config.get('auth')
+const pageConfig = config.default.page
+
+//const authConfig = config.get('auth')
 const app = express()
 
 app.use('/static', express.static(path.join(process.cwd(), 'src/static')))
-const host = process.env.NODE_ENV === 'production' ? '' : webpackConfig.baseUrl
+const host = process.env.NODE_ENV === 'production' ? '' : pageConfig.baseUrl
 const bundle = `${host}/static/client.bundle.js`
 const styles = '/static/css/style.css'
 
@@ -37,7 +37,7 @@ const run = () => {
   })
 
   // @TODO make this configurable
-  const hserver = horizon(httpServer, {
+  horizon(httpServer, {
     auto_create_collection: true,
     auto_create_index: true,
     project_name: 'rdash',
@@ -49,11 +49,13 @@ const run = () => {
     }
   })
 
+  /*
   hserver.add_auth_provider(horizon.auth.github, {
     path: 'github',
     id: authConfig.providers.github.id,
     secret: authConfig.providers.github.secret
   })
+  */
 }
 
 export default {

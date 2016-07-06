@@ -6,7 +6,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const basePath = path.join(__dirname, '../../src')
 const buildPath = path.join(__dirname, '../../.build')
 
-const config = {
+export default {
   target: 'node',
   context: __dirname,
   cache: true,
@@ -60,5 +60,3 @@ const config = {
     }
   ]
 }
-
-export default config

@@ -1,17 +1,15 @@
 import webpack from 'webpack'
 import path from 'path'
 import chalk from 'chalk'
-import config from 'config'
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 const basePath = path.join(__dirname, '../../src')
 const buildPath = path.join(__dirname, '../../.build')
 const staticPath = path.join(basePath, 'static')
 
-const webpackConfig = config.get('webpack')
-const baseUrl = webpackConfig.baseUrl
-const host = webpackConfig.host
-const port = webpackConfig.port
+export const baseUrl = ''
+export const host = '127.0.0.1'
+export const port = 9005
 
 export default {
   target: 'web',
