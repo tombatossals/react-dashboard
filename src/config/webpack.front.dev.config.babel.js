@@ -3,13 +3,9 @@ import path from 'path'
 import chalk from 'chalk'
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
-const basePath = path.join(__dirname, '../src')
-const buildPath = path.join(__dirname, '../.build')
-const staticPath = path.join(basePath, 'static')
-
-export const baseUrl = ''
-export const host = '127.0.0.1'
-export const port = 9005
+const basePath = path.join(__dirname, '..')
+const buildPath = path.join(__dirname, '..', '.build')
+const staticPath = path.join(__dirname, '..', 'static')
 
 export default {
   target: 'web',
@@ -18,15 +14,15 @@ export default {
   cache: true,
   entry: {
     app: [
-      `webpack-dev-server/client?${baseUrl}`,
+      'webpack-dev-server/client?http://127.0.0.1:9005',
       'webpack/hot/only-dev-server',
-      path.join(basePath, '/frontend/app')
+      path.join(basePath, 'frontend', 'app')
     ]
   },
   output: {
     path: buildPath,
     filename: 'client.bundle.js',
-    publicPath: `${baseUrl}/static/`,
+    publicPath: 'http://127.0.0.1:9005/static/',
     pathinfo: true,
     crossOriginLoading: 'anonymous'
   },
@@ -87,17 +83,5 @@ export default {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     })
-  ],
-  devServer: {
-    publicPath: `${baseUrl}/static`,
-    host,
-    port,
-    hot: true,
-    historyApiFallback: true,
-    stats: {
-      colors: true,
-      chunkModules: false,
-      modules: false
-    }
-  }
+  ]
 }

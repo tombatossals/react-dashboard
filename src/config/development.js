@@ -1,6 +1,6 @@
 export default {
   page: {
-    baseUrl: '',
+    baseUrl: 'http://127.0.0.1:9005',
     title: 'React-Dashboard',
     port: 3000,
     token_secret: 'hellothere'
@@ -8,6 +8,18 @@ export default {
   express: {
     host: '0.0.0.0',
     port: 8080
+  },
+  devServer: {
+    publicPath: 'http://127.0.0.1:9005/static',
+    host: '127.0.0.1',
+    port: 9005,
+    hot: true,
+    historyApiFallback: true,
+    stats: {
+      colors: true,
+      chunkModules: false,
+      modules: false
+    }
   },
   parse: {
     databaseURI: 'mongodb://localhost:27017/react',

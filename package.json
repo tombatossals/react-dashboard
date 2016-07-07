@@ -9,8 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "babel-node bin/dev.js",
-    "prod": "npm run build && node ./.build/server.bundle.js",
-    "build": "webpack --config=config/webpack/server.prod.config.babel.js && webpack --config=config/webpack/front.prod.config.babel.js",
+    "prod": "node ./.build/server.bundle.js",
+    "build": "webpack --config=src/config/webpack.server.prod.config.babel.js && webpack --config=src/config/webpack.front.prod.config.babel.js",
     "dev": "NODE_ENV=development babel-node src/dev-server.js",
     "standard": "standard",
     "storybook": "start-storybook -p 9001",
