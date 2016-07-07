@@ -1,4 +1,17 @@
-var environment = process.env.NODE_ENV || 'development'
-const config = require(`./${environment}`)
+import development from './development'
+import production from './production'
 
-export default config
+const getConfig = () => {
+  switch (process.env.NODE_ENV) {
+    case 'development':
+      return development
+
+    case 'production':
+      return production
+
+    default:
+      return development
+  }
+}
+
+export default getConfig()

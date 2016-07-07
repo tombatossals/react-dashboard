@@ -3,9 +3,10 @@ import express from 'express'
 import horizon from '@horizon/server'
 import config from '../../config'
 
-const pageConfig = config.default.page
+console.log(config)
+const pageConfig = config.page
 
-//const authConfig = config.get('auth')
+// const authConfig = config.get('auth')
 const app = express()
 
 app.use('/static', express.static(path.join(process.cwd(), 'src/static')))

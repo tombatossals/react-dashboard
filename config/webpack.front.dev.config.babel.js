@@ -3,8 +3,8 @@ import path from 'path'
 import chalk from 'chalk'
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
-const basePath = path.join(__dirname, '../../src')
-const buildPath = path.join(__dirname, '../../.build')
+const basePath = path.join(__dirname, '../src')
+const buildPath = path.join(__dirname, '../.build')
 const staticPath = path.join(basePath, 'static')
 
 export const baseUrl = ''
