@@ -1,21 +1,21 @@
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import { default as app } from './horizon/app'
-import wpConfig from '../config/webpack.front.dev.config.babel'
+import config from '../config/webpack.front.dev.config.babel'
 
 const onReady = () => {
-  console.log(`\nWebpack Dev Server listening on port ${wpConfig.devServer.port}`)
+  console.log(`\nWebpack Dev Server listening on port ${config.devServer.port}`)
   app.run()
 }
 
-const clientCompiler = webpack(wpConfig)
+const clientCompiler = webpack(config)
 const clientDevServer = new WebpackDevServer(
   clientCompiler,
-  wpConfig.devServer
+  config.devServer
 )
 
 clientDevServer.listen(
-  wpConfig.devServer.port,
-  wpConfig.devServer.host,
+  config.devServer.port,
+  config.devServer.host,
   onReady
 )
