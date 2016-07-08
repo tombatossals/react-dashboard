@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   page: {
     baseUrl: 'http://127.0.0.1:9005',
     title: 'React-Dashboard',

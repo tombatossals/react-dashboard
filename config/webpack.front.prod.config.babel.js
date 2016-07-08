@@ -3,28 +3,38 @@ import path from 'path'
 import chalk from 'chalk'
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
-const basePath = path.join(__dirname, '..')
-const buildPath = path.join(__dirname, '..', '.build')
-const staticPath = path.join(__dirname, '..', 'static')
+const basePath = path.join(__dirname, '..', 'src')
+const buildPath = path.join(__dirname, '..', '..', '.build')
+const staticPath = path.join(__dirname, '..', 'src', 'static')
+
 
 export default {
   target: 'web',
-  devtool: 'source-map',
+  devtool: 'eval',
   context: __dirname,
   cache: true,
   entry: {
     app: [
-      'webpack-dev-server/client?http://127.0.0.1:9005',
-      'webpack/hot/only-dev-server',
-      path.join(basePath, 'frontend', 'app')
+      path.join(basePath, '/frontend/app')
+    ],
+    vendor: [
+      '@horizon/client',
+      'material-ui',
+      'react',
+      'react-dom',
+      'react-flexbox-grid',
+      'react-redux',
+      'react-router',
+      'react-router-redux',
+      'redux',
+      'redux-logger',
+      'redux-thunk'
     ]
   },
   output: {
     path: buildPath,
     filename: 'client.bundle.js',
-    publicPath: 'http://127.0.0.1:9005/static/',
-    pathinfo: true,
-    crossOriginLoading: 'anonymous'
+    publicPath: '/static/'
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.css'],
@@ -43,14 +53,9 @@ export default {
         include: staticPath
       },
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         loader: 'babel',
         include: basePath
-      },
-      {
-        test: /\.jsx?$/,
-        loader: 'script',
-        include: path.join(staticPath, 'vendor')
       },
       {
         test: /\.json$/,
@@ -78,10 +83,20 @@ export default {
         return console.log(chalk.blue.bold(`Built client in ${t}.`))
       }
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    })
+      BUILD_TIME: JSON.stringify((new Date()).getTime())
+    }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    }),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(true)
   ]
 }

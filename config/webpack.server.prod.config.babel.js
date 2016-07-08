@@ -3,21 +3,21 @@ const webpack = require('webpack')
 const chalk = require('chalk')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
-const basePath = path.join(__dirname, '..')
+const basePath = path.join(__dirname, '..', 'src')
 const buildPath = path.join(__dirname, '..', '.build')
 
 export default {
   target: 'node',
   context: __dirname,
   cache: true,
-  entry: path.join(basePath, '/horizon/app'),
+  entry: path.join(basePath, '/horizon/server'),
   output: {
     path: buildPath,
     filename: 'server.bundle.js',
     publicPath: '/assets/'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js'],
     root: basePath,
     alias: {
       utils: path.join(basePath, '/utils')
@@ -26,7 +26,7 @@ export default {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         loader: 'babel',
         include: basePath
       },

@@ -1,13 +1,14 @@
 import path from 'path'
 import express from 'express'
 import horizon from '@horizon/server'
-import config from '../config'
+import config from '../../config'
 
 const pageConfig = config.page
 const app = express()
 
-app.use('/static', express.static(path.join(process.cwd(), 'src/static')))
+app.use('/static', express.static(path.join(process.cwd(), '.build')))
 const host = pageConfig.baseUrl
+const vendor = `${host}/static/vendor.bundle.js`
 const bundle = `${host}/static/client.bundle.js`
 const styles = '/static/css/style.css'
 
@@ -20,6 +21,7 @@ app.use('/', (req, res) => {
       </head>
       <body>
         <div id='root'></div>
+        <script src="${vendor}"></script>
         <script src="${bundle}"></script>
       </body>
     </html>`)

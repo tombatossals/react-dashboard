@@ -3,25 +3,28 @@ import path from 'path'
 import chalk from 'chalk'
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
-const basePath = path.join(__dirname, '..')
+const basePath = path.join(__dirname, '..', 'src')
 const buildPath = path.join(__dirname, '..', '.build')
-const staticPath = path.join(__dirname, '..', 'static')
-
+const staticPath = path.join(__dirname, '..', 'src', 'static')
 
 export default {
   target: 'web',
-  devtool: 'eval',
+  devtool: 'source-map',
   context: __dirname,
   cache: true,
   entry: {
     app: [
-      path.join(basePath, '/frontend/app')
+      'webpack-dev-server/client?http://127.0.0.1:9005',
+      'webpack/hot/only-dev-server',
+      path.join(basePath, 'frontend', 'app')
     ]
   },
   output: {
     path: buildPath,
     filename: 'client.bundle.js',
-    publicPath: '/static/'
+    publicPath: 'http://127.0.0.1:9005/static/',
+    pathinfo: true,
+    crossOriginLoading: 'anonymous'
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.css'],
@@ -72,22 +75,13 @@ export default {
       renderThrottle: 100,
       summary: false,
       customSummary: (t) => {
-        return console.log(chalk.blue.bold(`Built client in ${t}.`));
+        return console.log(chalk.blue.bold(`Built client in ${t}.`))
       }
     }),
-    new webpack.DefinePlugin({
-      BUILD_TIME: JSON.stringify((new Date()).getTime())
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    }),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(true)
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
   ]
 }
