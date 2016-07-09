@@ -8,7 +8,6 @@ import { AsyncStatus } from 'lib/constants'
 import Paper from 'material-ui/Paper'
 import Title from 'components/User/Title'
 import ActionAndroid from 'material-ui/svg-icons/action/android'
-import { Row, Col } from 'react-flexbox-grid/lib'
 
 export default class Login extends React.Component {
   constructor () {
@@ -85,49 +84,44 @@ export default class Login extends React.Component {
 
   render () {
     return (
-      <Row center='xs'>
-        <Col md={4}>
-          <Paper style={styles.login} zDepth={3}>
-            <Title label='Login' message={this.props.message} />
-            <div style={styles.form}>
-              <div style={styles.loginform}>
-                <TextField
-                  ref={this.focus}
-                  onChange={this.setUsername}
-                  style={styles.textlabel}
-                  disabled={this.disableInput()}
-                  inputStyle={styles.hideAutoFillColorStyle}
-                  hintStyle={styles.hintStyle}
-                  hintText='Username' />
-                <TextField
-                  style={styles.textlabel}
-                  onChange={this.setPassword}
-                  type='password'
-                  disabled={this.disableInput()}
-                  inputStyle={styles.hideAutoFillColorStyle}
-                  hintStyle={styles.hintStyle}
-                  onKeyDown={this.onEnterKeyDown}
-                  hintText='Password' />
-                <RaisedButton
-                  primary
-                  onClick={this.submit}
-                  style={styles.button}
-                  disabled={this.disableInput()}
-                  label={this.showButtonLabel()} />
-                <div style={styles.signup}>
-                  You don't have an account?&nbsp;
-                  <strong style={styles.onSignup} onClick={this.props.onSignup}>Signup</strong>
-                </div>
+      <div>
+        <Paper style={styles.login} zDepth={3}>
+          <Title label='Login' message={this.props.message} />
+          <div style={styles.form}>
+            <div style={styles.loginform}>
+              <TextField
+                ref={this.focus}
+                onChange={this.setUsername}
+                style={styles.textlabel}
+                disabled={this.disableInput()}
+                inputStyle={styles.hideAutoFillColorStyle}
+                hintStyle={styles.hintStyle}
+                hintText='Username' />
+              <TextField
+                style={styles.textlabel}
+                onChange={this.setPassword}
+                type='password'
+                disabled={this.disableInput()}
+                inputStyle={styles.hideAutoFillColorStyle}
+                hintStyle={styles.hintStyle}
+                onKeyDown={this.onEnterKeyDown}
+                hintText='Password' />
+              <RaisedButton
+                primary
+                onClick={this.submit}
+                style={styles.button}
+                disabled={this.disableInput()}
+                label={this.showButtonLabel()} />
+              <div style={styles.signup}>
+                You don't have an account?&nbsp;
+                <strong style={styles.onSignup} onClick={this.props.onSignup}>Signup</strong>
               </div>
             </div>
-            {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
-          </Paper>
-        </Col>
+          </div>
+          {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
+        </Paper>
         {this.props.external &&
-          <Col md={1} />
-        }
-        {this.props.external &&
-          <Col md={4}>
+          <div>
             <h2>Log-in with other providers</h2>
             <div style={styles.external}>
               <FlatButton
@@ -143,9 +137,9 @@ export default class Login extends React.Component {
                 onClick={this.facebookLogin}
               />
             </div>
-          </Col>
+          </div>
         }
-      </Row>
+      </div>
     )
   }
 }

@@ -1,10 +1,11 @@
 import webpack from 'webpack'
 import path from 'path'
 import chalk from 'chalk'
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+import ProgressBarPlugin from 'progress-bar-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const basePath = path.join(__dirname, '..', 'src')
-const buildPath = path.join(__dirname, '..', '..', '.build')
+const buildPath = path.join(__dirname, '..', '.build')
 const staticPath = path.join(__dirname, '..', 'src', 'static')
 
 
@@ -15,14 +16,14 @@ export default {
   cache: true,
   entry: {
     app: [
-      path.join(basePath, '/frontend/app')
+      path.join(basePath, '/frontend/app'),
+      path.join(staticPath, 'css', 'style.css')
     ],
     vendor: [
       '@horizon/client',
       'material-ui',
       'react',
       'react-dom',
-      'react-flexbox-grid',
       'react-redux',
       'react-router',
       'react-router-redux',
@@ -63,8 +64,7 @@ export default {
       },
       {
         test: /\.(css)$/,
-        loader: 'style!css',
-        include: [ /flexboxgrid/ ]
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
       }
     ]
   },
@@ -75,6 +75,9 @@ export default {
     fs: 'empty'
   },
   plugins: [
+    new ExtractTextPlugin('css/style.css', {
+      allChunks: true
+    }),
     new ProgressBarPlugin({
       format: `${chalk.blue.bold('Building client bundle')} [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
       renderThrottle: 100,

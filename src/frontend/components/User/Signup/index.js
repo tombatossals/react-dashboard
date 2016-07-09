@@ -6,7 +6,6 @@ import LinearProgress from 'material-ui/LinearProgress'
 import { AsyncStatus } from 'lib/constants'
 import Paper from 'material-ui/Paper'
 import Title from 'components/User/Title'
-import { Row, Col } from 'react-flexbox-grid/lib'
 
 export default class Signup extends React.Component {
   constructor () {
@@ -81,51 +80,49 @@ export default class Signup extends React.Component {
 
   render () {
     return (
-      <Row center='xs'>
-        <Col md={4}>
-          <Paper style={styles.registration} zDepth={3}>
-            <Title label='Signup new account' message={this.props.message} />
-            <div style={styles.form}>
-              <div style={styles.registrationform}>
-                <TextField
-                  ref={this.focus}
-                  onChange={this.setUsername}
-                  style={styles.textlabel}
-                  disabled={this.disableInput()}
-                  inputStyle={styles.hideAutoFillColorStyle}
-                  hintStyle={styles.hintStyle}
-                  name='newUsername'
-                  hintText='Username' />
-                <TextField
-                  onChange={this.setEmail}
-                  style={styles.textlabel}
-                  disabled={this.disableInput()}
-                  inputStyle={styles.hideAutoFillColorStyle}
-                  hintStyle={styles.hintStyle}
-                  name='newEmail'
-                  hintText='E-mail address' />
+      <div>
+        <Paper style={styles.registration} zDepth={3}>
+          <Title label='Signup new account' message={this.props.message} />
+          <div style={styles.form}>
+            <div style={styles.registrationform}>
+              <TextField
+                ref={this.focus}
+                onChange={this.setUsername}
+                style={styles.textlabel}
+                disabled={this.disableInput()}
+                inputStyle={styles.hideAutoFillColorStyle}
+                hintStyle={styles.hintStyle}
+                name='newUsername'
+                hintText='Username' />
+              <TextField
+                onChange={this.setEmail}
+                style={styles.textlabel}
+                disabled={this.disableInput()}
+                inputStyle={styles.hideAutoFillColorStyle}
+                hintStyle={styles.hintStyle}
+                name='newEmail'
+                hintText='E-mail address' />
 
-                <TextField
-                  style={styles.textlabel}
-                  onChange={this.setPassword}
-                  type='password'
-                  disabled={this.disableInput()}
-                  inputStyle={styles.hideAutoFillColorStyle}
-                  hintStyle={styles.hintStyle}
-                  onKeyDown={this.onEnterKeyDown}
-                  hintText='Password' />
-                <RaisedButton
-                  secondary
-                  onClick={this.submit}
-                  style={styles.button}
-                  disabled={this.disableButton()}
-                  label={this.showButtonLabel()} />
-              </div>
+              <TextField
+                style={styles.textlabel}
+                onChange={this.setPassword}
+                type='password'
+                disabled={this.disableInput()}
+                inputStyle={styles.hideAutoFillColorStyle}
+                hintStyle={styles.hintStyle}
+                onKeyDown={this.onEnterKeyDown}
+                hintText='Password' />
+              <RaisedButton
+                secondary
+                onClick={this.submit}
+                style={styles.button}
+                disabled={this.disableButton()}
+                label={this.showButtonLabel()} />
             </div>
-            {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
-          </Paper>
-        </Col>
-      </Row>
+          </div>
+          {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
+        </Paper>
+      </div>
     )
   }
 }

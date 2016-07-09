@@ -1,13 +1,12 @@
 module.exports = {
-  page: {
-    baseUrl: 'http://127.0.0.1:9005',
-    title: 'React-Dashboard',
-    port: 3000,
-    token_secret: 'hellothere'
-  },
+  token_secret: 'hellothere',
   express: {
-    host: '0.0.0.0',
-    port: 8080
+    host: '127.0.0.1',
+    port: 3000,
+    ssl: {
+      cert: 'config/horizon-cert.pem',
+      key: 'config/horizon-key.pem'
+    }
   },
   devServer: {
     publicPath: 'http://127.0.0.1:9005/static',
@@ -21,15 +20,6 @@ module.exports = {
       modules: false
     }
   },
-  parse: {
-    databaseURI: 'mongodb://localhost:27017/react',
-    serverURL: 'http://localhost:8080/parse',
-    appId: 'react-dashboard',
-    masterKey: 'myb1gs3cret',
-    email: {
-      key: 'key-594e4a7262d18f7adf9edd7f035e680d'
-    }
-  },
   auth: {
     providers: {
       facebook: {
@@ -37,7 +27,7 @@ module.exports = {
       },
       github: {
         id: '1cc2775bffaa43783ff8',
-        secret: '7477913dfb02abdf2a48d3ea563b2c39a40e8b15',
+        secret: 'e7997508fc3d7a8138c1023da8c7f6d9317a57f7',
         endpoints: {
           redirect: 'https://github.com/login/oauth/authorize?',
           validate: 'https://github.com/login/oauth/access_token'

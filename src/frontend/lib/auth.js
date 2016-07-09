@@ -1,18 +1,33 @@
-import { UserAuthWrapper as userAuthWrapper } from 'redux-auth-wrapper'
-import { routerActions } from 'react-router-redux'
+import React, { Component } from 'react'
+import { Login } from 'containers/User'
+import api from 'lib/api'
 
-export const userIsAuthenticated = userAuthWrapper({
-  authSelector: state => state.user.data,
-  redirectAction: routerActions.replace,
-  failureRedirectPath: '/user/login',
-  wrapperDisplayName: 'UserIsAuthenticated'
-})
+export default (ChildComponent) => {
+  class AuthenticatedComponent extends Component {
 
-export const userIsAdmin = userAuthWrapper({
-  authSelector: state => state.user,
-  redirectAction: routerActions.replace,
-  failureRedirectPath: '/',
-  wrapperDisplayName: 'UserIsAdmin',
-  predicate: user => user.isAdmin,
-  allowRedirectBack: false
-})
+    constructor (props) {
+      super(props)
+      this.state = {currentUser: ''}
+    }
+
+    componentDidMount () {
+      console.log('1')
+      if (api.hasAuthToken()) {
+        console.log('2')
+        api.getCurrentUser((user) => {
+          this.setState({currentUser: user.id})
+        })
+      }
+    }
+
+    render () {
+      console.log('hola')
+      return (api.hasAuthToken()
+          ? <ChildComponent {...this.props} user={this.state.currentUser} />
+          : <Login />
+      )
+    }
+  }
+
+  return AuthenticatedComponent
+}

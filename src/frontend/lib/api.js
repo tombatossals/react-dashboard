@@ -1,7 +1,7 @@
 import Horizon from '@horizon/client'
 
 const horizon = Horizon({
-  secure: false
+  authType: 'token'
 })
 
 const init = () => {
@@ -9,11 +9,19 @@ const init = () => {
 }
 
 const getCurrentUser = () => {
-  return horizon.currentUser()
+  console.log('getUser')
+  return horizon.currentUser().fetch().subscribe
 }
+
+const hasAuthToken = () => {
+  return horizon.hasAuthToken()
+}
+
+const clearAuthTokens = () => Horizon.clearAuthTokens()
 
 export default {
   init,
   getCurrentUser,
-  horizon
+  clearAuthTokens,
+  hasAuthToken
 }

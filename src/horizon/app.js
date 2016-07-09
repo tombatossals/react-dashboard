@@ -2,21 +2,21 @@ import path from 'path'
 import express from 'express'
 import horizon from '@horizon/server'
 import config from '../../config'
+import fs from 'fs'
+import https from 'https'
 
-const pageConfig = config.page
 const app = express()
-
 app.use('/static', express.static(path.join(process.cwd(), '.build')))
-const host = pageConfig.baseUrl
+const host = `//${config.express.host}:${config.express.port}`
 const vendor = `${host}/static/vendor.bundle.js`
 const bundle = `${host}/static/client.bundle.js`
-const styles = '/static/css/style.css'
+const styles = `${host}/static/css/style.css`
 
 app.use('/', (req, res) => {
   res.status(200).send(`<!doctype html>
     <html>
       <head>
-        <title>${pageConfig.title}</title>
+        <title>React-Dashboard</title>
         <link rel="stylesheet" type="text/css" href="${styles}" />
       </head>
       <body>
@@ -28,35 +28,35 @@ app.use('/', (req, res) => {
 })
 
 const run = () => {
-  const port = pageConfig.port
+  const port = config.express.port
 
-  const httpServer = app.listen(port, (err) => {
+  const options = {
+    key: fs.readFileSync(config.express.ssl.key),
+    cert: fs.readFileSync(config.express.ssl.cert)
+  }
+
+  const server = https.createServer(options, app)
+  server.listen(port, err => {
     if (err) {
       console.log(err)
-      return
     }
   })
 
-  // @TODO make this configurable
-  horizon(httpServer, {
+  const hserver = horizon(server, {
     auto_create_collection: true,
     auto_create_index: true,
     project_name: 'rdash',
     permissions: false,
     auth: {
-      allow_anonymous: true,
-      allow_unauthenticated: true,
-      token_secret: pageConfig.token_secret
+      token_secret: config.token_secret
     }
   })
 
-  /*
   hserver.add_auth_provider(horizon.auth.github, {
     path: 'github',
-    id: authConfig.providers.github.id,
-    secret: authConfig.providers.github.secret
+    id: config.auth.providers.github.id,
+    secret: config.auth.providers.github.secret
   })
-  */
 }
 
 export default {

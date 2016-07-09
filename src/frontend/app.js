@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import { Connector as HorizonConnector } from 'horizon-react'
 import { Provider } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
@@ -20,9 +19,7 @@ const store = configureStore(browserHistory)
 const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render((
-  <HorizonConnector horizon={API.horizon} store={store}>
-    <Provider store={store}>
-      <Routes history={history} />
-    </Provider>
-  </HorizonConnector>
+  <Provider store={store}>
+    <Routes history={history} />
+  </Provider>
 ), rootElement)

@@ -1,7 +1,8 @@
 import webpack from 'webpack'
 import path from 'path'
 import chalk from 'chalk'
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+import ProgressBarPlugin from 'progress-bar-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const basePath = path.join(__dirname, '..', 'src')
 const buildPath = path.join(__dirname, '..', '.build')
@@ -16,7 +17,20 @@ export default {
     app: [
       'webpack-dev-server/client?http://127.0.0.1:9005',
       'webpack/hot/only-dev-server',
-      path.join(basePath, 'frontend', 'app')
+      path.join(basePath, 'frontend', 'app'),
+      path.join(staticPath, 'css', 'style.css')
+    ],
+    vendor: [
+      '@horizon/client',
+      'material-ui',
+      'react',
+      'react-dom',
+      'react-redux',
+      'react-router',
+      'react-router-redux',
+      'redux',
+      'redux-logger',
+      'redux-thunk'
     ]
   },
   output: {
@@ -57,9 +71,8 @@ export default {
         loader: 'json'
       },
       {
-        test: /\.(css)$/,
-        loader: 'style!css',
-        include: [ /flexboxgrid/ ]
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
       }
     ]
   },
@@ -70,6 +83,9 @@ export default {
     fs: 'empty'
   },
   plugins: [
+    new ExtractTextPlugin('css/style.css', {
+      allChunks: true
+    }),
     new ProgressBarPlugin({
       format: `${chalk.blue.bold('Building client bundle')} [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
       renderThrottle: 100,
@@ -78,6 +94,7 @@ export default {
         return console.log(chalk.blue.bold(`Built client in ${t}.`))
       }
     }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
