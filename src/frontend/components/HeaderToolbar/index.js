@@ -16,10 +16,11 @@ import AccountBoxIcon from 'material-ui/svg-icons/action/account-box'
 export default class HeaderToolbar extends React.Component {
   constructor (props) {
     super(props)
-
     this.handleOnClick = this.handleOnClick.bind(this)
     this.handleTouchTap = this.handleTouchTap.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
+    this.navigateUserLogin = this.navigateUserLogin.bind(this)
+    this.navigateHome = this.navigateHome.bind(this)
     this.state = {
       open: false
     }
@@ -45,17 +46,22 @@ export default class HeaderToolbar extends React.Component {
     this.props.onNavigationChange(url)
   }
 
-  render () {
-    const goHome = this.handleOnClick.bind(this, '/')
-    const goLogin = this.handleOnClick.bind(this, '/user/login')
+  navigateHome () {
+    this.handleOnClick('/')
+  }
 
+  navigateUserLogin () {
+    this.handleOnClick('/user/login')
+  }
+
+  render () {
     return (
       <Toolbar style={styles.toolbar}>
-        <ToolbarTitle text='React Dashboard' onClick={goHome} style={styles.link} />
+        <ToolbarTitle text='React Dashboard' onClick={this.navigateHome} style={styles.link} />
         <ToolbarGroup float='right' lastChild>
           {!this.props.user.data &&
             <FlatButton
-              onClick={goLogin}
+              onClick={this.navigateUserLogin}
               primary
               label='Login'
               style={styles.menulink} />

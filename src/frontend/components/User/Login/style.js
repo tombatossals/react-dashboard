@@ -2,7 +2,8 @@ const styles = {
   h1: {
     color: 'white'
   },
-  login: {
+  loginbox: {
+    maxWidth: '640px',
     margin: '0 auto'
   },
   textlabel: {

@@ -1,27 +1,26 @@
 import Horizon from '@horizon/client'
 
 const horizon = Horizon({
-  authType: 'token'
+  authType: 'anonymous'
 })
 
-const init = () => {
-  horizon.connect()
-}
-
 const getCurrentUser = () => {
-  console.log('getUser')
-  return horizon.currentUser().fetch().subscribe
+  if (horizon.hasAuthToken()) {
+    horizon.connect()
+    return horizon.currentUser()
+  }
 }
 
-const hasAuthToken = () => {
-  return horizon.hasAuthToken()
+const githubLogin = () => {
+  return horizon.authEndpoint('github')
 }
 
-const clearAuthTokens = () => Horizon.clearAuthTokens()
+const googleLogin = () => {
+  return horizon.authEndpoint('google')
+}
 
 export default {
-  init,
   getCurrentUser,
-  clearAuthTokens,
-  hasAuthToken
+  githubLogin,
+  googleLogin
 }

@@ -9,8 +9,9 @@ module.exports = {
     }
   },
   devServer: {
-    publicPath: 'http://127.0.0.1:9005/static',
+    publicPath: 'https://127.0.0.19005/static',
     host: '127.0.0.1',
+    https: true,
     port: 9005,
     hot: true,
     historyApiFallback: true,
@@ -26,12 +27,14 @@ module.exports = {
         id: '1495421584065697'
       },
       github: {
+        path: 'github',
         id: '1cc2775bffaa43783ff8',
-        secret: 'e7997508fc3d7a8138c1023da8c7f6d9317a57f7',
-        endpoints: {
-          redirect: 'https://github.com/login/oauth/authorize?',
-          validate: 'https://github.com/login/oauth/access_token'
-        }
+        secret: 'e7997508fc3d7a8138c1023da8c7f6d9317a57f7'
+      },
+      google: {
+        path: 'google',
+        id: '356033183423-d62p87525sc0017d2ardl6k1g9u87djj.apps.googleusercontent.com',
+        secret: 'U5z9SBngb3JTqSXpRApOqMkt'
       }
     }
   }

@@ -17,6 +17,20 @@ export function authenticate (authdata) {
     dispatch(loginAction({ status: AsyncStatus.LOADING }))
 
     switch (type) {
+      case 'github':
+        return API.githubLogin().subscribe(endpoint => {
+          window.location.pathname = endpoint
+        }, err => dispatch(loginAction({
+          status: AsyncStatus.FAILED,
+          message: err.message
+        })))
+      case 'google':
+        return API.googleLogin().subscribe(endpoint => {
+          window.location.pathname = endpoint
+        }, err => dispatch(loginAction({
+          status: AsyncStatus.FAILED,
+          message: err.message
+        })))
       case 'facebook':
         return API.facebookLogin().then(user => dispatch(loginAction({
           status: AsyncStatus.SUCCESS,
@@ -79,17 +93,14 @@ export function signup (authdata) {
 
 export function checkAuthToken () {
   return dispatch => {
-    const checkTokenAction = createAction(UserActions.USER_LOGIN)
+    const checkAuthTokenAction = createAction(UserActions.CHECK_AUTH_TOKEN)
 
-    dispatch(checkTokenAction({ status: AsyncStatus.LOADING }))
+    dispatch(checkAuthTokenAction({ status: AsyncStatus.LOADING }))
     const user = API.getCurrentUser()
     if (user) {
-      return user.fetch().then(data => dispatch(checkTokenAction({
+      console.log(user)
+      return user.fetch().subscribe(data => dispatch(checkAuthTokenAction({
         status: AsyncStatus.SUCCESS,
-        action: {
-          status: AsyncStatus.SUCCESS,
-          type: UserActions.USER_LOGIN
-        },
         data: {
           username: data.getUsername(),
           firstName: data.attributes.firstName,
@@ -97,16 +108,12 @@ export function checkAuthToken () {
           email: user.attributes.email,
           id: data.id
         }
-      }))
-      )
+      })))
     }
 
-    return dispatch(checkTokenAction({
+    return dispatch(checkAuthTokenAction({
       status: AsyncStatus.SUCCESS,
-      action: {
-        status: AsyncStatus.FAILED,
-        type: UserActions.USER_LOGIN
-      }
+      data: {}
     }))
   }
 }

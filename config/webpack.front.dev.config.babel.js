@@ -15,7 +15,7 @@ export default {
   cache: true,
   entry: {
     app: [
-      'webpack-dev-server/client?http://127.0.0.1:9005',
+      'webpack-dev-server/client?https://127.0.0.1:9005',
       'webpack/hot/only-dev-server',
       path.join(basePath, 'frontend', 'app'),
       path.join(staticPath, 'css', 'style.css')
@@ -36,7 +36,7 @@ export default {
   output: {
     path: buildPath,
     filename: 'client.bundle.js',
-    publicPath: 'http://127.0.0.1:9005/static/',
+    publicPath: 'https://127.0.0.1:9005/static/',
     pathinfo: true,
     crossOriginLoading: 'anonymous'
   },

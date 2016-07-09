@@ -14,6 +14,8 @@ export default class Login extends React.Component {
     super()
     this.submit = this.submit.bind(this)
     this.facebookLogin = this.facebookLogin.bind(this)
+    this.githubLogin = this.githubLogin.bind(this)
+    this.googleLogin = this.googleLogin.bind(this)
     this.setUsername = this.setUsername.bind(this)
     this.setPassword = this.setPassword.bind(this)
     this.onEnterKeyDown = this.onEnterKeyDown.bind(this)
@@ -53,6 +55,26 @@ export default class Login extends React.Component {
     })
   }
 
+  githubLogin () {
+    this.setState({
+      status: AsyncStatus.LOADING
+    })
+
+    this.props.onSubmit({
+      type: 'github'
+    })
+  }
+
+  googleLogin () {
+    this.setState({
+      status: AsyncStatus.LOADING
+    })
+
+    this.props.onSubmit({
+      type: 'google'
+    })
+  }
+
   submit () {
     if (!this.state.username && !this.state.password) {
       return
@@ -84,8 +106,8 @@ export default class Login extends React.Component {
 
   render () {
     return (
-      <div>
-        <Paper style={styles.login} zDepth={3}>
+      <div style={styles.loginbox}>
+        <Paper zDepth={3}>
           <Title label='Login' message={this.props.message} />
           <div style={styles.form}>
             <div style={styles.loginform}>
@@ -128,13 +150,13 @@ export default class Login extends React.Component {
                 style={styles.google}
                 label='Google Sign in'
                 icon={<ActionAndroid />}
-                onClick={this.submit}
+                onClick={this.googleLogin}
               />
               <FlatButton
                 style={styles.facebook}
-                label='Facebook Sign in'
+                label='Github Sign in'
                 icon={<ActionAndroid />}
-                onClick={this.facebookLogin}
+                onClick={this.githubLogin}
               />
             </div>
           </div>

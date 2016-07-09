@@ -4,8 +4,8 @@ module.exports = {
     host: '127.0.0.1',
     port: 3000,
     ssl: {
-      cert: 'horizon-cert.pem',
-      key: 'horizon-key.pem'
+      cert: 'config/horizon-cert.pem',
+      key: 'config/horizon-key.pem'
     }
   },
   devServer: {

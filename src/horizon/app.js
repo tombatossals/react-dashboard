@@ -6,8 +6,15 @@ import fs from 'fs'
 import https from 'https'
 
 const app = express()
-app.use('/static', express.static(path.join(process.cwd(), '.build')))
-const host = `//${config.express.host}:${config.express.port}`
+let host = `//${config.express.host}:${config.express.port}`
+
+if (process.env.NODE_ENV === 'production') {
+  app.use('/static', express.static(path.join(process.cwd(), '.build')))
+} else {
+  app.use('/static', express.static(path.join(process.cwd(), 'src', 'static')))
+  host = `https://${config.devServer.host}:${config.devServer.port}`
+}
+
 const vendor = `${host}/static/vendor.bundle.js`
 const bundle = `${host}/static/client.bundle.js`
 const styles = `${host}/static/css/style.css`
@@ -52,11 +59,8 @@ const run = () => {
     }
   })
 
-  hserver.add_auth_provider(horizon.auth.github, {
-    path: 'github',
-    id: config.auth.providers.github.id,
-    secret: config.auth.providers.github.secret
-  })
+  hserver.add_auth_provider(horizon.auth.github, config.auth.providers.github)
+  hserver.add_auth_provider(horizon.auth.google, config.auth.providers.google)
 }
 
 export default {

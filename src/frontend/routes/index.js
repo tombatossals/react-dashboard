@@ -10,9 +10,9 @@ import authenticate from 'lib/auth'
 const Routes = (props) => (
   <Router history={props.history}>
     <Redirect from='/' to='/home' />
-    <Route path='/home' component={Home} />
     <Route path='/youtube' component={authenticate(Youtube)} />
     <Route path='/' component={Layout}>
+      <Route path='/home' component={Home} />
       <Route path='/login' component={Login} />
       <Route path='user'>
         <Route path='login' component={Login} />

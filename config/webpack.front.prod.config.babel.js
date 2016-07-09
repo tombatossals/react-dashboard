@@ -8,7 +8,6 @@ const basePath = path.join(__dirname, '..', 'src')
 const buildPath = path.join(__dirname, '..', '.build')
 const staticPath = path.join(__dirname, '..', 'src', 'static')
 
-
 export default {
   target: 'web',
   devtool: 'eval',
