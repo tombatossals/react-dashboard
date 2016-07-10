@@ -1,7 +1,10 @@
 import Horizon from '@horizon/client'
 
 const horizon = Horizon({
-  authType: 'token'
+  authType: 'token',
+  secure: true,
+  path: '/horizon',
+  host: '127.0.0.1:8181'
 })
 
 const getCurrentUser = () => {

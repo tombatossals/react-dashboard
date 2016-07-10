@@ -49,11 +49,10 @@ const run = () => {
     }
   })
 
+/*
   const hserver = horizon(server, {
-    auto_create_collection: true,
-    auto_create_index: true,
     project_name: 'rdash',
-    permissions: false,
+    permissions: true,
     auth: {
       token_secret: config.token_secret
     }
@@ -61,6 +60,7 @@ const run = () => {
 
   hserver.add_auth_provider(horizon.auth.github, config.auth.providers.github)
   hserver.add_auth_provider(horizon.auth.google, config.auth.providers.google)
+  */
 }
 
 export default {
