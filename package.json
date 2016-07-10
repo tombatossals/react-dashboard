@@ -21,7 +21,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@kadira/storybook": "^1.36.0",
+    "@kadira/storybook": "^1.37.0",
     "babel-cli": "^6.9.0",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
@@ -42,7 +42,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "lodash.isequal": "^4.2.0",
-    "material-ui": "^0.15.1",
+    "material-ui": "^0.15.2",
     "progress-bar-webpack-plugin": "^1.8.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",

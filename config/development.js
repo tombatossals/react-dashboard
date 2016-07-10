@@ -29,7 +29,7 @@ module.exports = {
       github: {
         path: 'github',
         id: '1cc2775bffaa43783ff8',
-        secret: 'e7997508fc3d7a8138c1023da8c7f6d9317a57f7'
+        secret: '7477913dfb02abdf2a48d3ea563b2c39a40e8b15'
       },
       google: {
         path: 'google',

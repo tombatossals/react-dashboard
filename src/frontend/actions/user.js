@@ -98,17 +98,19 @@ export function checkAuthToken () {
     dispatch(checkAuthTokenAction({ status: AsyncStatus.LOADING }))
     const user = API.getCurrentUser()
     if (user) {
-      console.log(user)
-      return user.fetch().subscribe(data => dispatch(checkAuthTokenAction({
-        status: AsyncStatus.SUCCESS,
-        data: {
-          username: data.getUsername(),
-          firstName: data.attributes.firstName,
-          lastName: data.attributes.lastName,
-          email: user.attributes.email,
-          id: data.id
-        }
-      })))
+      return user.fetch().subscribe(data => {
+        console.log(data)
+        return dispatch(checkAuthTokenAction({
+          status: AsyncStatus.SUCCESS,
+          data: {
+            username: data.getUsername(),
+            firstName: data.attributes.firstName,
+            lastName: data.attributes.lastName,
+            email: user.attributes.email,
+            id: data.id
+          }
+        }))
+      })
     }
 
     return dispatch(checkAuthTokenAction({

@@ -1,10 +1,11 @@
 import Horizon from '@horizon/client'
 
 const horizon = Horizon({
-  authType: 'anonymous'
+  authType: 'token'
 })
 
 const getCurrentUser = () => {
+  horizon.status().subscribe(status => console.log('status', status))
   if (horizon.hasAuthToken()) {
     horizon.connect()
     return horizon.currentUser()
