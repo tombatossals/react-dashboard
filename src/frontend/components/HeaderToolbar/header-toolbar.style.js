@@ -1,6 +1,7 @@
 const styles = {
   toolbar: {
-    background: '#005C97',
+    background: 'linear-gradient(to bottom,#e5e5e5,#dedede)',
+    boxShadow: '0 3px 3px rgba(0,0,0,.3)',
     width: '100%',
     marginBottom: '2em'
   },
@@ -11,12 +12,10 @@ const styles = {
   },
   link: {
     textDecoration: 'none',
-    color: 'white',
     cursor: 'pointer'
   },
   menulink: {
     textDecoration: 'none',
-    color: 'white',
     cursor: 'pointer',
     textTransform: 'none'
   },

@@ -24,9 +24,14 @@ const googleLogin = () => {
   return horizon.authEndpoint('google')
 }
 
+const getCountries = () => {
+  return horizon('countries').fetch()
+}
+
 export default {
   getCurrentUser,
   githubLogin,
   googleLogin,
-  logout
+  logout,
+  getCountries
 }

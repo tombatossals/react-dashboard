@@ -7,3 +7,7 @@ export {
   changePassword,
   logout
 } from 'actions/user'
+
+export {
+  getCountries
+} from 'actions/country'

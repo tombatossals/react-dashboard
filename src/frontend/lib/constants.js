@@ -14,3 +14,7 @@ export const UserActions = {
   USER_CHECK_TOKEN: 'USER_CHECK_TOKEN',
   USER_CHANGE_PASSWORD: 'USER_CHANGE_PASSWORD'
 }
+
+export const CountryActions = {
+  COUNTRY_GETALL: 'COUNTRY_GETALL'
+}

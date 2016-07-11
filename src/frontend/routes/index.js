@@ -5,6 +5,7 @@ import SignupSuccess from 'components/User/SignupSuccess'
 import Layout from 'containers/Layout'
 import Youtube from 'components/Youtube'
 import Home from 'components/Home'
+import Countries from 'containers/Countries'
 import authenticate from 'lib/auth'
 
 const Routes = (props) => (
@@ -12,6 +13,7 @@ const Routes = (props) => (
     <Redirect from='/' to='/home' />
     <Route path='/' component={Layout}>
       <Route path='/home' component={Home} />
+      <Route path='/countries' component={Countries} />
       <Route path='/login' component={Login} />
       <Route path='logout' component={Logout} />
       <Route path='/youtube' component={authenticate(Youtube)} />

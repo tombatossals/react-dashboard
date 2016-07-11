@@ -1,1 +1,3 @@
 hz set-schema -n rdash -c localhost:28015 config/schema.toml
+
+rethinkdb import -f countries.json --force --table rdash.countries

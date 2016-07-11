@@ -8,7 +8,7 @@ const initialUserState = {
   }
 }
 
-const authReducers = handleActions({
+export default handleActions({
   USER_LOGIN: (state, action) => action.payload,
   USER_CHECK_TOKEN: (state, action) => action.payload,
   USER_REGISTER: (state, action) => action.payload,
@@ -41,5 +41,3 @@ const authReducers = handleActions({
 
   USER_LOGOUT: () => initialUserState
 }, initialUserState)
-
-export default authReducers
