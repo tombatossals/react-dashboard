@@ -7,7 +7,6 @@ export const AsyncStatus = {
 
 export const UserActions = {
   USER_LOGIN: 'USER_LOGIN',
-  CHECK_AUTH_TOKEN: 'CHECK_AUTH_TOKEN',
   USER_UPDATE: 'USER_UPDATE',
   USER_DELETE: 'USER_DELETE',
   USER_REGISTER: 'USER_REGISTER',

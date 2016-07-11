@@ -93,20 +93,15 @@ export function signup (authdata) {
 
 export function checkAuthToken () {
   return dispatch => {
-    const checkAuthTokenAction = createAction(UserActions.CHECK_AUTH_TOKEN)
+    const checkAuthTokenAction = createAction(UserActions.USER_CHECK_TOKEN)
 
     dispatch(checkAuthTokenAction({ status: AsyncStatus.LOADING }))
     const user = API.getCurrentUser()
     if (user) {
       return user.fetch().subscribe(data => {
-        console.log(data)
         return dispatch(checkAuthTokenAction({
           status: AsyncStatus.SUCCESS,
           data: {
-            username: data.getUsername(),
-            firstName: data.attributes.firstName,
-            lastName: data.attributes.lastName,
-            email: user.attributes.email,
             id: data.id
           }
         }))
@@ -123,7 +118,8 @@ export function checkAuthToken () {
 export function logout () {
   return dispatch => {
     const logoutAction = createAction(UserActions.USER_LOGOUT)
-    API.logout().then(() => dispatch(logoutAction()))
+    API.logout()
+    dispatch(logoutAction())
   }
 }
 

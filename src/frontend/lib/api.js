@@ -2,17 +2,18 @@ import Horizon from '@horizon/client'
 
 const horizon = Horizon({
   authType: 'token',
-  secure: true,
-  path: '/horizon',
-  host: '127.0.0.1:8181'
+  secure: true
 })
 
 const getCurrentUser = () => {
-  horizon.status().subscribe(status => console.log('status', status))
   if (horizon.hasAuthToken()) {
     horizon.connect()
     return horizon.currentUser()
   }
+}
+
+const logout = () => {
+  Horizon.clearAuthTokens()
 }
 
 const githubLogin = () => {
@@ -26,5 +27,6 @@ const googleLogin = () => {
 export default {
   getCurrentUser,
   githubLogin,
-  googleLogin
+  googleLogin,
+  logout
 }

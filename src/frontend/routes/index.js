@@ -10,13 +10,12 @@ import authenticate from 'lib/auth'
 const Routes = (props) => (
   <Router history={props.history}>
     <Redirect from='/' to='/home' />
-    <Route path='/youtube' component={authenticate(Youtube)} />
     <Route path='/' component={Layout}>
       <Route path='/home' component={Home} />
       <Route path='/login' component={Login} />
+      <Route path='logout' component={Logout} />
+      <Route path='/youtube' component={authenticate(Youtube)} />
       <Route path='user'>
-        <Route path='login' component={Login} />
-        <Route path='logout' component={Logout} />
         <Route path='preferences' component={authenticate(Profile)} />
         <Route path='signup' component={Signup} />
         <Route path='signup/success' component={SignupSuccess} />

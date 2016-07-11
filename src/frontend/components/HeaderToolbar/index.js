@@ -51,7 +51,7 @@ export default class HeaderToolbar extends React.Component {
   }
 
   navigateUserLogin () {
-    this.handleOnClick('/user/login')
+    this.handleOnClick('/login')
   }
 
   render () {
@@ -88,7 +88,7 @@ export default class HeaderToolbar extends React.Component {
                     handleOnClick={this.handleOnClick} />
                   <MenuItemLink
                     primaryText='Logout'
-                    url='/user/logout'
+                    url='/logout'
                     leftIcon={<LogoutIcon />}
                     handleOnClick={this.handleOnClick} />
                 </Menu>
