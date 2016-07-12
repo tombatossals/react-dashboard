@@ -24,10 +24,8 @@ Logout.propTypes = {
   logout: React.PropTypes.func.isRequired
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    logout
-  }, dispatch)
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  logout
+}, dispatch)
 
 export default connect(null, mapDispatchToProps)(Logout)

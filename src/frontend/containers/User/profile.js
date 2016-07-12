@@ -38,20 +38,16 @@ Profile.propTypes = {
   replace: React.PropTypes.func
 }
 
-function mapStateToProps (state, props) {
-  return {
-    user: state.user,
-    section: props.route.path
-  }
-}
+const mapStateToProps = (state, props) => ({
+  user: state.user,
+  section: props.route.path
+})
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    updateUser,
-    deleteUser,
-    changePassword,
-    replace: routerActions.replace
-  }, dispatch)
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  updateUser,
+  deleteUser,
+  changePassword,
+  replace: routerActions.replace
+}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

@@ -51,8 +51,11 @@ const run = () => {
 
   const hserver = horizon(server, {
     project_name: 'rdash',
-    permissions: true,
+    permissions: false,
+    auto_create_collection: true,
     auth: {
+      allow_anonymous: true,
+      allow_unauthenticated: true,
       token_secret: config.token_secret
     }
   })

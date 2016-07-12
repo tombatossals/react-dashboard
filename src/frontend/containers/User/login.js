@@ -56,7 +56,7 @@ Login.propTypes = {
   })
 }
 
-function mapStateToProps (state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   const redirect = ownProps.location.query.redirect || '/'
   return {
     user: state.user,
@@ -64,12 +64,11 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    authenticate,
-    checkAuthToken,
-    replace: routerActions.replace
-  }, dispatch)
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  authenticate,
+  checkAuthToken,
+  replace: routerActions.replace
+}, dispatch)
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

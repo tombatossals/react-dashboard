@@ -13,16 +13,17 @@ export function getCountries () {
     }))
 
     API.getCountries().subscribe(countries => {
-      console.log(countries)
+      console.log('countries', countries)
       return dispatch(getCountriesAction({
         action: {
           type: CountryActions.COUNTRY_GETALL,
           status: AsyncStatus.SUCCESS
         },
-        countries
+        data: countries
       }))
     }
     , err => dispatch(getCountriesAction({
+      data: [],
       action: {
         type: CountryActions.COUNTRY_GETALL,
         status: AsyncStatus.FAILED,

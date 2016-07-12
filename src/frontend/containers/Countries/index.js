@@ -6,15 +6,14 @@ import CountriesComponent from 'components/Countries'
 import { getCountries } from 'actions'
 
 class Countries extends React.Component {
-  componentWillMount () {
+  componentDidMount () {
     this.props.getCountries()
   }
 
   render () {
-    if (this.props.countries.action === AsyncStatus.IDLE) {
+    if (this.props.countries.action.status !== AsyncStatus.SUCCESS) {
       return null
     }
-    console.log('ye', this.props.countries)
     return (
       <CountriesComponent
         countries={this.props.countries}
