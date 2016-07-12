@@ -4,7 +4,7 @@ const Country = ({countries}) => (
   <div>
     <h1>Countries</h1>
     {countries.data.map(country => (
-      <li key={country.id}>{country.id}</li>
+      <li key={country.id}>{country.name}</li>
     ))}
   </div>
 )

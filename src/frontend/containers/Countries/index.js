@@ -11,7 +11,7 @@ class Countries extends React.Component {
   }
 
   render () {
-    if (this.props.countries.action.status !== AsyncStatus.SUCCESS) {
+    if (this.props.countries.status !== AsyncStatus.SUCCESS) {
       return null
     }
     return (

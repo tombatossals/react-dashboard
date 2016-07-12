@@ -2,10 +2,7 @@ import { handleActions } from 'redux-actions'
 import { AsyncStatus } from 'lib/constants'
 
 const initialUserState = {
-  status: AsyncStatus.IDLE,
-  action: {
-    status: AsyncStatus.IDLE
-  }
+  status: AsyncStatus.IDLE
 }
 
 export default handleActions({
@@ -14,12 +11,12 @@ export default handleActions({
   USER_REGISTER: (state, action) => action.payload,
   USER_DELETE: (state, action) => initialUserState,
   USER_UPDATE: (state, action) => {
-    if (action.payload.action.status === AsyncStatus.FAILED ||
-        action.payload.action.status === AsyncStatus.LOADING) {
+    if (action.payload.status === AsyncStatus.FAILED ||
+        action.payload.status === AsyncStatus.LOADING) {
       return Object.assign({}, state, { action: action.payload.action })
     }
 
-    const user = action.payload.user
+    const user = action.payload.data
     const data = {
       username: user.getUsername(),
       firstName: user.attributes.firstName,

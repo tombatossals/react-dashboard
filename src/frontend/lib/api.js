@@ -1,19 +1,24 @@
 import Horizon from '@horizon/client'
 
 const horizon = Horizon({
-  authType: 'token',
+  authType: 'anonymous',
   secure: true
 })
 
+horizon.connect()
+
 const getCurrentUser = () => {
   if (horizon.hasAuthToken()) {
-    horizon.connect()
     return horizon.currentUser()
   }
 }
 
 const logout = () => {
   Horizon.clearAuthTokens()
+}
+
+const getStatus = () => {
+  return horizon.status()
 }
 
 const githubLogin = () => {
@@ -28,10 +33,17 @@ const getCountries = () => {
   return horizon('countries').fetch()
 }
 
+const onReady = (cb) => {
+  horizon.onReady(cb)
+}
+
 export default {
   getCurrentUser,
   githubLogin,
   googleLogin,
   logout,
-  getCountries
+  getCountries,
+  getStatus,
+  horizon,
+  onReady
 }

@@ -96,22 +96,17 @@ export function checkAuthToken () {
     const checkAuthTokenAction = createAction(UserActions.USER_CHECK_TOKEN)
 
     dispatch(checkAuthTokenAction({ status: AsyncStatus.LOADING }))
-    const user = API.getCurrentUser()
-    if (user) {
-      return user.fetch().subscribe(data => {
-        return dispatch(checkAuthTokenAction({
-          status: AsyncStatus.SUCCESS,
-          data: {
-            id: data.id
-          }
-        }))
-      })
-    }
 
-    return dispatch(checkAuthTokenAction({
-      status: AsyncStatus.SUCCESS,
-      data: {}
-    }))
+    const user = API.getCurrentUser()
+    return user.fetch().subscribe(data => {
+      return dispatch(checkAuthTokenAction({
+        status: AsyncStatus.SUCCESS,
+        data: user
+      }))
+    }, err => dispatch(checkAuthTokenAction({
+      status: AsyncStatus.FAILED,
+      message: err.message
+    })))
   }
 }
 
@@ -127,35 +122,27 @@ export function updateUser (userdata, orig) {
   return dispatch => {
     const updateAction = createAction(UserActions.USER_UPDATE)
     dispatch(updateAction({
-      action: {
-        type: UserActions.USER_UPDATE,
-        status: AsyncStatus.LOADING
-      }
+      type: UserActions.USER_UPDATE,
+      status: AsyncStatus.LOADING
     }))
 
     if (!userdata.username) {
       return dispatch(updateAction({
-        action: {
-          type: UserActions.USER_UPDATE,
-          status: AsyncStatus.FAILED,
-          message: 'Empty user is not valid'
-        }
+        type: UserActions.USER_UPDATE,
+        status: AsyncStatus.FAILED,
+        message: 'Empty user is not valid'
       }))
     }
     API.updateUser(userdata).then(user =>
       dispatch(updateAction({
-        action: {
-          type: UserActions.USER_UPDATE,
-          status: AsyncStatus.SUCCESS
-        },
+        type: UserActions.USER_UPDATE,
+        status: AsyncStatus.SUCCESS,
         user
       }))
     ).fail(err => dispatch(updateAction({
-      action: {
-        type: UserActions.USER_UPDATE,
-        status: AsyncStatus.FAILED,
-        message: err.message
-      }
+      type: UserActions.USER_UPDATE,
+      status: AsyncStatus.FAILED,
+      message: err.message
     })))
   }
 }
@@ -164,36 +151,28 @@ export function changePassword (pass1, pass2) {
   return dispatch => {
     const changePasswordAction = createAction(UserActions.USER_CHANGE_PASSWORD)
     dispatch(changePasswordAction({
-      action: {
-        type: UserActions.USER_CHANGE_PASSWORD,
-        status: AsyncStatus.LOADING
-      }
+      type: UserActions.USER_CHANGE_PASSWORD,
+      status: AsyncStatus.LOADING
     }))
 
     console.log(pass1, pass2)
     if (pass1 !== pass2) {
       return dispatch(changePasswordAction({
-        action: {
-          type: UserActions.USER_CHANGE_PASSWORD,
-          status: AsyncStatus.FAILED,
-          message: 'Passwords doesn\'t match'
-        }
+        type: UserActions.USER_CHANGE_PASSWORD,
+        status: AsyncStatus.FAILED,
+        message: 'Passwords doesn\'t match'
       }))
     }
 
     API.changePassword(pass1).then(user =>
       dispatch(changePasswordAction({
-        action: {
-          type: UserActions.USER_CHANGE_PASSWORD,
-          status: AsyncStatus.SUCCESS
-        }
+        type: UserActions.USER_CHANGE_PASSWORD,
+        status: AsyncStatus.SUCCESS
       }))
     ).fail(err => dispatch(changePasswordAction({
-      action: {
-        type: UserActions.USER_CHANGE_PASSWORD,
-        status: AsyncStatus.FAILED,
-        message: err.message
-      }
+      type: UserActions.USER_CHANGE_PASSWORD,
+      status: AsyncStatus.FAILED,
+      message: err.message
     })))
   }
 }
