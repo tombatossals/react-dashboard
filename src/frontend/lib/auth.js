@@ -7,20 +7,20 @@ export default (ChildComponent) => {
 
     constructor (props) {
       super(props)
-      this.state = {currentUser: ''}
-    }
-
-    componentDidMount () {
-      if (api.hasAuthToken()) {
-        api.getCurrentUser((user) => {
-          this.setState({currentUser: user.id})
-        })
+      this.state = {
+        user: undefined
       }
     }
 
+    componentDidMount () {
+      api.getCurrentUser((user) => {
+        this.setState({ user })
+      })
+    }
+
     render () {
-      return (api.hasAuthToken()
-          ? <ChildComponent {...this.props} user={this.state.currentUser} />
+      return (this.state.user
+          ? <ChildComponent {...this.props} user={this.state.user} />
           : <Login />
       )
     }
