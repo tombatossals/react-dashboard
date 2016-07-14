@@ -101,7 +101,7 @@ export function checkAuthToken () {
     return user.fetch().subscribe(data => {
       return dispatch(checkAuthTokenAction({
         status: AsyncStatus.SUCCESS,
-        data: user
+        data
       }))
     }, err => dispatch(checkAuthTokenAction({
       status: AsyncStatus.FAILED,
@@ -155,7 +155,6 @@ export function changePassword (pass1, pass2) {
       status: AsyncStatus.LOADING
     }))
 
-    console.log(pass1, pass2)
     if (pass1 !== pass2) {
       return dispatch(changePasswordAction({
         type: UserActions.USER_CHANGE_PASSWORD,

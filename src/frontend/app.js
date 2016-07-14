@@ -27,7 +27,6 @@ class App extends React.Component {
 
   enableApp (onReady) {
     onReady(() => {
-      console.log('ready')
       this.setState({
         ready: true
       })
@@ -35,7 +34,6 @@ class App extends React.Component {
   }
 
   render () {
-    console.log('hola', this.state)
     if (this.state.ready === false) {
       return false
     }

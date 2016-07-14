@@ -1,30 +1,31 @@
 import React, { Component } from 'react'
-import { Login } from 'containers/User'
-import api from 'lib/api'
+import { Login } from 'components/User'
+import { getUserPropTypes } from 'lib/proptypes'
 
 export default (ChildComponent) => {
   class AuthenticatedComponent extends Component {
 
     constructor (props) {
       super(props)
+      console.log('user', props.user)
       this.state = {
-        user: undefined
+        user: props.user
       }
     }
 
     componentDidMount () {
-      api.getCurrentUser((user) => {
-        this.setState({ user })
-      })
+      this.state = {
+        user: true
+      }
     }
 
     render () {
-      return (this.state.user
-          ? <ChildComponent {...this.props} user={this.state.user} />
-          : <Login />
-      )
+      return <Login />
     }
   }
 
+  AuthenticatedComponent.propTypes = {
+    user: getUserPropTypes()
+  }
   return AuthenticatedComponent
 }

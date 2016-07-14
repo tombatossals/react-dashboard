@@ -26,7 +26,6 @@ class Login extends React.Component {
   }
 
   ensureNotLoggedIn (props) {
-    console.log(props.user)
     if (props.user.status === AsyncStatus.SUCCESS) {
       props.replace(props.redirect)
     }
