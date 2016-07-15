@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Login } from 'components/User'
 import { getUserPropTypes } from 'lib/proptypes'
 
 export default (ChildComponent) => {
@@ -7,7 +6,6 @@ export default (ChildComponent) => {
 
     constructor (props) {
       super(props)
-      console.log('user', props.user)
       this.state = {
         user: props.user
       }
@@ -15,12 +13,21 @@ export default (ChildComponent) => {
 
     componentDidMount () {
       this.state = {
-        user: true
+        user: this.props.user
+      }
+    }
+
+    componentWillReceiveProps (props) {
+      this.state = {
+        user: props.user
       }
     }
 
     render () {
-      return <Login />
+      console.log(this.state.user)
+      return this.state.user
+        ? <div>hola</div>
+        : false
     }
   }
 
