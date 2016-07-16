@@ -47,7 +47,7 @@ export default class Login extends React.Component {
 
   facebookLogin () {
     this.setState({
-      status: AsyncStatus.LOADING
+      status: AsyncStatus.REQUEST
     })
 
     this.props.onSubmit({
@@ -57,7 +57,7 @@ export default class Login extends React.Component {
 
   githubLogin () {
     this.setState({
-      status: AsyncStatus.LOADING
+      status: AsyncStatus.REQUEST
     })
 
     this.props.onSubmit({
@@ -67,7 +67,7 @@ export default class Login extends React.Component {
 
   googleLogin () {
     this.setState({
-      status: AsyncStatus.LOADING
+      status: AsyncStatus.REQUEST
     })
 
     this.props.onSubmit({
@@ -81,7 +81,7 @@ export default class Login extends React.Component {
     }
 
     this.setState({
-      status: AsyncStatus.LOADING
+      status: AsyncStatus.REQUEST
     })
 
     this.props.onSubmit({
@@ -91,12 +91,12 @@ export default class Login extends React.Component {
   }
 
   disableInput () {
-    return this.props.status === AsyncStatus.LOADING ||
+    return this.props.status === AsyncStatus.REQUEST ||
     this.props.status === AsyncStatus.SUCCESS
   }
 
   showButtonLabel () {
-    if (this.props.status === AsyncStatus.LOADING) {
+    if (this.props.status === AsyncStatus.REQUEST) {
       return 'Wait...'
     } else if (this.props.status === AsyncStatus.SUCCESS) {
       return 'Success'
@@ -140,7 +140,7 @@ export default class Login extends React.Component {
               </div>
             </div>
           </div>
-          {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
+          {this.props.status === AsyncStatus.REQUEST && <LinearProgress mode='indeterminate' />}
         </Paper>
         {this.props.external &&
           <div>

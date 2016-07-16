@@ -40,7 +40,7 @@ class PreferencesTab extends React.Component {
       message: props.user.action.message
     })
 
-    if (this.state.status === AsyncStatus.LOADING &&
+    if (this.state.status === AsyncStatus.REQUEST &&
         props.user.action.type === UserActions.USER_UPDATE &&
         props.user.action.status === AsyncStatus.SUCCESS) {
       this.setState({
@@ -96,7 +96,7 @@ class PreferencesTab extends React.Component {
   onSubmit () {
     if (this.userHasDifferences()) {
       this.setState({
-        status: AsyncStatus.LOADING
+        status: AsyncStatus.REQUEST
       })
 
       const userdata = {
@@ -124,7 +124,7 @@ class PreferencesTab extends React.Component {
         onTouchTap={this.onSubmit} />
     ]
 
-    if (this.state.status === AsyncStatus.LOADING) {
+    if (this.state.status === AsyncStatus.REQUEST) {
       actions.push(<LinearProgress style={styles.progress} mode='indeterminate' />)
     }
 

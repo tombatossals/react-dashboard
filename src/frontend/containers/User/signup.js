@@ -2,9 +2,7 @@ import React from 'react'
 import RegistrationComponent from 'components/User/Signup'
 import { AsyncStatus } from 'lib/constants'
 import { signup, checkAuthToken } from 'actions'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { routerActions } from 'react-router-redux'
 import { getUserPropTypes } from 'lib/proptypes'
 
 class Signup extends React.Component {
@@ -53,18 +51,9 @@ Signup.propTypes = {
   })
 }
 
-function mapStateToProps (state, ownProps) {
-  return {
-    user: state.user
-  }
-}
+const mapStateToProps = (state) => ({
+  user: state.user
+})
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    signup,
-    checkAuthToken,
-    replace: routerActions.replace
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Signup)
+export default connect(mapStateToProps,
+  { signup, checkAuthToken })(Signup)

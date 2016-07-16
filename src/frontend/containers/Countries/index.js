@@ -1,13 +1,12 @@
 import React from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { AsyncStatus } from 'lib/constants'
 import CountriesComponent from 'components/Countries'
-import { getCountries } from 'actions'
+import { fetchCountries } from 'actions'
 
 class Countries extends React.Component {
   componentDidMount () {
-    this.props.getCountries()
+    this.props.fetchCountries()
   }
 
   render () {
@@ -24,19 +23,11 @@ class Countries extends React.Component {
 
 Countries.propTypes = {
   countries: React.PropTypes.any,
-  getCountries: React.PropTypes.func.isRequired
+  fetchCountries: React.PropTypes.func.isRequired
 }
 
-function mapStateToProps (state, ownProps) {
-  return {
-    countries: state.countries
-  }
-}
+const mapStateToProps = ({ countries }) => ({
+  countries
+})
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    getCountries
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Countries)
+export default connect(mapStateToProps, { fetchCountries })(Countries)

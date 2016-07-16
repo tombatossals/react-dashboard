@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import { Provider } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
 
 import Routes from 'routes'
 import configureStore from 'lib/store'
@@ -14,7 +13,6 @@ injectTapEventPlugin()
 const rootElement = document.getElementById('root')
 
 const store = configureStore(browserHistory)
-const history = syncHistoryWithStore(browserHistory, store)
 
 class App extends React.Component {
   constructor (props) {
@@ -34,22 +32,19 @@ class App extends React.Component {
   }
 
   render () {
-    if (this.state.ready === false) {
-      return false
-    }
-    return (
-      <Routes history={this.props.history} />
-    )
+    return this.state.ready
+      ? <Routes history={this.props.history} />
+      : false
   }
 }
 
 App.propTypes = {
   history: React.PropTypes.any,
-  onReady: React.PropTypes.any
+  onReady: React.PropTypes.func
 }
 
 ReactDOM.render((
   <Provider store={store}>
-    <App history={history} onReady={API.onReady} />
+    <App history={browserHistory} onReady={API.onReady} />
   </Provider>
 ), rootElement)

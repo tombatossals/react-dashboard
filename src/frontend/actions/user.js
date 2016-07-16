@@ -1,5 +1,5 @@
-import { createAction } from 'redux-actions'
 import { AsyncStatus, UserActions } from 'lib/constants'
+import { createAction } from 'redux-actions'
 import API from 'lib/api'
 
 export function authenticate (authdata) {
@@ -14,7 +14,7 @@ export function authenticate (authdata) {
     }
 
     const { type, username, password } = authdata
-    dispatch(loginAction({ status: AsyncStatus.LOADING }))
+    dispatch(loginAction({ status: AsyncStatus.REQUEST }))
 
     switch (type) {
       case 'github':
@@ -63,6 +63,7 @@ export function authenticate (authdata) {
   }
 }
 
+
 export function signup (authdata) {
   return dispatch => {
     const signupAction = createAction(UserActions.USER_SIGNUP)
@@ -74,7 +75,7 @@ export function signup (authdata) {
       }))
     }
 
-    dispatch(signupAction({ status: AsyncStatus.LOADING }))
+    dispatch(signupAction({ status: AsyncStatus.REQUEST }))
     return API.signup(authdata).then(user => dispatch(signupAction({
       status: AsyncStatus.SUCCESS,
       data: {
@@ -91,24 +92,24 @@ export function signup (authdata) {
   }
 }
 
-export function checkAuthToken () {
-  return dispatch => {
-    const checkAuthTokenAction = createAction(UserActions.USER_CHECK_TOKEN)
+export const checkAuthToken = () =>
+  dispatch => {
+    const checkAuthTokenAction = createAction(UserActions.USER_CHECK_AUTH_TOKEN)
+    dispatch(checkAuthTokenAction({
+      status: AsyncStatus.REQUEST
+    }))
 
-    dispatch(checkAuthTokenAction({ status: AsyncStatus.LOADING }))
-
-    const user = API.getCurrentUser()
-    return user.fetch().subscribe(data => {
-      return dispatch(checkAuthTokenAction({
+    API.getCurrentUser().fetch().subscribe(data =>
+      dispatch(checkAuthTokenAction({
         status: AsyncStatus.SUCCESS,
         data
       }))
-    }, err => dispatch(checkAuthTokenAction({
-      status: AsyncStatus.FAILED,
-      message: err.message
-    })))
+    , err =>
+      dispatch(checkAuthTokenAction({
+        status: AsyncStatus.FAILED,
+        data: err.message
+      })))
   }
-}
 
 export function logout () {
   return dispatch => {
@@ -123,7 +124,7 @@ export function updateUser (userdata, orig) {
     const updateAction = createAction(UserActions.USER_UPDATE)
     dispatch(updateAction({
       type: UserActions.USER_UPDATE,
-      status: AsyncStatus.LOADING
+      status: AsyncStatus.REQUEST
     }))
 
     if (!userdata.username) {
@@ -152,7 +153,7 @@ export function changePassword (pass1, pass2) {
     const changePasswordAction = createAction(UserActions.USER_CHANGE_PASSWORD)
     dispatch(changePasswordAction({
       type: UserActions.USER_CHANGE_PASSWORD,
-      status: AsyncStatus.LOADING
+      status: AsyncStatus.REQUEST
     }))
 
     if (pass1 !== pass2) {

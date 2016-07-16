@@ -2,23 +2,20 @@ import { createAction } from 'redux-actions'
 import { AsyncStatus, CountryActions } from 'lib/constants'
 import API from 'lib/api'
 
-export function getCountries () {
+export function fetchCountries () {
   return dispatch => {
-    const getCountriesAction = createAction(CountryActions.COUNTRY_GETALL)
-    dispatch(getCountriesAction({
-      action: {
-        type: CountryActions.COUNTRY_GETALL,
-        status: AsyncStatus.LOADING
-      }
+    const fetchCountriesAction = createAction(CountryActions.COUNTRY_GETALL)
+    dispatch(fetchCountriesAction({
+      status: AsyncStatus.REQUEST
     }))
 
     API.getCountries().subscribe(countries => {
-      return dispatch(getCountriesAction({
+      return dispatch(fetchCountriesAction({
         status: AsyncStatus.SUCCESS,
         data: countries
       }))
     }
-    , err => dispatch(getCountriesAction({
+    , err => dispatch(fetchCountriesAction({
       status: AsyncStatus.FAILED,
       message: err.message
     })))

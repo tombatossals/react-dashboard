@@ -50,7 +50,7 @@ export default class Signup extends React.Component {
 
   submit () {
     this.setState({
-      status: AsyncStatus.LOADING
+      status: AsyncStatus.REQUEST
     })
 
     this.props.onSubmit({
@@ -61,7 +61,7 @@ export default class Signup extends React.Component {
   }
 
   disableInput () {
-    return this.props.status === AsyncStatus.LOADING ||
+    return this.props.status === AsyncStatus.REQUEST ||
            this.props.status === AsyncStatus.SUCCESS
   }
 
@@ -70,7 +70,7 @@ export default class Signup extends React.Component {
   }
 
   showButtonLabel () {
-    if (this.props.status === AsyncStatus.LOADING) {
+    if (this.props.status === AsyncStatus.REQUEST) {
       return 'Wait...'
     } else if (this.props.status === AsyncStatus.SUCCESS) {
       return 'Success'
@@ -120,7 +120,7 @@ export default class Signup extends React.Component {
                 label={this.showButtonLabel()} />
             </div>
           </div>
-          {this.props.status === AsyncStatus.LOADING && <LinearProgress mode='indeterminate' />}
+          {this.props.status === AsyncStatus.REQUEST && <LinearProgress mode='indeterminate' />}
         </Paper>
       </div>
     )

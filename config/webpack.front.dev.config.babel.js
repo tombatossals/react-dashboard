@@ -27,8 +27,8 @@ export default {
       'react-dom',
       'react-redux',
       'react-router',
-      'react-router-redux',
       'redux',
+      'redux-actions',
       'redux-logger',
       'redux-thunk'
     ]

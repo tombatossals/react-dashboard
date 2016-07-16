@@ -1,6 +1,5 @@
 import React from 'react'
 import { logout } from 'actions'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
@@ -24,8 +23,4 @@ Logout.propTypes = {
   logout: React.PropTypes.func.isRequired
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  logout
-}, dispatch)
-
-export default connect(null, mapDispatchToProps)(Logout)
+export default connect(null, { logout })(Logout)

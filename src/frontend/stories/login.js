@@ -24,7 +24,7 @@ storiesOf('Login', module)
     )
   })
   .add('Loading', () => {
-    const status = AsyncStatus.LOADING
+    const status = AsyncStatus.REQUEST
     const onSubmit = () => {
     }
 

@@ -31,7 +31,7 @@ class PreferencesTab extends React.Component {
 
   componentWillReceiveProps (props) {
     console.log(props)
-    if (this.state.status === AsyncStatus.LOADING &&
+    if (this.state.status === AsyncStatus.REQUEST &&
         props.user.action.type === UserActions.USER_CHANGE_PASSWORD &&
         props.user.action.status === AsyncStatus.SUCCESS) {
       return this.setState({
@@ -83,7 +83,7 @@ class PreferencesTab extends React.Component {
 
   onSubmit () {
     this.setState({
-      status: AsyncStatus.LOADING
+      status: AsyncStatus.REQUEST
     })
     this.props.onChangePasswordSubmit(this.state.pass1, this.state.pass2)
   }

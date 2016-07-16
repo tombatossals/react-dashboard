@@ -1,13 +1,14 @@
 export {
   authenticate,
   signup,
-  checkAuthToken,
   updateUser,
   deleteUser,
   changePassword,
-  logout
+  checkAuthToken,
+  logout,
+  userLogin
 } from 'actions/user'
 
 export {
-  getCountries
+  fetchCountries
 } from 'actions/country'

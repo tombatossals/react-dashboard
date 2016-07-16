@@ -2,9 +2,7 @@ import React from 'react'
 import LoginComponent from 'components/User/Login'
 import { AsyncStatus } from 'lib/constants'
 import { authenticate, checkAuthToken } from 'actions'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { routerActions } from 'react-router-redux'
 import { getUserPropTypes } from 'lib/proptypes'
 
 class Login extends React.Component {
@@ -13,16 +11,16 @@ class Login extends React.Component {
     this.onSignup = this.onSignup.bind(this)
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.ensureNotLoggedIn(this.props)
   }
 
-  componentWillReceiveProps (props) {
+  componentDidUpdate (props) {
     this.ensureNotLoggedIn(props)
   }
 
   onSignup () {
-    this.props.replace('/user/signup')
+    this.props.navigate('/user/signup')
   }
 
   ensureNotLoggedIn (props) {
@@ -47,7 +45,7 @@ class Login extends React.Component {
 Login.propTypes = {
   user: getUserPropTypes(),
   authenticate: React.PropTypes.func.isRequired,
-  replace: React.PropTypes.func.isRequired,
+  navigate: React.PropTypes.func.isRequired,
   location: React.PropTypes.shape({
     state: React.PropTypes.shape({
       pathname: React.PropTypes.string
@@ -55,19 +53,8 @@ Login.propTypes = {
   })
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const redirect = ownProps.location.query.redirect || '/'
-  return {
-    user: state.user,
-    redirect
-  }
-}
+const mapStateToProps = ({ user }) => ({
+  user
+})
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  authenticate,
-  checkAuthToken,
-  replace: routerActions.replace
-}, dispatch)
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, { authenticate, checkAuthToken })(Login)

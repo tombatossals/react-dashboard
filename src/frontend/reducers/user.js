@@ -7,12 +7,15 @@ const initialUserState = {
 
 export default handleActions({
   USER_LOGIN: (state, action) => action.payload,
-  USER_CHECK_TOKEN: (state, action) => action.payload,
+  USER_CHECK_AUTH_TOKEN: (state, action) => {
+    console.log('hcekc')
+    return action.payload
+  },
   USER_REGISTER: (state, action) => action.payload,
   USER_DELETE: (state, action) => initialUserState,
   USER_UPDATE: (state, action) => {
     if (action.payload.status === AsyncStatus.FAILED ||
-        action.payload.status === AsyncStatus.LOADING) {
+        action.payload.status === AsyncStatus.REQUEST) {
       return Object.assign({}, state, { action: action.payload.action })
     }
 
@@ -29,7 +32,7 @@ export default handleActions({
   },
   USER_CHANGE_PASSWORD: (state, action) => {
     if (action.payload.action.status === AsyncStatus.FAILED ||
-        action.payload.action.status === AsyncStatus.LOADING) {
+        action.payload.action.status === AsyncStatus.REQUEST) {
       return Object.assign({}, state, { action: action.payload.action })
     }
 

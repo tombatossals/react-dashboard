@@ -4,10 +4,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { getUserPropTypes } from 'lib/proptypes'
 import { AsyncStatus } from 'lib/constants'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { checkAuthToken } from 'actions'
 import HeaderMenu from 'components/HeaderToolbar'
-import { routerActions } from 'react-router-redux'
+import { withRouter } from 'react-router'
 
 class Layout extends React.Component {
   constructor () {
@@ -15,24 +14,21 @@ class Layout extends React.Component {
     this.navigate = this.navigate.bind(this)
   }
 
-  componentWillMount () {
-    this.checkLoggedIn(this.props)
-  }
-
-  checkLoggedIn (props) {
+  componentDidMount () {
     if (this.props.user.status === AsyncStatus.IDLE) {
-      props.checkAuthToken()
+      this.props.checkAuthToken()
     }
   }
 
   navigate (url) {
-    this.props.redirect(url)
+    this.props.router.push(url)
   }
 
   render () {
-    if (this.props.user.action === AsyncStatus.IDLE) {
-      return null
+    if (this.props.user.status === AsyncStatus.IDLE || this.props.user.status === AsyncStatus.REQUEST) {
+      return false
     }
+
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
@@ -46,21 +42,11 @@ class Layout extends React.Component {
 
 Layout.propTypes = {
   children: React.PropTypes.node,
+  checkAuthToken: React.PropTypes.func,
   user: getUserPropTypes(),
-  redirect: React.PropTypes.func
+  router: React.PropTypes.object
 }
 
-function mapStateToProps (state) {
-  return {
-    user: state.user
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    checkAuthToken,
-    redirect: routerActions.replace
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Layout)
+const mapStateToProps = ({ user }) => ({ user })
+export default withRouter(connect(mapStateToProps,
+  { checkAuthToken })(Layout))

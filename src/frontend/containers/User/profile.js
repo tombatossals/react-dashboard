@@ -1,10 +1,8 @@
 import React from 'react'
 import { updateUser, deleteUser, changePassword } from 'actions'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { getUserPropTypes } from 'lib/proptypes'
 import UserProfileComponent from 'components/User/Profile'
-import { routerActions } from 'react-router-redux'
 
 class Profile extends React.Component {
   constructor () {
@@ -38,16 +36,10 @@ Profile.propTypes = {
   replace: React.PropTypes.func
 }
 
-const mapStateToProps = (state, props) => ({
-  user: state.user,
+const mapStateToProps = ({ user }, props) => ({
+  user,
   section: props.route.path
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  updateUser,
-  deleteUser,
-  changePassword,
-  replace: routerActions.replace
-}, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps,
+  { updateUser, deleteUser, changePassword })(Profile)
