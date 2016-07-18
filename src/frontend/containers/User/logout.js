@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
 class Logout extends React.Component {
-  componentWillMount () {
+  componentDidMount () {
     this.props.logout()
   }
 

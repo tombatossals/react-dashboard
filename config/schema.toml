@@ -1,8 +1,4 @@
 # This is a TOML document
 
-[groups.admin]
-[groups.admin.rules.carte_blanche]
-template = "any()"
-
 [groups.default.rules.read_current_user]
 template = "collection('users').find({id: userId()})"

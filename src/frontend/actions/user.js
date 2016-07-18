@@ -2,8 +2,8 @@ import { AsyncStatus, UserActions } from 'lib/constants'
 import { createAction } from 'redux-actions'
 import API from 'lib/api'
 
-export function authenticate (authdata) {
-  return dispatch => {
+export const authenticate = (authdata) =>
+  dispatch => {
     const loginAction = createAction(UserActions.USER_LOGIN)
 
     if (!authdata) {
@@ -61,11 +61,10 @@ export function authenticate (authdata) {
         })))
     }
   }
-}
 
 
-export function signup (authdata) {
-  return dispatch => {
+export const signup = (authdata) =>
+  dispatch => {
     const signupAction = createAction(UserActions.USER_SIGNUP)
 
     if (!authdata) {
@@ -90,7 +89,6 @@ export function signup (authdata) {
       message: err.message
     })))
   }
-}
 
 export const checkAuthToken = () =>
   dispatch => {
@@ -111,16 +109,17 @@ export const checkAuthToken = () =>
       })))
   }
 
-export function logout () {
-  return dispatch => {
+export const logout = () =>
+  dispatch => {
     const logoutAction = createAction(UserActions.USER_LOGOUT)
     API.logout()
-    dispatch(logoutAction())
+    dispatch(logoutAction({
+      status: AsyncStatus.SUCCESS
+    }))
   }
-}
 
-export function updateUser (userdata, orig) {
-  return dispatch => {
+export const updateUser = (userdata, orig) =>
+  dispatch => {
     const updateAction = createAction(UserActions.USER_UPDATE)
     dispatch(updateAction({
       type: UserActions.USER_UPDATE,
@@ -146,10 +145,9 @@ export function updateUser (userdata, orig) {
       message: err.message
     })))
   }
-}
 
-export function changePassword (pass1, pass2) {
-  return dispatch => {
+export const changePassword = (pass1, pass2) =>
+  dispatch => {
     const changePasswordAction = createAction(UserActions.USER_CHANGE_PASSWORD)
     dispatch(changePasswordAction({
       type: UserActions.USER_CHANGE_PASSWORD,
@@ -175,11 +173,9 @@ export function changePassword (pass1, pass2) {
       message: err.message
     })))
   }
-}
 
-export function deleteUser () {
-  return dispatch => {
+export const deleteUser = () =>
+  dispatch => {
     const deleteAction = createAction(UserActions.USER_DELETE)
     API.deleteUser().then(() => dispatch(deleteAction()))
   }
-}

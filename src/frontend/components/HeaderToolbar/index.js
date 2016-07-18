@@ -12,6 +12,7 @@ import { getUserPropTypes } from 'lib/proptypes'
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SettingsIcon from 'material-ui/svg-icons/action/settings'
 import AccountBoxIcon from 'material-ui/svg-icons/action/account-box'
+import API from 'lib/api'
 
 export default class HeaderToolbar extends React.Component {
   constructor (props) {
@@ -59,14 +60,14 @@ export default class HeaderToolbar extends React.Component {
       <Toolbar style={styles.toolbar}>
         <ToolbarTitle text='React Dashboard' onClick={this.navigateHome} style={styles.link} />
         <ToolbarGroup float='right' lastChild>
-          {!this.props.user.data &&
+          {API.isAnonymous(this.props.user) &&
             <FlatButton
               onClick={this.navigateUserLogin}
               primary
               label='Login'
               style={styles.menulink} />
           }
-          {this.props.user.data &&
+          {!API.isAnonymous(this.props.user) &&
             <div style={styles.right}>
               <FlatButton
                 label={this.props.user.data.username}

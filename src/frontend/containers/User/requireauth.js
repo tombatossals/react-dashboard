@@ -1,25 +1,18 @@
 import React, { Component } from 'react'
 import { getUserPropTypes } from 'lib/proptypes'
 import { connect } from 'react-redux'
-import { AsyncStatus } from 'lib/constants'
 import { withRouter } from 'react-router'
+import API from 'lib/api'
 
 export default (ChildComponent) => {
   class RequireAuthentication extends Component {
 
-    constructor (props) {
-      super(props)
-      this.state = {
-        user: props.user
-      }
-    }
-
     redirect () {
-      this.props.router.push(`/login?redirect=${this.props.routeParams.redirect}`)
+      this.props.router.push(`/login?redirect=${this.props.location.pathname}`)
     }
 
     render () {
-      if (this.props.user.status === AsyncStatus.FAILED) {
+      if (API.isAnonymous(this.props.user)) {
         this.redirect()
       }
       return <ChildComponent {...this.props} />
@@ -33,7 +26,10 @@ export default (ChildComponent) => {
   RequireAuthentication.propTypes = {
     user: getUserPropTypes(),
     router: React.PropTypes.object,
-    routeParams: React.PropTypes.object
+    routeParams: React.PropTypes.object,
+    location: React.PropTypes.shape({
+      pathname: React.PropTypes.string
+    })
   }
 
   return withRouter(connect(mapStateToProps)(RequireAuthentication))

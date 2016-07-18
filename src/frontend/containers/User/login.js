@@ -1,9 +1,10 @@
 import React from 'react'
 import LoginComponent from 'components/User/Login'
-import { AsyncStatus } from 'lib/constants'
 import { authenticate, checkAuthToken } from 'actions'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import { getUserPropTypes } from 'lib/proptypes'
+import API from 'lib/api'
 
 class Login extends React.Component {
   constructor () {
@@ -20,12 +21,13 @@ class Login extends React.Component {
   }
 
   onSignup () {
-    this.props.navigate('/user/signup')
+    this.props.router.push('/user/signup')
   }
 
   ensureNotLoggedIn (props) {
-    if (props.user.status === AsyncStatus.SUCCESS) {
-      props.replace(props.redirect)
+    console.log(API.isAnonymous(props.user))
+    if (!API.isAnonymous(props.user)) {
+      props.router.push(props.location.query.redirect || '/')
     }
   }
 
@@ -45,7 +47,7 @@ class Login extends React.Component {
 Login.propTypes = {
   user: getUserPropTypes(),
   authenticate: React.PropTypes.func.isRequired,
-  navigate: React.PropTypes.func.isRequired,
+  router: React.PropTypes.any,
   location: React.PropTypes.shape({
     state: React.PropTypes.shape({
       pathname: React.PropTypes.string
@@ -57,4 +59,4 @@ const mapStateToProps = ({ user }) => ({
   user
 })
 
-export default connect(mapStateToProps, { authenticate, checkAuthToken })(Login)
+export default withRouter(connect(mapStateToProps, { authenticate, checkAuthToken })(Login))

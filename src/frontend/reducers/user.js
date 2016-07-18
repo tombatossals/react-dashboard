@@ -7,10 +7,7 @@ const initialUserState = {
 
 export default handleActions({
   USER_LOGIN: (state, action) => action.payload,
-  USER_CHECK_AUTH_TOKEN: (state, action) => {
-    console.log('hcekc')
-    return action.payload
-  },
+  USER_CHECK_AUTH_TOKEN: (state, action) => action.payload,
   USER_REGISTER: (state, action) => action.payload,
   USER_DELETE: (state, action) => initialUserState,
   USER_UPDATE: (state, action) => {
@@ -38,6 +35,5 @@ export default handleActions({
 
     return Object.assign({}, state, { action: action.payload.action })
   },
-
-  USER_LOGOUT: () => initialUserState
+  USER_LOGOUT: (state, action) => action.payload
 }, initialUserState)
