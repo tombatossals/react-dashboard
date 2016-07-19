@@ -92,13 +92,14 @@ export default class Login extends React.Component {
 
   disableInput () {
     return this.props.status === AsyncStatus.REQUEST ||
-    this.props.status === AsyncStatus.SUCCESS
+    this.props.status === AsyncStatus.AUTHENTICATED
   }
 
   showButtonLabel () {
+    console.log(this.props)
     if (this.props.status === AsyncStatus.REQUEST) {
       return 'Wait...'
-    } else if (this.props.status === AsyncStatus.SUCCESS) {
+    } else if (this.props.status === AsyncStatus.AUTHENTICATED) {
       return 'Success'
     }
     return 'Log in'
@@ -108,7 +109,7 @@ export default class Login extends React.Component {
     return (
       <div style={styles.loginbox}>
         <Paper zDepth={3}>
-          <Title label='Login' message={this.props.message} />
+          <Title label="Login" message={this.props.message} />
           <div style={styles.form}>
             <div style={styles.loginform}>
               <TextField
@@ -118,16 +119,16 @@ export default class Login extends React.Component {
                 disabled={this.disableInput()}
                 inputStyle={styles.hideAutoFillColorStyle}
                 hintStyle={styles.hintStyle}
-                hintText='Username' />
+                hintText="Username" />
               <TextField
                 style={styles.textlabel}
                 onChange={this.setPassword}
-                type='password'
+                type="password"
                 disabled={this.disableInput()}
                 inputStyle={styles.hideAutoFillColorStyle}
                 hintStyle={styles.hintStyle}
                 onKeyDown={this.onEnterKeyDown}
-                hintText='Password' />
+                hintText="Password" />
               <RaisedButton
                 primary
                 onClick={this.submit}
@@ -140,7 +141,7 @@ export default class Login extends React.Component {
               </div>
             </div>
           </div>
-          {this.props.status === AsyncStatus.REQUEST && <LinearProgress mode='indeterminate' />}
+          {this.props.status === AsyncStatus.REQUEST && <LinearProgress mode="indeterminate" />}
         </Paper>
         {this.props.external &&
           <div>
@@ -148,13 +149,13 @@ export default class Login extends React.Component {
             <div style={styles.external}>
               <FlatButton
                 style={styles.google}
-                label='Google Sign in'
+                label="Google Sign in"
                 icon={<ActionAndroid />}
                 onClick={this.googleLogin}
               />
               <FlatButton
                 style={styles.facebook}
-                label='Github Sign in'
+                label="Github Sign in"
                 icon={<ActionAndroid />}
                 onClick={this.githubLogin}
               />

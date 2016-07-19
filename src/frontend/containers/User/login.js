@@ -25,7 +25,6 @@ class Login extends React.Component {
   }
 
   ensureNotLoggedIn (props) {
-    console.log(API.isAnonymous(props.user))
     if (!API.isAnonymous(props.user)) {
       props.router.push(props.location.query.redirect || '/')
     }

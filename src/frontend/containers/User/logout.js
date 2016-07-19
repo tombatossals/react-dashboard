@@ -12,7 +12,7 @@ class Logout extends React.Component {
     return (
       <div>
         <h1>Logged out</h1>
-        <Link to='/'> Go to main page
+        <Link to="/"> Go to main page
         </Link>
       </div>
     )

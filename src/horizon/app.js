@@ -10,6 +10,7 @@ let host = `//${config.express.host}:${config.express.port}`
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/static', express.static(path.join(process.cwd(), '.build')))
+  console.log(path.join(process.cwd(), '.build'))
 } else {
   app.use('/static', express.static(path.join(process.cwd(), 'src', 'static')))
   host = `https://${config.devServer.host}:${config.devServer.port}`

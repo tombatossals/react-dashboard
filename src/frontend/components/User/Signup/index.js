@@ -62,7 +62,7 @@ export default class Signup extends React.Component {
 
   disableInput () {
     return this.props.status === AsyncStatus.REQUEST ||
-           this.props.status === AsyncStatus.SUCCESS
+           this.props.status === AsyncStatus.AUTHENTICATED
   }
 
   disableButton () {
@@ -72,7 +72,7 @@ export default class Signup extends React.Component {
   showButtonLabel () {
     if (this.props.status === AsyncStatus.REQUEST) {
       return 'Wait...'
-    } else if (this.props.status === AsyncStatus.SUCCESS) {
+    } else if (this.props.status === AsyncStatus.AUTHENTICATED) {
       return 'Success'
     }
     return 'Signup'
@@ -82,7 +82,7 @@ export default class Signup extends React.Component {
     return (
       <div>
         <Paper style={styles.registration} zDepth={3}>
-          <Title label='Signup new account' message={this.props.message} />
+          <Title label="Signup new account" message={this.props.message} />
           <div style={styles.form}>
             <div style={styles.registrationform}>
               <TextField
@@ -92,26 +92,26 @@ export default class Signup extends React.Component {
                 disabled={this.disableInput()}
                 inputStyle={styles.hideAutoFillColorStyle}
                 hintStyle={styles.hintStyle}
-                name='newUsername'
-                hintText='Username' />
+                name="newUsername"
+                hintText="Username" />
               <TextField
                 onChange={this.setEmail}
                 style={styles.textlabel}
                 disabled={this.disableInput()}
                 inputStyle={styles.hideAutoFillColorStyle}
                 hintStyle={styles.hintStyle}
-                name='newEmail'
-                hintText='E-mail address' />
+                name="newEmail"
+                hintText="E-mail address" />
 
               <TextField
                 style={styles.textlabel}
                 onChange={this.setPassword}
-                type='password'
+                type="password"
                 disabled={this.disableInput()}
                 inputStyle={styles.hideAutoFillColorStyle}
                 hintStyle={styles.hintStyle}
                 onKeyDown={this.onEnterKeyDown}
-                hintText='Password' />
+                hintText="Password" />
               <RaisedButton
                 secondary
                 onClick={this.submit}
@@ -120,7 +120,7 @@ export default class Signup extends React.Component {
                 label={this.showButtonLabel()} />
             </div>
           </div>
-          {this.props.status === AsyncStatus.REQUEST && <LinearProgress mode='indeterminate' />}
+          {this.props.status === AsyncStatus.REQUEST && <LinearProgress mode="indeterminate" />}
         </Paper>
       </div>
     )

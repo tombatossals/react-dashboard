@@ -2,6 +2,7 @@ export const AsyncStatus = {
   IDLE: 'IDLE',
   REQUEST: 'REQUEST',
   SUCCESS: 'SUCCESS',
+  AUTHENTICATED: 'AUTHENTICATED',
   FAILED: 'FAILED'
 }
 
