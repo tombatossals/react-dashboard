@@ -1,4 +1,4 @@
-import { AsyncStatus, UserActions } from 'lib/constants'
+import { UserStatus, UserActions } from 'lib/constants'
 import { createAction } from 'redux-actions'
 import API from 'lib/api'
 
@@ -8,32 +8,32 @@ export const authenticate = (authdata) =>
 
     if (!authdata) {
       return dispatch(loginAction({
-        status: AsyncStatus.FAILED,
+        status: UserStatus.FAILED,
         message: 'Empty credentials'
       }))
     }
 
     const { type, username, password } = authdata
-    dispatch(loginAction({ status: AsyncStatus.REQUEST }))
+    dispatch(loginAction({ status: UserStatus.REQUEST }))
 
     switch (type) {
       case 'github':
         return API.githubLogin().subscribe(endpoint => {
           window.location.pathname = endpoint
         }, err => dispatch(loginAction({
-          status: AsyncStatus.FAILED,
+          status: UserStatus.FAILED,
           message: err.message
         })))
       case 'google':
         return API.googleLogin().subscribe(endpoint => {
           window.location.pathname = endpoint
         }, err => dispatch(loginAction({
-          status: AsyncStatus.FAILED,
+          status: UserStatus.FAILED,
           message: err.message
         })))
       case 'facebook':
         return API.facebookLogin().then(user => dispatch(loginAction({
-          status: AsyncStatus.SUCCESS,
+          status: UserStatus.SUCCESS,
           data: {
             username: user.getUsername(),
             firstName: user.attributes.firstName,
@@ -42,12 +42,12 @@ export const authenticate = (authdata) =>
             id: user.id
           }
         }))).catch(err => dispatch(loginAction({
-          status: AsyncStatus.FAILED,
+          status: UserStatus.FAILED,
           message: err.message
         })))
       default:
         return API.login(username, password).then(user => dispatch(loginAction({
-          status: AsyncStatus.SUCCESS,
+          status: UserStatus.SUCCESS,
           data: {
             username: user.getUsername(),
             firstName: user.attributes.firstName,
@@ -56,7 +56,7 @@ export const authenticate = (authdata) =>
             id: user.id
           }
         }))).catch(err => dispatch(loginAction({
-          status: AsyncStatus.FAILED,
+          status: UserStatus.FAILED,
           message: err.message
         })))
     }
@@ -69,14 +69,14 @@ export const signup = (authdata) =>
 
     if (!authdata) {
       return dispatch(signupAction({
-        status: AsyncStatus.FAILED,
+        status: UserStatus.FAILED,
         message: 'Empty credentials'
       }))
     }
 
-    dispatch(signupAction({ status: AsyncStatus.REQUEST }))
+    dispatch(signupAction({ status: UserStatus.REQUEST }))
     return API.signup(authdata).then(user => dispatch(signupAction({
-      status: AsyncStatus.SUCCESS,
+      status: UserStatus.SUCCESS,
       data: {
         username: user.getUsername(),
         firstName: user.attributes.firstName,
@@ -85,7 +85,7 @@ export const signup = (authdata) =>
         id: user.id
       }
     }))).catch(err => dispatch(signupAction({
-      status: AsyncStatus.FAILED,
+      status: UserStatus.FAILED,
       message: err.message
     })))
   }
@@ -94,19 +94,26 @@ export const checkAuthToken = () =>
   dispatch => {
     const checkAuthTokenAction = createAction(UserActions.USER_CHECK_AUTH_TOKEN)
     dispatch(checkAuthTokenAction({
-      status: AsyncStatus.REQUEST
+      status: UserStatus.REQUEST
     }))
 
-    API.getCurrentUser().fetch().subscribe(data =>
-      dispatch(checkAuthTokenAction({
-        status: AsyncStatus.SUCCESS,
-        data
-      }))
-    , err =>
-      dispatch(checkAuthTokenAction({
-        status: AsyncStatus.FAILED,
-        data: err.message
-      })))
+    var user = API.getCurrentUser()
+    if (user) {
+      return user.subscribe(data =>
+        dispatch(checkAuthTokenAction({
+          status: UserStatus.AUTH_SUCCESS,
+          data
+        }))
+      , err =>
+        dispatch(checkAuthTokenAction({
+          status: UserStatus.AUTH_FAILED,
+          data: err.message
+        })))
+    }
+
+    dispatch(checkAuthTokenAction({
+      status: UserStatus.INVALID_TOKEN
+    }))
   }
 
 export const logout = () =>
@@ -114,7 +121,7 @@ export const logout = () =>
     const logoutAction = createAction(UserActions.USER_LOGOUT)
     API.logout()
     dispatch(logoutAction({
-      status: AsyncStatus.SUCCESS
+      status: UserStatus.SUCCESS
     }))
   }
 
@@ -123,25 +130,25 @@ export const updateUser = (userdata, orig) =>
     const updateAction = createAction(UserActions.USER_UPDATE)
     dispatch(updateAction({
       type: UserActions.USER_UPDATE,
-      status: AsyncStatus.REQUEST
+      status: UserStatus.REQUEST
     }))
 
     if (!userdata.username) {
       return dispatch(updateAction({
         type: UserActions.USER_UPDATE,
-        status: AsyncStatus.FAILED,
+        status: UserStatus.FAILED,
         message: 'Empty user is not valid'
       }))
     }
     API.updateUser(userdata).then(user =>
       dispatch(updateAction({
         type: UserActions.USER_UPDATE,
-        status: AsyncStatus.SUCCESS,
+        status: UserStatus.SUCCESS,
         user
       }))
     ).fail(err => dispatch(updateAction({
       type: UserActions.USER_UPDATE,
-      status: AsyncStatus.FAILED,
+      status: UserStatus.FAILED,
       message: err.message
     })))
   }
@@ -151,13 +158,13 @@ export const changePassword = (pass1, pass2) =>
     const changePasswordAction = createAction(UserActions.USER_CHANGE_PASSWORD)
     dispatch(changePasswordAction({
       type: UserActions.USER_CHANGE_PASSWORD,
-      status: AsyncStatus.REQUEST
+      status: UserStatus.REQUEST
     }))
 
     if (pass1 !== pass2) {
       return dispatch(changePasswordAction({
         type: UserActions.USER_CHANGE_PASSWORD,
-        status: AsyncStatus.FAILED,
+        status: UserStatus.FAILED,
         message: 'Passwords doesn\'t match'
       }))
     }
@@ -165,11 +172,11 @@ export const changePassword = (pass1, pass2) =>
     API.changePassword(pass1).then(user =>
       dispatch(changePasswordAction({
         type: UserActions.USER_CHANGE_PASSWORD,
-        status: AsyncStatus.SUCCESS
+        status: UserStatus.SUCCESS
       }))
     ).fail(err => dispatch(changePasswordAction({
       type: UserActions.USER_CHANGE_PASSWORD,
-      status: AsyncStatus.FAILED,
+      status: UserStatus.FAILED,
       message: err.message
     })))
   }

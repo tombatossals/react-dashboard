@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import LinearProgress from 'material-ui/LinearProgress'
-import { AsyncStatus } from 'lib/constants'
+import { UserStatus } from 'lib/constants'
 import Paper from 'material-ui/Paper'
 import Title from 'components/User/Title'
 import ActionAndroid from 'material-ui/svg-icons/action/android'
@@ -47,7 +47,7 @@ export default class Login extends React.Component {
 
   facebookLogin () {
     this.setState({
-      status: AsyncStatus.REQUEST
+      status: UserStatus.REQUEST
     })
 
     this.props.onSubmit({
@@ -57,7 +57,7 @@ export default class Login extends React.Component {
 
   githubLogin () {
     this.setState({
-      status: AsyncStatus.REQUEST
+      status: UserStatus.REQUEST
     })
 
     this.props.onSubmit({
@@ -67,7 +67,7 @@ export default class Login extends React.Component {
 
   googleLogin () {
     this.setState({
-      status: AsyncStatus.REQUEST
+      status: UserStatus.REQUEST
     })
 
     this.props.onSubmit({
@@ -81,7 +81,7 @@ export default class Login extends React.Component {
     }
 
     this.setState({
-      status: AsyncStatus.REQUEST
+      status: UserStatus.REQUEST
     })
 
     this.props.onSubmit({
@@ -91,15 +91,14 @@ export default class Login extends React.Component {
   }
 
   disableInput () {
-    return this.props.status === AsyncStatus.REQUEST ||
-    this.props.status === AsyncStatus.AUTHENTICATED
+    return this.props.status === UserStatus.REQUEST ||
+    this.props.status === UserStatus.AUTH_SUCCESS
   }
 
   showButtonLabel () {
-    console.log(this.props)
-    if (this.props.status === AsyncStatus.REQUEST) {
+    if (this.props.status === UserStatus.REQUEST) {
       return 'Wait...'
-    } else if (this.props.status === AsyncStatus.AUTHENTICATED) {
+    } else if (this.props.status === UserStatus.AUTH_SUCCESS) {
       return 'Success'
     }
     return 'Log in'
@@ -141,7 +140,7 @@ export default class Login extends React.Component {
               </div>
             </div>
           </div>
-          {this.props.status === AsyncStatus.REQUEST && <LinearProgress mode="indeterminate" />}
+          {this.props.status === UserStatus.REQUEST && <LinearProgress mode="indeterminate" />}
         </Paper>
         {this.props.external &&
           <div>

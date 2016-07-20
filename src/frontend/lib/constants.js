@@ -2,8 +2,12 @@ export const AsyncStatus = {
   IDLE: 'IDLE',
   REQUEST: 'REQUEST',
   SUCCESS: 'SUCCESS',
-  AUTHENTICATED: 'AUTHENTICATED',
   FAILED: 'FAILED'
+}
+
+export const UserStatus = {
+  AUTHENTICATED: 'AUTHENTICATED',
+  ANONYMOUS: 'ANONYMOUS'
 }
 
 export const UserActions = {

@@ -2,15 +2,13 @@ import Horizon from '@horizon/client'
 import { AsyncStatus } from 'lib/constants'
 
 const horizon = Horizon({
-  authType: 'anonymous',
+  authType: 'token',
   secure: true
 })
 
-horizon.connect()
-
 const getCurrentUser = () => {
   if (horizon.hasAuthToken()) {
-    return horizon.currentUser()
+    return horizon.currentUser().fetch()
   }
 }
 

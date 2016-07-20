@@ -15,9 +15,7 @@ class Layout extends React.Component {
   }
 
   componentDidMount () {
-    if (this.props.user.status === AsyncStatus.IDLE) {
-      this.props.checkAuthToken()
-    }
+    this.props.checkAuthToken()
   }
 
   navigate (url) {
@@ -25,10 +23,6 @@ class Layout extends React.Component {
   }
 
   render () {
-    if (this.props.user.status === AsyncStatus.IDLE || this.props.user.status === AsyncStatus.REQUEST) {
-      return false
-    }
-
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
