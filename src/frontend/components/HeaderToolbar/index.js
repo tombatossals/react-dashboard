@@ -9,10 +9,10 @@ import MenuItemLink from 'components/HeaderToolbar/MenuItemLink'
 import styles from 'components/HeaderToolbar/header-toolbar.style'
 import AccountCircle from 'material-ui/svg-icons/action/account-circle'
 import { getUserPropTypes } from 'lib/proptypes'
+import { UserStatus } from 'lib/constants'
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SettingsIcon from 'material-ui/svg-icons/action/settings'
 import AccountBoxIcon from 'material-ui/svg-icons/action/account-box'
-import API from 'lib/api'
 
 export default class HeaderToolbar extends React.Component {
   constructor (props) {
@@ -48,7 +48,7 @@ export default class HeaderToolbar extends React.Component {
   }
 
   navigateHome () {
-    this.handleOnClick('/')
+    this.handleOnClick('/home')
   }
 
   navigateUserLogin () {
@@ -58,38 +58,38 @@ export default class HeaderToolbar extends React.Component {
   render () {
     return (
       <Toolbar style={styles.toolbar}>
-        <ToolbarTitle text='React Dashboard' onClick={this.navigateHome} style={styles.link} />
-        <ToolbarGroup float='right' lastChild>
-          {API.isAnonymous(this.props.user) &&
+        <ToolbarTitle text="React Dashboard" onClick={this.navigateHome} style={styles.link} />
+        <ToolbarGroup float="right" lastChild>
+          {this.props.user.status === UserStatus.ANONYMOUS &&
             <FlatButton
               onClick={this.navigateUserLogin}
               primary
-              label='Login'
+              label="Login"
               style={styles.menulink} />
           }
-          {!API.isAnonymous(this.props.user) &&
+          {this.props.user.status === UserStatus.AUTHENTICATED &&
             <div style={styles.right}>
               <FlatButton
-                label={this.props.user.data.username}
-                icon={<AccountCircle color='white' />}
+                label="Autenticated"
+                icon={<AccountCircle color="blue" />}
                 style={styles.menulink}
                 onClick={this.handleTouchTap}
                 primary />
               <Popover open={this.state.open} anchorEl={this.state.anchorEl} onRequestClose={this.handleRequestClose}>
                 <Menu>
                   <MenuItemLink
-                    primaryText='Your profile'
-                    url='/user/profile'
+                    primaryText="Your profile"
+                    url="/user/profile"
                     leftIcon={<AccountBoxIcon />}
                     handleOnClick={this.handleOnClick} />
                   <MenuItemLink
-                    primaryText='Preferences'
-                    url='/user/preferences'
+                    primaryText="Preferences"
+                    url="/user/preferences"
                     leftIcon={<SettingsIcon />}
                     handleOnClick={this.handleOnClick} />
                   <MenuItemLink
-                    primaryText='Logout'
-                    url='/logout'
+                    primaryText="Logout"
+                    url="/logout"
                     leftIcon={<LogoutIcon />}
                     handleOnClick={this.handleOnClick} />
                 </Menu>

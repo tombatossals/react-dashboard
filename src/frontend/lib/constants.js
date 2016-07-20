@@ -6,6 +6,7 @@ export const AsyncStatus = {
 }
 
 export const UserStatus = {
+  REQUEST: 'REQUEST',
   AUTHENTICATED: 'AUTHENTICATED',
   ANONYMOUS: 'ANONYMOUS'
 }

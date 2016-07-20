@@ -1,4 +1,8 @@
 const styles = {
+  signupBox: {
+    maxWidth: '640px',
+    margin: 'auto'
+  },
   h1: {
     color: 'white'
   },
@@ -11,6 +15,12 @@ const styles = {
   },
   external: {
     margin: 'auto'
+  },
+  login: {
+    padding: '0 0 1em'
+  },
+  onLogin: {
+    cursor: 'pointer'
   },
   button: {
     width: '100%',

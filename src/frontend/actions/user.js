@@ -94,16 +94,14 @@ export const checkAuthToken = () =>
   dispatch => {
     const checkAuthTokenAction = createAction(UserActions.USER_CHECK_AUTH_TOKEN)
     dispatch(checkAuthTokenAction({
-      status: AsyncStatus.REQUEST
+      actionStatus: AsyncStatus.REQUEST,
+      status: UserStatus.ANONYMOUS
     }))
 
     if (!window.localStorage.getItem('horizon-jwt')) {
       return dispatch(checkAuthTokenAction({
-        status: AsyncStatus.SUCCESS,
-        user: {
-          status: UserStatus.ANONYMOUS,
-          message: 'No token available'
-        }
+        status: UserStatus.ANONYMOUS,
+        actionStatus: AsyncStatus.SUCCESS
       }))
     }
 
@@ -112,18 +110,21 @@ export const checkAuthToken = () =>
       API.logout()
       dispatch(checkAuthTokenAction({
         status: UserStatus.ANONYMOUS,
-        message: 'Invalid authentication token'
+        actionStatus: AsyncStatus.SUCCESS
       }))
     }
 
-    user.subscribe(data =>
-      dispatch(checkAuthTokenAction({
+    user.subscribe(data => {
+      return dispatch(checkAuthTokenAction({
         status: UserStatus.AUTHENTICATED,
+        actionStatus: AsyncStatus.SUCCESS,
         data
       }))
+    }
     , err =>
       dispatch(checkAuthTokenAction({
         status: UserStatus.ANONYMOUS,
+        actionStatus: AsyncStatus.FAILED,
         message: err.message
       })))
   }
@@ -133,7 +134,8 @@ export const logout = () =>
     const logoutAction = createAction(UserActions.USER_LOGOUT)
     API.logout()
     dispatch(logoutAction({
-      status: UserStatus.SUCCESS
+      actionStatus: AsyncStatus.SUCCESS,
+      status: UserStatus.ANONYMOUS
     }))
   }
 

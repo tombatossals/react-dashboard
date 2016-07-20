@@ -80,7 +80,7 @@ export default class Signup extends React.Component {
 
   render () {
     return (
-      <div>
+      <div style={styles.signupBox}>
         <Paper style={styles.registration} zDepth={3}>
           <Title label="Signup new account" message={this.props.message} />
           <div style={styles.form}>
@@ -118,6 +118,10 @@ export default class Signup extends React.Component {
                 style={styles.button}
                 disabled={this.disableButton()}
                 label={this.showButtonLabel()} />
+              <div style={styles.login}>
+                You already have an account?&nbsp;
+                <strong style={styles.onLogin} onClick={this.props.onLogin}>Login</strong>
+              </div>
             </div>
           </div>
           {this.props.status === AsyncStatus.REQUEST && <LinearProgress mode="indeterminate" />}
@@ -129,6 +133,7 @@ export default class Signup extends React.Component {
 
 Signup.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
+  onLogin: React.PropTypes.func.isRequired,
   status: React.PropTypes.string.isRequired,
   message: React.PropTypes.string
 }

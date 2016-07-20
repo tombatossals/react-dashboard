@@ -10,7 +10,6 @@ class Countries extends React.Component {
   }
 
   render () {
-    console.log(this.props.countries)
     if (this.props.countries.status !== AsyncStatus.SUCCESS) {
       return null
     }

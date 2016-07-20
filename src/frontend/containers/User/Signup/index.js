@@ -7,6 +7,11 @@ import { getUserPropTypes } from 'lib/proptypes'
 import { withRouter } from 'react-router'
 
 class Signup extends React.Component {
+  constructor () {
+    super()
+    this.onLogin = this.onLogin.bind(this)
+  }
+
   componentWillMount () {
     this.ensureNotLoggedIn(this.props)
   }
@@ -21,10 +26,15 @@ class Signup extends React.Component {
     }
   }
 
+  onLogin () {
+    this.props.router.push('/login')
+  }
+
   render () {
     return (
       <RegistrationComponent
         onSubmit={this.props.signup}
+        onLogin={this.onLogin}
         status={this.props.user.status}
         message={this.props.user.message} />
     )

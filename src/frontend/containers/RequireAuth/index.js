@@ -2,20 +2,31 @@ import React, { Component } from 'react'
 import { getUserPropTypes } from 'lib/proptypes'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import API from 'lib/api'
+import { UserStatus } from 'lib/constants'
 
 export default (ChildComponent) => {
   class RequireAuthentication extends Component {
 
-    redirect () {
-      this.props.router.push(`/login?redirect=${this.props.location.pathname}`)
+    componentDidMount () {
+      this.ensureLoggedIn(this.props)
+    }
+
+    componentDidUpdate (props) {
+      this.ensureLoggedIn(props)
+    }
+
+    ensureLoggedIn (props) {
+      if (this.props.user.status === UserStatus.ANONYMOUS) {
+        this.props.router.push(`/login?redirect=${this.props.location.pathname}`)
+      }
     }
 
     render () {
-      if (API.isAnonymous(this.props.user)) {
-        this.redirect()
+      if (this.props.user.status === UserStatus.AUTHENTICATED) {
+        return <ChildComponent {...this.props} />
       }
-      return <ChildComponent {...this.props} />
+
+      return null
     }
   }
 

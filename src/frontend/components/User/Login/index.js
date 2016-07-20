@@ -92,13 +92,13 @@ export default class Login extends React.Component {
 
   disableInput () {
     return this.props.status === UserStatus.REQUEST ||
-    this.props.status === UserStatus.AUTH_SUCCESS
+    this.props.status === UserStatus.AUTHENTICATED
   }
 
   showButtonLabel () {
     if (this.props.status === UserStatus.REQUEST) {
       return 'Wait...'
-    } else if (this.props.status === UserStatus.AUTH_SUCCESS) {
+    } else if (this.props.status === UserStatus.AUTHENTICATED) {
       return 'Success'
     }
     return 'Log in'
