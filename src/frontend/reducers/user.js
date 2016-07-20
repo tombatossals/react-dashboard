@@ -1,8 +1,8 @@
 import { handleActions } from 'redux-actions'
-import { AsyncStatus } from 'lib/constants'
+import { AsyncStatus, UserStatus } from 'lib/constants'
 
 const initialUserState = {
-  status: AsyncStatus.IDLE
+  status: UserStatus.ANONYMOUS
 }
 
 export default handleActions({

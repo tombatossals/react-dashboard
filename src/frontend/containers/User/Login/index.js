@@ -4,7 +4,7 @@ import { authenticate, checkAuthToken } from 'actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { getUserPropTypes } from 'lib/proptypes'
-import API from 'lib/api'
+import { isAnonymous, isAuthenticated } from 'lib/utils'
 
 class Login extends React.Component {
   constructor () {
@@ -25,7 +25,7 @@ class Login extends React.Component {
   }
 
   ensureNotLoggedIn (props) {
-    if (!API.isAnonymous(props.user)) {
+    if (isAuthenticated(props.user)) {
       props.router.push(props.location.query.redirect || '/')
     }
   }

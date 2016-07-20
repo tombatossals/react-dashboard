@@ -2,7 +2,6 @@ import React from 'react'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { getUserPropTypes } from 'lib/proptypes'
-import { AsyncStatus } from 'lib/constants'
 import { connect } from 'react-redux'
 import { checkAuthToken } from 'actions'
 import HeaderMenu from 'components/HeaderToolbar'
@@ -36,9 +35,9 @@ class Layout extends React.Component {
 
 Layout.propTypes = {
   children: React.PropTypes.node,
-  checkAuthToken: React.PropTypes.func,
+  checkAuthToken: React.PropTypes.func.isRequired,
   user: getUserPropTypes(),
-  router: React.PropTypes.object
+  router: React.PropTypes.object.isRequired
 }
 
 const mapStateToProps = ({ user }) => ({ user })

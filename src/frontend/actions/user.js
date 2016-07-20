@@ -1,4 +1,4 @@
-import { UserStatus, UserActions } from 'lib/constants'
+import { AsyncStatus, UserStatus, UserActions } from 'lib/constants'
 import { createAction } from 'redux-actions'
 import API from 'lib/api'
 
@@ -94,26 +94,38 @@ export const checkAuthToken = () =>
   dispatch => {
     const checkAuthTokenAction = createAction(UserActions.USER_CHECK_AUTH_TOKEN)
     dispatch(checkAuthTokenAction({
-      status: UserStatus.REQUEST
+      status: AsyncStatus.REQUEST
     }))
 
-    var user = API.getCurrentUser()
-    if (user) {
-      return user.subscribe(data =>
-        dispatch(checkAuthTokenAction({
-          status: UserStatus.AUTH_SUCCESS,
-          data
-        }))
-      , err =>
-        dispatch(checkAuthTokenAction({
-          status: UserStatus.AUTH_FAILED,
-          data: err.message
-        })))
+    if (!window.localStorage.getItem('horizon-jwt')) {
+      return dispatch(checkAuthTokenAction({
+        status: AsyncStatus.SUCCESS,
+        user: {
+          status: UserStatus.ANONYMOUS,
+          message: 'No token available'
+        }
+      }))
     }
 
-    dispatch(checkAuthTokenAction({
-      status: UserStatus.INVALID_TOKEN
-    }))
+    var user = API.getCurrentUser()
+    if (!user) {
+      API.logout()
+      dispatch(checkAuthTokenAction({
+        status: UserStatus.ANONYMOUS,
+        message: 'Invalid authentication token'
+      }))
+    }
+
+    user.subscribe(data =>
+      dispatch(checkAuthTokenAction({
+        status: UserStatus.AUTHENTICATED,
+        data
+      }))
+    , err =>
+      dispatch(checkAuthTokenAction({
+        status: UserStatus.ANONYMOUS,
+        message: err.message
+      })))
   }
 
 export const logout = () =>

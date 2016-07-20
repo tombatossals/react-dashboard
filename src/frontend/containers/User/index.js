@@ -1,7 +1,7 @@
-import Login from 'containers/User/login'
-import Logout from 'containers/User/logout'
-import Profile from 'containers/User/profile'
-import Signup from 'containers/User/signup'
+import Login from 'containers/User/Login'
+import Logout from 'containers/User/Logout'
+import Profile from 'containers/User/Profile'
+import Signup from 'containers/User/Signup'
 
 export {
   Login,

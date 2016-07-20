@@ -1,5 +1,4 @@
 import Horizon from '@horizon/client'
-import { AsyncStatus } from 'lib/constants'
 
 const horizon = Horizon({
   authType: 'token',
@@ -8,16 +7,13 @@ const horizon = Horizon({
 
 const getCurrentUser = () => {
   if (horizon.hasAuthToken()) {
+    horizon.connect()
     return horizon.currentUser().fetch()
   }
 }
 
-const isAnonymous = (user) => {
-  return !user || user.status !== AsyncStatus.SUCCESS || !user.providers
-}
-
 const logout = () => {
-  // Horizon.clearAuthTokens()
+  Horizon.clearAuthTokens()
 }
 
 const getStatus = () => {
@@ -48,6 +44,5 @@ export default {
   getCountries,
   getStatus,
   horizon,
-  onReady,
-  isAnonymous
+  onReady
 }

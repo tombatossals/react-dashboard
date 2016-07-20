@@ -1,5 +1,5 @@
 module.exports = {
-  token_secret: 'hellothere',
+  token_secret: 'superSecret',
   express: {
     host: '127.0.0.1',
     port: 3000,
@@ -9,7 +9,7 @@ module.exports = {
     }
   },
   devServer: {
-    publicPath: 'https://127.0.0.19005/static',
+    publicPath: 'https://127.0.0.1:9005/static',
     host: '127.0.0.1',
     https: true,
     port: 9005,
