@@ -31,23 +31,23 @@ export default class UserProfile extends React.Component {
         {this.props.section === 'profile' &&
           <div>
             <div style={styles.avatar}>
-              <Avatar style={styles.avatar} src='http://lorempixel.com/240/240/' size={240} />
-              <input type='file' style={styles.imageInput} />
+              <Avatar style={styles.avatar} src="https://dummyimage.com/240" size={240} />
+              <input type="file" style={styles.imageInput} />
             </div>
             <h1 style={styles.h1}>Your Profile</h1>
           </div>}
         {this.props.section === 'preferences' &&
           <div>
-            <SettingsIcon color='#444' style={styles.preferencesIcon} />
+            <SettingsIcon color="#444" style={styles.preferencesIcon} />
             <h1 style={styles.h1}>Preferences</h1>
           </div>
         }
         <Divider style={styles.divider} />
         <Tabs initialSelectedIndex={this.props.section === 'preferences' ? 1 : 0}>
-          <Tab label='Profile' onActive={this.handleBrowseProfileAction}>
+          <Tab label="Profile" onActive={this.handleBrowseProfileAction}>
             <ProfileTab user={this.props.user} onEditSubmit={this.props.onEditSubmit} />
           </Tab>
-          <Tab label='Preferences' onActive={this.handleBrowsePreferencesAction}>
+          <Tab label="Preferences" onActive={this.handleBrowsePreferencesAction}>
             <PreferencesTab
               user={this.props.user}
               onDeleteSubmit={this.props.onDeleteSubmit}

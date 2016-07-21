@@ -116,46 +116,46 @@ class PreferencesTab extends React.Component {
 
   render () {
     const actions = [
-      <FlatButton label='Cancel' secondary onTouchTap={this.handleCancelEdit} />,
+      <FlatButton label="Cancel" secondary onTouchTap={this.handleCancelEdit} />,
       <FlatButton
-        label='Submit'
+        label="Submit"
         primary
         keyboardFocused
         onTouchTap={this.onSubmit} />
     ]
 
     if (this.state.status === AsyncStatus.REQUEST) {
-      actions.push(<LinearProgress style={styles.progress} mode='indeterminate' />)
+      actions.push(<LinearProgress style={styles.progress} mode="indeterminate" />)
     }
 
     return (
       <List style={styles.list}>
         <ListItem
           style={styles.item}
-          primaryText={this.props.user.data.username}
-          secondaryText='Username'
+          primaryText={this.props.user.data.id}
+          secondaryText="Username"
           onClick={this.handleEditMode} />
         <ListItem
           style={styles.item}
           primaryText={this.props.user.data.email}
-          secondaryText='E-Mail'
+          secondaryText="E-Mail"
           onClick={this.handleEditMode} />
         <Dialog
-          label='Profile'
+          label="Profile"
           actions={actions}
           modal
           open={this.state.editMode}>
-          <Title label='Edit profile' message={this.state.message} />
+          <Title label="Edit profile" message={this.state.message} />
           <TextField
             onKeyDown={this.onEnterKeyDown}
-            floatingLabelText='Username'
+            floatingLabelText="Username"
             style={styles.textfield}
             onChange={this.setUsername}
             defaultValue={this.props.user.data.username}
           />
           <TextField
             onKeyDown={this.onEnterKeyDown}
-            floatingLabelText='E-Mail'
+            floatingLabelText="E-Mail"
             style={styles.textfield}
             onChange={this.setEmail}
             defaultValue={this.props.user.data.email}

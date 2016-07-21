@@ -6,10 +6,15 @@ const horizon = Horizon({
 })
 
 const getCurrentUser = () => {
-  if (horizon.hasAuthToken()) {
-    horizon.connect()
-    return horizon.currentUser().fetch()
-  }
+  return new Promise((resolve, reject) => {
+    if (horizon.hasAuthToken()) {
+      horizon.connect()
+      return horizon.currentUser().fetch().subscribe(user =>
+        resolve(user)
+      )
+    }
+    return reject({ message: 'Invalid auth token' });
+  })
 }
 
 const logout = () => {

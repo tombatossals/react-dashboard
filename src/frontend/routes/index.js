@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route } from 'react-router'
+import { Router, Route, Redirect } from 'react-router'
 import { Profile, Login, Signup, Logout } from 'containers/User'
 import SignupSuccess from 'components/User/SignupSuccess'
 import Layout from 'containers/Layout'
@@ -11,6 +11,7 @@ import RequireAuth from 'containers/RequireAuth'
 const Routes = (props) => (
   <Router history={props.history}>
     <Route path="/" component={Layout}>
+      <Redirect from="/" to="/home" />
       <Route path="home" component={Home} />
       <Route path="countries" component={RequireAuth(Countries)} />
       <Route path="login" component={Login} />

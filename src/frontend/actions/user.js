@@ -97,35 +97,17 @@ export const checkAuthToken = () =>
       actionStatus: AsyncStatus.REQUEST
     }))
 
-    if (!window.localStorage.getItem('horizon-jwt')) {
-      return dispatch(checkAuthTokenAction({
-        status: UserStatus.ANONYMOUS,
-        actionStatus: AsyncStatus.SUCCESS
-      }))
-    }
-
-    var user = API.getCurrentUser()
-    if (!user) {
+    API.getCurrentUser().then(user => dispatch(checkAuthTokenAction({
+      status: UserStatus.AUTHENTICATED,
+      actionStatus: AsyncStatus.SUCCESS,
+      data: user
+    })), () => {
       API.logout()
       dispatch(checkAuthTokenAction({
         status: UserStatus.ANONYMOUS,
         actionStatus: AsyncStatus.SUCCESS
       }))
-    }
-
-    user.subscribe(data => {
-      return dispatch(checkAuthTokenAction({
-        status: UserStatus.AUTHENTICATED,
-        actionStatus: AsyncStatus.SUCCESS,
-        data
-      }))
-    }
-    , err =>
-      dispatch(checkAuthTokenAction({
-        status: UserStatus.ANONYMOUS,
-        actionStatus: AsyncStatus.FAILED,
-        message: err.message
-      })))
+    })
   }
 
 export const logout = () =>
@@ -157,7 +139,7 @@ export const updateUser = (userdata, orig) =>
       dispatch(updateAction({
         type: UserActions.USER_UPDATE,
         status: UserStatus.SUCCESS,
-        user
+        data: user
       }))
     ).fail(err => dispatch(updateAction({
       type: UserActions.USER_UPDATE,

@@ -71,7 +71,7 @@ export default class HeaderToolbar extends React.Component {
             <div style={styles.right}>
               <FlatButton
                 label="Autenticated"
-                icon={<AccountCircle color="blue" />}
+                icon={<AccountCircle color="#222" />}
                 style={styles.menulink}
                 onClick={this.handleTouchTap}
                 primary />

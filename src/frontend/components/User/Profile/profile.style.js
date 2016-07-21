@@ -2,7 +2,8 @@ const styles = {
   paper: {
     margin: '1em auto',
     padding: '2em 0 0',
-    borderRadius: '8px'
+    borderRadius: '8px',
+    maxWidth: '640px'
   },
   h1: {
     color: '#AAA'

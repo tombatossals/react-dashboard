@@ -15,6 +15,7 @@ const styles = {
     cursor: 'pointer'
   },
   menulink: {
+    color: '#222',
     textDecoration: 'none',
     cursor: 'pointer',
     textTransform: 'none'
