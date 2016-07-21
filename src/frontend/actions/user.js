@@ -94,8 +94,7 @@ export const checkAuthToken = () =>
   dispatch => {
     const checkAuthTokenAction = createAction(UserActions.USER_CHECK_AUTH_TOKEN)
     dispatch(checkAuthTokenAction({
-      actionStatus: AsyncStatus.REQUEST,
-      status: UserStatus.ANONYMOUS
+      actionStatus: AsyncStatus.REQUEST
     }))
 
     if (!window.localStorage.getItem('horizon-jwt')) {

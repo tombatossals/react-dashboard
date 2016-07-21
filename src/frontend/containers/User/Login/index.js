@@ -16,7 +16,7 @@ class Login extends React.Component {
     this.ensureNotLoggedIn(this.props)
   }
 
-  componentDidUpdate (props) {
+  componentWillReceiveProps (props) {
     this.ensureNotLoggedIn(props)
   }
 
@@ -31,6 +31,10 @@ class Login extends React.Component {
   }
 
   render () {
+    if (this.props.user.status !== UserStatus.ANONYMOUS) {
+      return null
+    }
+
     return (
       <LoginComponent
         external
