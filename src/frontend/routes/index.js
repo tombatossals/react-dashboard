@@ -10,8 +10,8 @@ import RequireAuth from 'containers/RequireAuth'
 
 const Routes = (props) => (
   <Router history={props.history}>
+    <Redirect from="/" to="/home" />
     <Route path="/" component={Layout}>
-      <Redirect from="/" to="/home" />
       <Route path="home" component={Home} />
       <Route path="countries" component={RequireAuth(Countries)} />
       <Route path="login" component={Login} />

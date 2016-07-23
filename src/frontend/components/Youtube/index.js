@@ -4,16 +4,12 @@ import DebouncedInput from 'components/DebouncedInput'
 
 const KEY = 'AIzaSyBQ0inJMYo3nyDlSs5KnDtRQl86kpsRNqI'
 
-class Youtube extends React.Component {
-  constructor (props) {
-    super(props)
-    this.searchVideo = this.searchVideo.bind(this)
-    this.state = {
-      results: []
-    }
+export default class Youtube extends React.Component {
+  state = {
+    results: []
   }
 
-  searchVideo (term) {
+  searchVideo = (term) => {
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=24&type=video&q=${term}&key=${KEY}`
     window.fetch(url)
       .then(res => res.json())
@@ -37,5 +33,3 @@ class Youtube extends React.Component {
     )
   }
 }
-
-export default Youtube

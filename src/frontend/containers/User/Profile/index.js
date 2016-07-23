@@ -6,12 +6,17 @@ import UserProfileComponent from 'components/User/Profile'
 import { withRouter } from 'react-router'
 
 class Profile extends React.Component {
-  constructor () {
-    super()
-    this.browseAction = this.browseAction.bind(this)
+  static propTypes = {
+    user: getUserPropTypes(),
+    router: React.PropTypes.any,
+    section: React.PropTypes.oneOf(['profile', 'preferences']),
+    updateUser: React.PropTypes.func,
+    deleteUser: React.PropTypes.func,
+    changePassword: React.PropTypes.func,
+    replace: React.PropTypes.func
   }
 
-  browseAction (url) {
+  browseAction = (url) => {
     this.props.router.push(url)
   }
 
@@ -26,16 +31,6 @@ class Profile extends React.Component {
         browseAction={this.browseAction} />
       )
   }
-}
-
-Profile.propTypes = {
-  user: getUserPropTypes(),
-  router: React.PropTypes.any,
-  section: React.PropTypes.oneOf(['profile', 'preferences']),
-  updateUser: React.PropTypes.func,
-  deleteUser: React.PropTypes.func,
-  changePassword: React.PropTypes.func,
-  replace: React.PropTypes.func
 }
 
 const mapStateToProps = ({ user }, props) => ({

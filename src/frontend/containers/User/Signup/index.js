@@ -7,9 +7,10 @@ import { getUserPropTypes } from 'lib/proptypes'
 import { withRouter } from 'react-router'
 
 class Signup extends React.Component {
-  constructor () {
-    super()
-    this.onLogin = this.onLogin.bind(this)
+  static propTypes = {
+    user: getUserPropTypes(),
+    signup: React.PropTypes.func.isRequired,
+    router: React.PropTypes.any
   }
 
   componentWillMount () {
@@ -26,7 +27,7 @@ class Signup extends React.Component {
     }
   }
 
-  onLogin () {
+  onLogin = () => {
     this.props.router.push('/login')
   }
 
@@ -39,12 +40,6 @@ class Signup extends React.Component {
         message={this.props.user.message} />
     )
   }
-}
-
-Signup.propTypes = {
-  user: getUserPropTypes(),
-  signup: React.PropTypes.func.isRequired,
-  router: React.PropTypes.any
 }
 
 const mapStateToProps = (state) => ({

@@ -6,10 +6,10 @@ import styles from 'components/User/Title/style'
 
 const Title = (props) => (
   <Toolbar style={styles.title}>
-    <ToolbarGroup float='left'>
+    <ToolbarGroup float="left">
       <ToolbarTitle text={props.label} />
     </ToolbarGroup>
-    <ToolbarGroup float='right'>
+    <ToolbarGroup float="right">
       <ToolbarTitle style={styles.error} text={props.message} />
     </ToolbarGroup>
   </Toolbar>

@@ -1,7 +1,5 @@
 const styles = {
   toolbar: {
-    background: 'linear-gradient(to bottom,#e5e5e5,#dedede)',
-    boxShadow: '0 3px 3px rgba(0,0,0,.3)',
     width: '100%',
     marginBottom: '2em'
   },

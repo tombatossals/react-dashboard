@@ -10,42 +10,39 @@ import Title from 'components/User/Title'
 import ActionAndroid from 'material-ui/svg-icons/action/android'
 
 export default class Login extends React.Component {
-  constructor () {
-    super()
-    this.submit = this.submit.bind(this)
-    this.facebookLogin = this.facebookLogin.bind(this)
-    this.githubLogin = this.githubLogin.bind(this)
-    this.googleLogin = this.googleLogin.bind(this)
-    this.setUsername = this.setUsername.bind(this)
-    this.setPassword = this.setPassword.bind(this)
-    this.onEnterKeyDown = this.onEnterKeyDown.bind(this)
+  static propTypes = {
+    onSubmit: React.PropTypes.func.isRequired,
+    onSignup: React.PropTypes.func.isRequired,
+    status: React.PropTypes.string.isRequired,
+    external: React.PropTypes.bool,
+    message: React.PropTypes.string
   }
 
-  onEnterKeyDown (ev) {
+  onEnterKeyDown = (ev) => {
     if (ev.keyCode === 13) {
       this.submit()
     }
   }
 
-  setUsername (ev) {
+  setUsername = (ev) => {
     this.setState({
       username: ev.target.value
     })
   }
 
-  setPassword (ev) {
+  setPassword = (ev) => {
     this.setState({
       password: ev.target.value
     })
   }
 
-  focus (field) {
+  focus = (field) => {
     if (field) {
       field.focus()
     }
   }
 
-  facebookLogin () {
+  facebookLogin = () => {
     this.setState({
       status: UserStatus.REQUEST
     })
@@ -55,7 +52,7 @@ export default class Login extends React.Component {
     })
   }
 
-  githubLogin () {
+  githubLogin = () => {
     this.setState({
       status: UserStatus.REQUEST
     })
@@ -65,7 +62,7 @@ export default class Login extends React.Component {
     })
   }
 
-  googleLogin () {
+  googleLogin = () => {
     this.setState({
       status: UserStatus.REQUEST
     })
@@ -75,7 +72,7 @@ export default class Login extends React.Component {
     })
   }
 
-  submit () {
+  submit = () => {
     if (!this.state.username && !this.state.password) {
       return
     }
@@ -90,12 +87,12 @@ export default class Login extends React.Component {
     })
   }
 
-  disableInput () {
+  disableInput = () => {
     return this.props.status === UserStatus.REQUEST ||
     this.props.status === UserStatus.AUTHENTICATED
   }
 
-  showButtonLabel () {
+  showButtonLabel = () => {
     if (this.props.status === UserStatus.REQUEST) {
       return 'Wait...'
     } else if (this.props.status === UserStatus.AUTHENTICATED) {
@@ -164,12 +161,4 @@ export default class Login extends React.Component {
       </div>
     )
   }
-}
-
-Login.propTypes = {
-  onSubmit: React.PropTypes.func.isRequired,
-  onSignup: React.PropTypes.func.isRequired,
-  status: React.PropTypes.string.isRequired,
-  external: React.PropTypes.bool,
-  message: React.PropTypes.string
 }

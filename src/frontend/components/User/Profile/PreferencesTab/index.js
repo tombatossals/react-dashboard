@@ -10,23 +10,17 @@ import Title from 'components/User/Title'
 import TextField from 'material-ui/TextField'
 import { AsyncStatus, UserActions } from 'lib/constants'
 
-class PreferencesTab extends React.Component {
-  constructor () {
-    super()
-    this.handleDeleteMode = this.handleDeleteMode.bind(this)
-    this.handleCancelDelete = this.handleCancelDelete.bind(this)
-    this.handleChangePasswordMode = this.handleChangePasswordMode.bind(this)
-    this.handleCancelChangePassword = this.handleCancelChangePassword.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-    this.setPassword1 = this.setPassword1.bind(this)
-    this.setPassword2 = this.setPassword2.bind(this)
+export default class PreferencesTab extends React.Component {
+  static propTypes = {
+    onDeleteSubmit: React.PropTypes.func,
+    onChangePasswordSubmit: React.PropTypes.func
+  }
 
-    this.state = {
-      status: AsyncStatus.IDLE,
-      deleteMode: false,
-      changePasswordMode: false,
-      changePasswordMessage: ''
-    }
+  state = {
+    status: AsyncStatus.IDLE,
+    deleteMode: false,
+    changePasswordMode: false,
+    changePasswordMessage: ''
   }
 
   componentWillReceiveProps (props) {
@@ -44,51 +38,51 @@ class PreferencesTab extends React.Component {
     })
   }
 
-  handleCancelDelete () {
+  handleCancelDelete = () => {
     this.setState({
       deleteMode: false
     })
   }
 
-  handleDeleteMode () {
+  handleDeleteMode = () => {
     this.setState({
       deleteMode: true
     })
   }
 
-  handleCancelChangePassword () {
+  handleCancelChangePassword = () => {
     this.setState({
       changePasswordMode: false,
       changePasswordMessage: ''
     })
   }
 
-  handleChangePasswordMode () {
+  handleChangePasswordMode = () => {
     this.setState({
       changePasswordMode: true
     })
   }
 
-  setPassword1 (ev) {
+  setPassword1 = (ev) => {
     this.setState({
       pass1: ev.target.value
     })
   }
 
-  setPassword2 (ev) {
+  setPassword2 = (ev) => {
     this.setState({
       pass2: ev.target.value
     })
   }
 
-  onSubmit () {
+  onSubmit = () => {
     this.setState({
       status: AsyncStatus.REQUEST
     })
     this.props.onChangePasswordSubmit(this.state.pass1, this.state.pass2)
   }
 
-  focus (field) {
+  focus = (field) => {
     if (field) {
       field.focus()
     }
@@ -152,10 +146,3 @@ class PreferencesTab extends React.Component {
     )
   }
 }
-
-PreferencesTab.propTypes = {
-  onDeleteSubmit: React.PropTypes.func,
-  onChangePasswordSubmit: React.PropTypes.func
-}
-
-export default PreferencesTab

@@ -13,7 +13,7 @@ const getCurrentUser = () => {
         resolve(user)
       )
     }
-    return reject({ message: 'Invalid auth token' });
+    return reject({ message: 'Invalid auth token' })
   })
 }
 

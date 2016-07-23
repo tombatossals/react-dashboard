@@ -8,47 +8,44 @@ import Paper from 'material-ui/Paper'
 import Title from 'components/User/Title'
 
 export default class Signup extends React.Component {
-  constructor () {
-    super()
-    this.submit = this.submit.bind(this)
-    this.setUsername = this.setUsername.bind(this)
-    this.setPassword = this.setPassword.bind(this)
-    this.setEmail = this.setEmail.bind(this)
-    this.disableButton = this.disableButton.bind(this)
-    this.onEnterKeyDown = this.onEnterKeyDown.bind(this)
+  static propTypes = {
+    onSubmit: React.PropTypes.func.isRequired,
+    onLogin: React.PropTypes.func.isRequired,
+    status: React.PropTypes.string.isRequired,
+    message: React.PropTypes.string
   }
 
-  onEnterKeyDown (ev) {
+  onEnterKeyDown = (ev) => {
     if (ev.keyCode === 13) {
       this.submit()
     }
   }
 
-  setUsername (ev) {
+  setUsername = (ev) => {
     this.setState({
       username: ev.target.value
     })
   }
 
-  setEmail (ev) {
+  setEmail = (ev) => {
     this.setState({
       email: ev.target.value
     })
   }
 
-  setPassword (ev) {
+  setPassword = (ev) => {
     this.setState({
       password: ev.target.value
     })
   }
 
-  focus (field) {
+  focus = (field) => {
     if (field) {
       field.focus()
     }
   }
 
-  submit () {
+  submit = () => {
     this.setState({
       status: AsyncStatus.REQUEST
     })
@@ -60,16 +57,16 @@ export default class Signup extends React.Component {
     })
   }
 
-  disableInput () {
+  disableInput = () => {
     return this.props.status === AsyncStatus.REQUEST ||
            this.props.status === AsyncStatus.AUTHENTICATED
   }
 
-  disableButton () {
+  disableButton = () => {
     return false
   }
 
-  showButtonLabel () {
+  showButtonLabel = () => {
     if (this.props.status === AsyncStatus.REQUEST) {
       return 'Wait...'
     } else if (this.props.status === AsyncStatus.AUTHENTICATED) {
@@ -129,11 +126,4 @@ export default class Signup extends React.Component {
       </div>
     )
   }
-}
-
-Signup.propTypes = {
-  onSubmit: React.PropTypes.func.isRequired,
-  onLogin: React.PropTypes.func.isRequired,
-  status: React.PropTypes.string.isRequired,
-  message: React.PropTypes.string
 }

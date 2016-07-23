@@ -5,6 +5,11 @@ import CountriesComponent from 'components/Countries'
 import { fetchCountries } from 'actions'
 
 class Countries extends React.Component {
+  static propTypes = {
+    countries: React.PropTypes.any,
+    fetchCountries: React.PropTypes.func.isRequired
+  }
+
   componentDidMount () {
     this.props.fetchCountries()
   }
@@ -19,11 +24,6 @@ class Countries extends React.Component {
       />
     )
   }
-}
-
-Countries.propTypes = {
-  countries: React.PropTypes.any,
-  fetchCountries: React.PropTypes.func.isRequired
 }
 
 const mapStateToProps = ({ countries }) => ({

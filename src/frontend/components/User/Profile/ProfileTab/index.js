@@ -11,20 +11,16 @@ import LinearProgress from 'material-ui/LinearProgress'
 import isequal from 'lodash.isequal'
 import Title from 'components/User/Title'
 
-class PreferencesTab extends React.Component {
-  constructor () {
-    super()
-    this.handleEditMode = this.handleEditMode.bind(this)
-    this.handleCancelEdit = this.handleCancelEdit.bind(this)
-    this.userHasDifferences = this.userHasDifferences.bind(this)
-    this.onEnterKeyDown = this.onEnterKeyDown.bind(this)
-    this.setUsername = this.setUsername.bind(this)
-    this.setEmail = this.setEmail.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-    this.state = {
-      editMode: false,
-      status: AsyncStatus.IDLE
-    }
+export default class PreferencesTab extends React.Component {
+
+  static propTypes = {
+    user: getUserPropTypes(),
+    onEditSubmit: React.PropTypes.func
+  }
+
+  state = {
+    editMode: false,
+    status: AsyncStatus.IDLE
   }
 
   componentWillMount () {
@@ -51,31 +47,31 @@ class PreferencesTab extends React.Component {
     }
   }
 
-  setUsername (ev) {
+  setUsername = (ev) => {
     this.setState({
       username: ev.target.value
     })
   }
 
-  setEmail (ev) {
+  setEmail = (ev) => {
     this.setState({
       email: ev.target.value
     })
   }
 
-  onEnterKeyDown (ev) {
+  onEnterKeyDown = (ev) => {
     if (ev.keyCode === 13) {
       this.onSubmit()
     }
   }
 
-  handleEditMode () {
+  handleEditMode = () => {
     this.setState({
       editMode: true
     })
   }
 
-  handleCancelEdit () {
+  handleCancelEdit = () => {
     this.setState({
       editMode: false,
       status: AsyncStatus.IDLE,
@@ -83,7 +79,7 @@ class PreferencesTab extends React.Component {
     })
   }
 
-  userHasDifferences () {
+  userHasDifferences = () => {
     return !isequal({
       username: this.props.user.data.username,
       email: this.props.user.data.email
@@ -93,7 +89,7 @@ class PreferencesTab extends React.Component {
     })
   }
 
-  onSubmit () {
+  onSubmit = () => {
     if (this.userHasDifferences()) {
       this.setState({
         status: AsyncStatus.REQUEST
@@ -165,10 +161,3 @@ class PreferencesTab extends React.Component {
     )
   }
 }
-
-PreferencesTab.propTypes = {
-  user: getUserPropTypes(),
-  onEditSubmit: React.PropTypes.func
-}
-
-export default PreferencesTab

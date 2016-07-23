@@ -4,20 +4,22 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { getUserPropTypes } from 'lib/proptypes'
 import { connect } from 'react-redux'
 import { checkAuthToken } from 'actions'
-import HeaderMenu from 'components/HeaderToolbar'
+import Header from 'components/Header'
 import { withRouter } from 'react-router'
 
 class Layout extends React.Component {
-  constructor () {
-    super()
-    this.navigate = this.navigate.bind(this)
+  static propTypes = {
+    children: React.PropTypes.node,
+    checkAuthToken: React.PropTypes.func.isRequired,
+    user: getUserPropTypes(),
+    router: React.PropTypes.object.isRequired
   }
 
   componentDidMount () {
     this.props.checkAuthToken()
   }
 
-  navigate (url) {
+  navigate = (url) => {
     this.props.router.push(url)
   }
 
@@ -25,19 +27,12 @@ class Layout extends React.Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
-          <HeaderMenu user={this.props.user} onNavigationChange={this.navigate} />
+          <Header user={this.props.user} onNavigationChange={this.navigate} />
           {this.props.children}
         </div>
       </MuiThemeProvider>
     )
   }
-}
-
-Layout.propTypes = {
-  children: React.PropTypes.node,
-  checkAuthToken: React.PropTypes.func.isRequired,
-  user: getUserPropTypes(),
-  router: React.PropTypes.object.isRequired
 }
 
 const mapStateToProps = ({ user }) => ({ user })

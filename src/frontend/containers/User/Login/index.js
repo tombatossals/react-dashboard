@@ -7,9 +7,15 @@ import { getUserPropTypes } from 'lib/proptypes'
 import { UserStatus } from 'lib/constants'
 
 class Login extends React.Component {
-  constructor () {
-    super()
-    this.onSignup = this.onSignup.bind(this)
+  static propTypes = {
+    user: getUserPropTypes(),
+    authenticate: React.PropTypes.func.isRequired,
+    router: React.PropTypes.any,
+    location: React.PropTypes.shape({
+      state: React.PropTypes.shape({
+        pathname: React.PropTypes.string
+      })
+    })
   }
 
   componentDidMount () {
@@ -20,7 +26,7 @@ class Login extends React.Component {
     this.ensureNotLoggedIn(props)
   }
 
-  onSignup () {
+  onSignup = () => {
     this.props.router.push('/user/signup')
   }
 
@@ -45,17 +51,6 @@ class Login extends React.Component {
       />
     )
   }
-}
-
-Login.propTypes = {
-  user: getUserPropTypes(),
-  authenticate: React.PropTypes.func.isRequired,
-  router: React.PropTypes.any,
-  location: React.PropTypes.shape({
-    state: React.PropTypes.shape({
-      pathname: React.PropTypes.string
-    })
-  })
 }
 
 const mapStateToProps = ({ user }) => ({

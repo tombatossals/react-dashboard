@@ -11,17 +11,20 @@ import PreferencesTab from 'components/User/Profile/PreferencesTab'
 import ProfileTab from 'components/User/Profile/ProfileTab'
 
 export default class UserProfile extends React.Component {
-  constructor () {
-    super()
-    this.handleBrowseProfileAction = this.handleBrowseProfileAction.bind(this)
-    this.handleBrowsePreferencesAction = this.handleBrowsePreferencesAction.bind(this)
+  static propTypes = {
+    user: getUserPropTypes(),
+    section: React.PropTypes.string,
+    onEditSubmit: React.PropTypes.func,
+    onDeleteSubmit: React.PropTypes.func,
+    onChangePasswordSubmit: React.PropTypes.func,
+    browseAction: React.PropTypes.func
   }
 
-  handleBrowseProfileAction () {
+  handleBrowseProfileAction = () => {
     this.props.browseAction('/user/profile')
   }
 
-  handleBrowsePreferencesAction () {
+  handleBrowsePreferencesAction = () => {
     this.props.browseAction('/user/preferences')
   }
 
@@ -59,13 +62,4 @@ export default class UserProfile extends React.Component {
       </Paper>
     )
   }
-}
-
-UserProfile.propTypes = {
-  user: getUserPropTypes(),
-  section: React.PropTypes.string,
-  onEditSubmit: React.PropTypes.func,
-  onDeleteSubmit: React.PropTypes.func,
-  onChangePasswordSubmit: React.PropTypes.func,
-  browseAction: React.PropTypes.func
 }

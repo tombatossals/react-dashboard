@@ -1,12 +1,12 @@
 import React from 'react'
 import Toolbar from 'material-ui/Toolbar'
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup'
-import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle'
 import FlatButton from 'material-ui/FlatButton'
 import Popover from 'material-ui/Popover'
 import Menu from 'material-ui/Menu'
-import MenuItemLink from 'components/HeaderToolbar/MenuItemLink'
-import styles from 'components/HeaderToolbar/header-toolbar.style'
+import MenuItemLink from 'components/Header/Menu/ItemLink'
+import Logo from 'components/Header/Logo'
+import styles from 'components/Header/style'
 import AccountCircle from 'material-ui/svg-icons/action/account-circle'
 import { getUserPropTypes } from 'lib/proptypes'
 import { UserStatus } from 'lib/constants'
@@ -15,50 +15,47 @@ import SettingsIcon from 'material-ui/svg-icons/action/settings'
 import AccountBoxIcon from 'material-ui/svg-icons/action/account-box'
 
 export default class HeaderToolbar extends React.Component {
-  constructor (props) {
-    super(props)
-    this.handleOnClick = this.handleOnClick.bind(this)
-    this.handleTouchTap = this.handleTouchTap.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
-    this.navigateUserLogin = this.navigateUserLogin.bind(this)
-    this.navigateHome = this.navigateHome.bind(this)
-    this.state = {
-      open: false
-    }
+  static propTypes = {
+    user: getUserPropTypes(),
+    onNavigationChange: React.PropTypes.func
   }
 
-  handleTouchTap (event) {
+  state = {
+    open: false
+  }
+
+  handleTouchTap = (event) => {
     this.setState({
       open: true,
       anchorEl: event.currentTarget
     })
   }
 
-  handleRequestClose () {
+  handleRequestClose = () => {
     this.setState({
       open: false
     })
   }
 
-  handleOnClick (url) {
+  handleOnClick = (url) => {
     this.setState({
       open: false
     })
     this.props.onNavigationChange(url)
   }
 
-  navigateHome () {
+  navigateHome = () => {
     this.handleOnClick('/home')
   }
 
-  navigateUserLogin () {
+  navigateUserLogin = () => {
     this.handleOnClick('/login')
   }
 
   render () {
     return (
       <Toolbar style={styles.toolbar}>
-        <ToolbarTitle text="React Dashboard" onClick={this.navigateHome} style={styles.link} />
+        <Logo text="React Dashboard" onClick={this.navigateHome} />
         <ToolbarGroup float="right" lastChild>
           {this.props.user.status === UserStatus.ANONYMOUS &&
             <FlatButton
@@ -70,7 +67,7 @@ export default class HeaderToolbar extends React.Component {
           {this.props.user.status === UserStatus.AUTHENTICATED &&
             <div style={styles.right}>
               <FlatButton
-                label="Autenticated"
+                label="Your Profile"
                 icon={<AccountCircle color="#222" />}
                 style={styles.menulink}
                 onClick={this.handleTouchTap}
@@ -100,9 +97,4 @@ export default class HeaderToolbar extends React.Component {
       </Toolbar>
     )
   }
-}
-
-HeaderToolbar.propTypes = {
-  user: getUserPropTypes(),
-  onNavigationChange: React.PropTypes.func
 }
